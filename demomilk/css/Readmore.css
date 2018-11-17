@@ -1,0 +1,23 @@
+﻿a {
+    color: #0254EB
+}
+
+    a:visited {
+        color: #0254EB
+    }
+
+    a.morelink {
+        font-size: xx-large;
+        text-decoration: none;
+        outline: none;
+    }
+
+.morecontent span {
+    display: none;
+}
+
+.comment {
+    width: 300px;
+    background-color: transparent;
+    margin: 10px;
+}

@@ -1,0 +1,108 @@
+﻿@model demomilk.Models.Route
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>importexcel</title>
+</head>
+<body>
+
+    <div class="modal-dialog">
+
+        <div class="modal-content" style="width: 162%; margin-left: -135px;"> 
+            <div class="modal-header">
+                <h2>Import Excel</h2>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("importexcel", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
+                {
+                   
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Upload file
+                                    </div>
+                                    <div class="panel-body">
+                                        
+                                        <div class="row ">
+                                                                                       
+                                            <div class="col-md-6">
+                                                <input type="file" id="FileUpload" name="file" class="inputfile inputfile-4 center-block form-control" required data-val="true" data-val-required="please select a file" accept=".xls,.xlsx">
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <input type="submit" id="Submit" class="btn btn-primary btn-sm m-l-sm" value="UploadFile" title="Click to upload file" />
+                                                @if (Model != null)
+                                                {
+                                                    <input type="button" id="save1" name="save1" class="btn btn-primary btn-sm m-l-sm" value="save" formnovalidate="formnovalidate" onclick="SaveData();" />
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    try
+                    {
+                        <div class="row">
+                            <div class="col-sm-12 m-b-lg">
+                                <div class="ibox float-e-margins">
+                                    <div class="table-responsive" id="pnl-rates" style="overflow: auto;height: 340px">
+                                        <table class="table table-striped" id="RateList">
+                                            <thead class="ibox-title">
+                                                <tr>
+                                                    @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
+                                                    {
+                                                        <th>@col.Caption</th>
+                                                    }
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (System.Data.DataRow row in Model.dtTable.Rows)
+                                                {
+                                                    <tr>
+                                                        @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
+                                                        {
+                                                            <td>
+                                                                @row[col.ColumnName]
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    catch { }
+                }
+
+            </div>
+            <div class="modal-footer">
+                <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" />
+
+            </div>
+        </div>
+    </div>
+
+
+
+  
+</body>
+</html>
