@@ -532,6 +532,49 @@ namespace demomilk.Controllers
             }
 
         }
+
+        /*******************************************EditEmployee*****************************************************/
+        public ActionResult EditEmployee(int EmployeeID)
+        {
+            JobDbContext _db = new JobDbContext();
+            Employee md = new Employee();
+            var result = _db.Employee.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
+                ",
+                new SqlParameter("@EmployeeID", EmployeeID)).ToList<Employee>();
+            md = result.FirstOrDefault();
+            return Request.IsAjaxRequest()
+               ? (ActionResult)PartialView("EditEmployee", md)
+               : View("EditEmployee", md);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateEmployee(Employee up)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var result = _db.Database.ExecuteSqlCommand(@"exec uspUpdateEmployee @EmployeeID,@EmployeeName,@Address,@AreaID,@Mobile",
+                    new SqlParameter("@EmployeeID", up.EmployeeID),
+                     new SqlParameter("@EmployeeName", up.EmployeeName),
+                    new SqlParameter("@Address", up.Address),
+                    new SqlParameter("@AreaID", 1),
+                    new SqlParameter("@Mobile", up.Mobile));
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
+                return Json(up, JsonRequestBehavior.AllowGet);
+
+            }
+
+         
+
+        }
+
+
+
         /************************************************Add Vehical************************************************************/
         [HttpGet]
         public ActionResult Add_Vehical()
@@ -670,6 +713,45 @@ namespace demomilk.Controllers
 
         }
 
+        /*******************************************EditEmployee*****************************************************/
+        public ActionResult EditVehical(int EmployeeID)
+        {
+            JobDbContext _db = new JobDbContext();
+            Employee md = new Employee();
+            var result = _db.Employee.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
+                ",
+                new SqlParameter("@EmployeeID", EmployeeID)).ToList<Employee>();
+            md = result.FirstOrDefault();
+            return Request.IsAjaxRequest()
+               ? (ActionResult)PartialView("EditVehical", md)
+               : View("EditVehical", md);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateVehical(Employee up)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var result = _db.Database.ExecuteSqlCommand(@"exec uspUpdateEmployee @EmployeeID,@EmployeeName,@Address,@AreaID,@Mobile",
+                    new SqlParameter("@EmployeeID", up.EmployeeID),
+                     new SqlParameter("@EmployeeName", up.EmployeeName),
+                    new SqlParameter("@Address", up.Address),
+                    new SqlParameter("@AreaID", 1),
+                    new SqlParameter("@Mobile", up.Mobile));
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
+                return Json(up, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+
+        }
 
 
         //=================================================  Supplier Master ==================================================

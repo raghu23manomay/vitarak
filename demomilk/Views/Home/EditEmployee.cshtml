@@ -9,23 +9,23 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add_Employee</title>
-  
-   
+    <title>UpdateEmployee</title>
+
+
 </head>
 <body>
     <div class="modal-dialog">
 
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Employee</h2>
+                <h2>Update Employee</h2>
                 <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>First Name:</label>
                     <div>
-                        
+                        @Html.HiddenFor(model => model.EmployeeID, new { @id = "EmployeeID" })
                         @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12", placeholder = "Enter First Name", title = "EmployeeName", @id = "EmployeeName" })
                     </div>
 
@@ -53,11 +53,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                <input class="btn-primary" type="submit" id="btnsave" value="Update" title="ClickToSave" />
                 <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
 
             </div>
-           
+
         </div>
     </div>
 </body>
@@ -71,10 +71,11 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Home/AddEmployee',
+            url: '/Home/UpdateEmployee',
 
             data:
             {
+                EmployeeID: $("#EmployeeID").val(),
                 EmployeeName: $("#EmployeeName").val(),
                 Address: $("#Address").val(),
                 AreaID: 1,
@@ -85,7 +86,7 @@
             success: function (da) {
 
                 alert(da);
-                $("#mdlAddRoute.close").click();
+                $("#mdlEditEmployee .close").click()
                 $('.modal-backdrop').remove();
 
             },
