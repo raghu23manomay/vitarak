@@ -1,0 +1,228 @@
+﻿@model demomilk.Models.ProductMaster
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddArea_Route</title>
+    <style>
+        /* The container */
+        .container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            /* Hide the browser's default checkbox */
+            .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .container input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .container .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Product</h2>
+                <button type="button" class="close"  id="cls" data-dismiss="modal" onclick="abc();">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Product Name:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.Product, new { @class = "form-control r-0 light s-12", placeholder = "Enter Product Name", title = "Area", @id = "Product" })
+                    </div>
+
+                </div>
+
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Product type:</label>
+                    <div>
+                        <input type="radio" name="milk" id="milk1" value="Milk"  checked> Milk<br>
+                        <input type="radio" name="milk" id="milkproduct" value="Milk Product" > Milk Product<br>
+                    </div>
+
+                </div>
+
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label class="container">
+                        GST
+                        <input type="checkbox" id="check">
+                        <span class="checkmark" ></span>
+                     </label>
+                    @Html.TextBoxFor(a => a.GST, new { @class = "form-control r-0 light s-12", placeholder = "Enter GST", title = "Area", @id = "GST" })
+                </div>
+
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Caret Size:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.CrateSize, new { @class = "form-control r-0 light s-12", placeholder = "Enter Caret Size", title = "Area", @id = "CrateSize" })
+                    </div>
+
+                </div>
+
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Squence:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.ProductBrandID, new { @class = "form-control r-0 light s-12", placeholder = "Enter Squnece", title = "Area", @id = "ProductBrandID" })
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                <input type="button" class="btn-danger" id="cls" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<script>
+
+
+    function abc()
+    {
+        $('.modal-backdrop').remove();
+    }
+  
+
+    $(document).ready(function () {
+
+     
+        $('#GST').attr("disabled", true);
+             
+    });
+
+    
+
+    $('#milk1').click(function () {
+        $('#GST').attr("disabled", true);
+        $('#check').attr("checked", false);
+
+    });
+
+    $('#milkproduct').click(function () {
+        
+        $('#GST').attr("disabled", false);
+        $('#check').prop("checked", true);
+        
+    });
+
+    $('#check').click(function () {
+        var isChecked = $('#check').is(':checked');
+        if (isChecked == true) {
+            $('#GST').attr("disabled", false);
+            $('#milk1').prop("checked", false);
+            $('#milkproduct').prop("checked", true);
+        }
+        else
+        {
+            $('#GST').attr("disabled", true);
+            $('#milk1').prop("checked", true);
+            $('#milkproduct').prop("checked", false);
+        }
+        
+    });    
+
+
+    $('#btnsave').on('click', function () {
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Home/AddProduct',
+
+        data:
+        {
+            Product: $("#Product").val(),
+            ProductBrandID: $("#ProductBrandID").val(),
+            StockCount: 0,
+           SalePrice  :null,
+            CrateSize: $("#CrateSize").val(),
+            GST: $("#GST").val(),
+
+        },
+        success: function (da) {
+            alert(da);
+            $("#mdlAddRoute .close").click()
+            $('.modal-backdrop').remove();
+
+        },
+
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+    });
+    });
+
+</script>

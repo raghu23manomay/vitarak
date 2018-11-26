@@ -1,0 +1,99 @@
+﻿@model demomilk.Models.Employee
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add_Employee</title>
+  
+   
+</head>
+<body>
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Employee</h2>
+                <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>First Name:</label>
+                    <div>
+                        
+                        @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12", placeholder = "Enter First Name", title = "EmployeeName", @id = "EmployeeName" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Address:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Area:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control r-0 light s-12", placeholder = "Enter Area", title = "Area", @id = "Area" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Mobile:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
+
+            </div>
+           
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function abc() {
+        $('.modal-backdrop').remove();
+    }
+    $('#btnsave').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Home/AddEmployee',
+
+            data:
+            {
+                EmployeeName: $("#EmployeeName").val(),
+                Address: $("#Address").val(),
+                AreaID: 1,
+                Mobile: $("#Mobile").val(),
+
+
+            },
+            success: function (da) {
+
+                alert(da);
+                $("#mdlAddRoute .close").click()
+                $('.modal-backdrop').remove();
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+</script>

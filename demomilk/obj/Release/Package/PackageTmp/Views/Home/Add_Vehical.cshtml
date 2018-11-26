@@ -1,0 +1,128 @@
+﻿@model demomilk.Models.Vehical
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add_Vehical</title>
+</head>
+<body>
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Employee</h2>
+                <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Transport:</label>
+                    <div>
+
+                        @Html.TextBoxFor(a => a.Transport, new { @class = "form-control r-0 light s-12", placeholder = "Enter Transport", title = "Transport", @id = "Transport" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Owner:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.Owner, new { @class = "form-control r-0 light s-12", placeholder = "Enter Owner", title = "Owner", @id = "Owner" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Mobile:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Address:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>VechicleNo:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12", placeholder = "Enter VechicleNo", title = "VechicleNo", @id = "VechicleNo" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Rate:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.RatePerTrip, new { @class = "form-control r-0 light s-12", placeholder = "Enter Rate", title = "Rate", @id = "RatePerTrip" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Marathi Name:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.Marathi, new { @class = "form-control r-0 light s-12", placeholder = "Enter Marathi Name", title = "Marathi", @id = "Marathi" })
+                    </div>
+
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>PrintOrder:</label>
+                    <div>
+                        @Html.TextBoxFor(a => a.PrintOrder, new { @class = "form-control r-0 light s-12", placeholder = "Enter PrintOrder", title = "PrintOrder", @id = "PrintOrder" })
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function abc() {
+        $('.modal-backdrop').remove();
+    }
+    $('#btnsave').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Home/AddVehical',
+
+            data:
+            {
+                Transport: $("#Transport").val(),
+                Owner: $("#Owner").val(),
+                Address: $("#Address").val(),
+                Mobile: $("#Mobile").val(), 
+                VechicleNo: $("#VechicleNo").val(),
+                RatePerTrip: $("#RatePerTrip").val(),
+                Marathi: $("#Marathi").val(),
+                PrintOrder: $("#PrintOrder").val(),
+
+
+            },
+            success: function (da) {
+
+                alert(da);
+                $("#mdlAddRoute .close").click()
+                $('.modal-backdrop').remove();
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+</script>
