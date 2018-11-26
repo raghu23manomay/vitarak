@@ -102,6 +102,8 @@
                 <input class="btn-primary product" type="submit" id="btnsaveForProductMaster" value="Save" title="ClickToSave" onclick="SaveDataForProductMaster();" />
                 <input class="btn-primary Employee" type="submit" id="btnsaveForEmployeeMaster" value="Save" title="ClickToSave" onclick="SaveDataForEmployeeMaster();" />
                 <input class="btn-primary Vehical" type="submit" id="btnsaveForVehicalMaster" value="Save" title="ClickToSave" onclick="SaveDataForVehicalMaster();" />
+                <input class="btn-primary Supplier" type="submit" id="btnsaveForVehicalMaster" value="Save" title="ClickToSave" onclick="SaveDataForSupplierMaster();" />
+                <a href="~/Excelsheet/Supplier_Master.xlsx" class="btn btn-primary btn-sm m-l-sm Supplier" target="_blank">Download Excel</a>
                 @*<input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" />*@
 
             </div>
@@ -119,24 +121,35 @@
             $(".product").show();
             $(".Employee").hide();
             $(".Vehical").hide();
+            $(".Supplier").hide();
         }
         if ($("#MasterName").text() == "AreaMaster") {
             $(".area").show();
             $(".product").hide();
             $(".Employee").hide();
             $(".Vehical").hide();
+            $(".Supplier").hide();
         }
         if ($("#MasterName").text() == "EmployeeMaster") {
             $(".Employee").show();
             $(".product").hide();
             $(".area").hide();
             $(".Vehical").hide();
+            $(".Supplier").hide();
         }
         if ($("#MasterName").text() == "VehicalMaster") {
             $(".Vehical").show();
             $(".product").hide();
             $(".area").hide();
             $(".Employee").hide();
+            $(".Supplier").hide();
+        }
+        if ($("#MasterName").text() == "SupplierMaster") {
+            $(".Vehical").hide();
+            $(".product").hide();
+            $(".area").hide();
+            $(".Employee").hide();
+            $(".Supplier").show();
         }
         function SaveData() {
                
@@ -330,5 +343,74 @@
                         alert('Error');
                     }
                 });
-            }
+        }
+
+
+        function SaveDataForSupplierMaster() {
+               
+                var idArr = [];
+
+                $('tbody tr').each(function (k, v) {
+                    var trElement = $(this);
+                    var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
+                        trElement.find('td:eq(1)').text().trim() + '~' +
+                        trElement.find('td:eq(2)').text().trim() + '~' +
+                        trElement.find('td:eq(3)').text().trim() + '~' +
+                        trElement.find('td:eq(4)').text().trim() + '~' +
+                        trElement.find('td:eq(5)').text().trim() + '~' +
+                        trElement.find('td:eq(6)').text().trim() + '~' +
+                        trElement.find('td:eq(7)').text().trim() + '~' +
+                        trElement.find('td:eq(8)').text().trim()
+                                            
+                        idArr.push(tdVals);
+            });
+
+                var SaveSupplierData = [];
+                for (var i = 0; i < idArr.length; i++) {
+                    var arrElement = idArr[i].split("~");
+                    
+                    item = {}
+                    item["VendorName"] = arrElement[0];
+                    item["Address"] = arrElement[1];
+                    item["EmailID"] = arrElement[2];
+                    item["AreaID"] = 1;
+                    item["CityID"] = 1;
+                    item["OfficeNumber"] = arrElement[5];
+                    item["ContactPerson"] = arrElement[6];
+                    item["PersonMobileNo"] = arrElement[7]
+                    item["IsActive"] = arrElement[8];
+                   
+                    if (item["IsActive"] == 1)
+                    {
+                        item["IsActive"] = true;
+                    }
+                    else if (arrElement[8] == 0)
+                    {
+                        item["IsActive"] = false;
+                    }
+                   
+                  
+                    SaveSupplierData.push(item);
+                    
+                }
+              
+                $.ajax({
+                    contentType: "application/json; charset=utf-8",
+                    url: "@Url.Action("SaveSupplierExcelData", "Home")",
+                    method: 'POST',
+                    async: 'false',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        SaveSupplierData: SaveSupplierData
+                    }),
+                    success: function (result) {
+                        alert(result);
+                       
+                    },
+                    error: function () {
+                        alert('Error');
+                    }
+                });
+        }
+
     </script>
