@@ -10,8 +10,9 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Add_Employee</title>
-  
-   
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
+
 </head>
 <body>
     <div class="modal-dialog">
@@ -25,7 +26,7 @@
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>First Name:</label>
                     <div>
-                        
+
                         @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12", placeholder = "Enter First Name", title = "EmployeeName", @id = "EmployeeName" })
                     </div>
 
@@ -37,12 +38,13 @@
                     </div>
 
                 </div>
-                <div class="form-control" style="border-color: #ffffff;">
-                    <label>Area:</label>
-                    <div>
-                        @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control r-0 light s-12", placeholder = "Enter Area", title = "Area", @id = "Area" })
-                    </div>
-
+                <div class="form-control">
+                    <label for="position">Select Area</label>
+                   
+                    @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control ", @id = "Area", placeholder = " Area" })
+                    @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
+                    @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
+                    <div class="text-danger" id="req_id_error_msg"></div>
                 </div>
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Mobile:</label>
@@ -66,6 +68,9 @@
     function abc() {
         $('.modal-backdrop').remove();
     }
+    $(document).ready(function () {
+        getArea();
+        });
     $('#btnsave').on('click', function () {
 
         $.ajax({
@@ -77,7 +82,7 @@
             {
                 EmployeeName: $("#EmployeeName").val(),
                 Address: $("#Address").val(),
-                AreaID: 1,
+                AreaID: $("#AreaID").val(),
                 Mobile: $("#Mobile").val(),
 
 
@@ -85,7 +90,7 @@
             success: function (da) {
 
                 alert(da);
-                $("#mdlAddRoute.close").click();
+                $("#mdlAddRoute .close").click()
                 $('.modal-backdrop').remove();
 
             },
@@ -95,5 +100,34 @@
             }
         });
     });
+
+
+     function getArea()
+    {
+             var returnResult = [];
+                          $.ajax({
+                        contentType: "application/json; charset=utf-8",
+                         url: "@Url.Action("GetArea", "Home")",
+                        method: 'GET',
+                        async: 'false',
+                        dataType: 'json',
+                        success: function (result) {
+                            var data = $.map(result, function (obj) {
+                                obj.value = obj.Text; // desired field
+                                obj.data = obj.Value; // desired field
+                                returnResult.push(obj);
+                                $("#Area").autocomplete({
+                                    lookup: returnResult,
+                                    onSelect: function (suggestion) {
+                                        $("#AreaID").val(suggestion.data);
+
+                                    }
+                                });
+
+                            });
+                        },
+                        error: function () { }
+                  });
+    }
 
 </script>

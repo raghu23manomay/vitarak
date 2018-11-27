@@ -192,6 +192,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\autocomplete\jquery.autocomplete.js" />
+    <Content Include="Scripts\autocomplete\jquery.autocomplete.min.js" />
+    <Content Include="Scripts\autocomplete\license.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Excelsheet\Product_Master.xlsx" />
@@ -347,6 +350,10 @@
     <Content Include="Views\Home\_PartialGridSupplierList.cshtml" />
     <Content Include="Views\Home\Add_Supplier.cshtml" />
     <Content Include="Views\Home\EditEmployee.cshtml" />
+    <Content Include="Views\Home\EditVehical.cshtml" />
+    <Content Include="Views\Home\Add_Customer.cshtml" />
+    <Content Include="Views\Home\IndexForCustomerMaster.cshtml" />
+    <Content Include="Views\Home\Partial_CustomerGridList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
