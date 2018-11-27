@@ -1,0 +1,110 @@
+﻿@model demomilk.Models.EditRoute
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>*@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditArea_Route</title>
+</head>
+<body>
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Route</h2>
+                <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>City:</label>
+                    <select id="DropdownCity" class="form-control r-0 light s-12">
+                        <option value="1">Pune</option>
+                    </select>
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <label>Area:</label>
+                    <div>
+                        @Html.HiddenFor(a => a.AreaID, new { @class = "", placeholder = "AID", title = "AreaId", @id = "AreaId" })
+                        @Html.TextBoxFor(a => a.Area, new { @class = "form-control r-0 light s-12", placeholder = "Enter Area", title = "Area", @id = "Area" })
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <input class="btn-danger" type="submit" id="btndelete" value="Delete" title="ClickToDelete" />
+                <input class="btn-primary" type="submit" id="btnupdate" value="Update" title="ClickToUpdate" />
+                <input type="button" class="btn-default" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function abc()
+    {
+        $('.modal-backdrop').remove();
+    }
+
+    $('#btnupdate').on('click', function () {
+
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '/Home/UpdateArea_Route',
+
+        data:
+        {
+            City: 1,
+            Area: $("#Area").val(),
+            AreaId: $("#AreaId").val(),
+            
+        },
+        success: function (da) {
+
+            alert(da);
+            $("#mdlEditRoute .close").click()
+            $('.modal-backdrop').remove();
+
+        },
+
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+        }
+    });
+    });
+
+    $('#btndelete').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Home/DeleteArea_Route',
+
+            data:
+            {
+              AreaId: $("#AreaId").val(),
+            },
+            success: function (da) {
+
+                alert(da);
+                $("#mdlEditRoute .close").click()
+                $('.modal-backdrop').remove();
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+</script>

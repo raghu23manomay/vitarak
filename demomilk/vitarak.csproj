@@ -346,6 +346,9 @@
     <Content Include="Views\Home\IndexForSupplierMaster.cshtml" />
     <Content Include="Views\Home\_PartialGridSupplierList.cshtml" />
     <Content Include="Views\Home\Add_Supplier.cshtml" />
+    <Content Include="Views\Home\EditArea_Route.cshtml" />
+    <Content Include="Views\Home\EditProduct.cshtml" />
+    <Content Include="Views\Home\EditSupplier.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -18,6 +18,15 @@ namespace demomilk.Models
         
     }
 
+    public class EditRoute
+    {
+        [Key]
+        public int AreaID { get; set; }
+        public int CityID { get; set; }
+        public string Area { get; set; }
+
+    }
+
     public class ProductDetails
     {
 
@@ -56,6 +65,7 @@ namespace demomilk.Models
         public int AreaID { get; set; }
         public string Mobile { get; set; }        
     }
+
     public class EmployeeDetails
     {
         [Key]
@@ -123,7 +133,6 @@ namespace demomilk.Models
         public string OfficeNumber { get; set; }
         public string FaxNumber { get; set; }
         public string Address { get; set; }
-                
 
     }
           
