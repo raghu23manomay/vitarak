@@ -8,21 +8,21 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add_Vehical</title>
+    <title>Edit Supplier</title>
 </head>
 <body>
     <div class="modal-dialog">
 
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Supplier</h2>
+                <h2>Edit Supplier</h2>
                 <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Vendor Name:</label>
                     <div>
-
+                        @Html.HiddenFor(a => a.VendorID, new { @class = "form-control r-0 light s-12", placeholder = "", title = "vendorid", @id = "VendorID" })
                         @Html.TextBoxFor(a => a.VendorName, new { @class = "form-control r-0 light s-12", placeholder = "Enter Vendor Name", title = "vendor name", @id = "VendorName" })
                     </div>
 
@@ -76,16 +76,18 @@
                 <div class="form-control" style="border-color: #ffffff;">
                     <label class="container">
                         Is Active
-                        <input type="checkbox" id="check">
+                        @*<input type="checkbox" id="check">*@
+                        @Html.CheckBoxFor(m => m.IsActive,new { @id = "check" })
                         <span class="checkmark"></span>
                     </label>
-                    
+
                 </div>
 
             </div>
             <div class="modal-footer">
-                <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
-                <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
+                <input class="btn-danger" type="submit" id="btnDelete" value="Delete" title="ClickTodelete" />
+                <input class="btn-primary" type="submit" id="btnUpdate" value="Update" title="ClickToUpdate" />
+                <input type="button" class="btn-default" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
 
             </div>
 
@@ -97,9 +99,9 @@
     function abc() {
         $('.modal-backdrop').remove();
     }
-    
 
-    $('#btnsave').on('click', function () {
+
+    $('#btnUpdate').on('click', function () {
         var isactive;
         var isChecked = $('#check').is(':checked');
         if (isChecked == true) {
@@ -110,15 +112,16 @@
         {
             isactive = false;
         }
-        
-               
+
+
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Home/Add_Supplier',
+            url: '/Home/UpdateSupplier',
 
             data:
             {
+                VendorID: $("#VendorID").val(),
                 VendorName: $("#VendorName").val(),
                 PersonMobileNo: $("#PersonMobileNo").val(),
                 ContactPerson: $("#ContactPerson").val(),
@@ -128,18 +131,46 @@
                 FaxNumber: $("#FaxNumber").val(),
                 Address: $("#Address").val(),
                 IsActive: isactive,
-                
+
             },
             success: function (da) {
 
                 alert(da);
-                $('#mdlSupplierMaster').hide();
+                $('#mdlEditSupplier').hide();
                 $('.modal-backdrop').remove();
 
             },
 
             error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+
+
+    $('#btnDelete').on('click', function () {
+      
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Home/DeleteSupplier',
+
+            data:
+            {
+                VendorID: $("#VendorID").val(),
                 
+            },
+            success: function (da) {
+
+                alert(da);
+                $('#mdlEditSupplier').hide();
+                $('.modal-backdrop').remove();
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
             }
         });
     });

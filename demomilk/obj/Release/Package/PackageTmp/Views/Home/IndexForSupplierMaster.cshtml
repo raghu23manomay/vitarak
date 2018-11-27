@@ -1,9 +1,7 @@
 ﻿
 @{
     Layout = null;
-
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -127,7 +125,19 @@
                             <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Dashboard</span>
                         </a>
                     </li>
-
+                    <!--<li class="treeview"><a href="#">-->
+                    <!--<i class="icon icon icon-package blue-text s-18"></i>-->
+                    <!--<span>Products</span>-->
+                    <!--<span class="badge r-3 badge-primary pull-right">4</span>-->
+                    <!--</a>-->
+                    <!--<ul class="treeview-menu">-->
+                    <!--<li><a href="panel-page-products.html"><i class="icon icon-circle-o"></i>All Products</a>-->
+                    <!--</li>-->
+                    <!--<li><a href="panel-page-products-create.html"><i class="icon icon-add"></i>Add-->
+                    <!--New </a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
                     <li class="treeview">
                         <a href="#">
                             <i class="icon icon-account_box light-green-text s-18"></i>Master<i class="icon icon-angle-left s-18 pull-right"></i>
@@ -147,19 +157,19 @@
                                 <a href="@Url.Action("IndexForVehicalMaster", "Home")"><i class="icon icon-circle-o"></i>All Vehical</a>
                             </li>
                             <li>
-<<<<<<< HEAD
-                                <a href="@Url.Action("IndexForCustomerMaster", "Home")"><i class="icon icon-circle-o"></i>All Customer</a>
-                            </li>
-=======
                                 <a href="@Url.Action("IndexForSupplierMaster", "Home")"><i class="icon icon-circle-o"></i>All Supplier</a>
                             </li>
 
->>>>>>> 83bc00c3e460636a2975a893b93b5bf67e3ec9e0
+                            @*<li>
+            <a href="@Url.Action("AddArea_Route", "Home")"><i class="icon icon-add"></i>Add Area</a>
+        </li>*@
+                            <!--<li><a href="panel-page-profile.html"><i class="icon icon-user"></i>User Profile </a>-->
+                            <!--</li>-->
                         </ul>
                     </li>
 
-                    
-                  
+
+
                 </ul>
             </section>
         </aside>
@@ -315,25 +325,19 @@
                     <div class="col">
                         <h4>
                             <i class="icon-database"></i>
-                            Product Master
+                            Supplier Master
                         </h4>
                     </div>
                 </div>
                 <div class="row justify-content-between">
                     <ul class="nav nav-material nav-material-white responsive-tab" id="v-pills-tab" role="tablist">
                         <li>
-                            <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="@Url.Action("IndexForproductMaster", "Home")"><i class="icon icon-home2"></i>All Product</a>
+                            <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="@Url.Action("IndexForSupplierMaster", "Home")"
+                               role="tab" aria-controls="v-pills-all"><i class="icon icon-home2"></i>All Supplier</a>
                         </li>
-                        <!--<li>-->
-                        <!--<a class="nav-link" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"-->
-                        <!--aria-controls="v-pills-buyers"><i class="icon icon-face"></i> Buyers</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a class="nav-link" id="v-pills-sellers-tab" data-toggle="pill" href="#v-pills-sellers" role="tab"-->
-                        <!--aria-controls="v-pills-sellers"><i class="icon  icon-local_shipping"></i> Sellers</a>-->
-                        <!--</li>-->
+                       
                         <li class="float-right">
-                            <a class="nav-link" href="@Url.Action("Add_Product", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Product</a>
+                            <a class="nav-link" href="@Url.Action("Add_Supplier", "Home")" data-toggle="modal" data-target="#mdlSupplierMaster"><i class="icon icon-plus-circle"> </i> Add New Supplier</a>
                         </li>
                         <li class="float-right">
                             <a class="nav-link" href="@Url.Action("importexcel", "Home",new {@Mastername = Session["MasterName"]})"><i class="icon icon-plus-circle"> </i> Import Excel </a>
@@ -345,7 +349,7 @@
         </header>
 
 
-        @Html.Partial("_partialGridProductMaster");
+        @Html.Partial("_PartialGridSupplierList");
 
 
     </div>
@@ -368,7 +372,9 @@
     </div>
 
     <script src="~/assets/js/app.js"></script>
-       
+
+
+
 </body>
 </html>
 <div id="mdlAddRoute" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
@@ -377,4 +383,8 @@
 <div id="mdlimportexcel" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
 
 </div>
+<div id="mdlSupplierMaster" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+
+</div>
+
 

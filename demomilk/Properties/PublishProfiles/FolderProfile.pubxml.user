@@ -568,10 +568,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/15/2018 15:26:42</publishTime>
     </File>
     <File Include="bin/demomilk.dll">
-      <publishTime>11/24/2018 17:15:46</publishTime>
+      <publishTime>11/26/2018 18:34:12</publishTime>
     </File>
     <File Include="bin/demomilk.pdb">
-      <publishTime>11/24/2018 17:15:46</publishTime>
+      <publishTime>11/26/2018 18:34:12</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 22:02:26</publishTime>
@@ -768,6 +768,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Excelsheet/Product_Master.xlsx">
       <publishTime>11/23/2018 15:58:50</publishTime>
     </File>
+    <File Include="Excelsheet/Supplier_Master.xlsx">
+      <publishTime>11/26/2018 14:42:23</publishTime>
+    </File>
     <File Include="Excelsheet/VehicalMaster.xlsx">
       <publishTime>11/24/2018 16:32:38</publishTime>
     </File>
@@ -801,6 +804,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery-1.10.2.min.map">
       <publishTime>11/16/2018 17:11:23</publishTime>
     </File>
+    <File Include="Scripts/jquery-1.12.4.min.js">
+      <publishTime>11/26/2018 13:14:27</publishTime>
+    </File>
     <File Include="Scripts/modernizr-2.6.2.js">
       <publishTime>11/16/2018 17:11:44</publishTime>
     </File>
@@ -811,7 +817,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/24/2018 14:57:30</publishTime>
     </File>
     <File Include="Views/Home/Add_Product.cshtml">
-      <publishTime>11/23/2018 15:07:32</publishTime>
+      <publishTime>11/26/2018 13:14:41</publishTime>
+    </File>
+    <File Include="Views/Home/Add_Supplier.cshtml">
+      <publishTime>11/26/2018 13:22:54</publishTime>
     </File>
     <File Include="Views/Home/Add_Vehical.cshtml">
       <publishTime>11/24/2018 15:52:08</publishTime>
@@ -823,19 +832,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/24/2018 12:59:12</publishTime>
     </File>
     <File Include="Views/Home/importexcel.cshtml">
-      <publishTime>11/24/2018 17:01:51</publishTime>
+      <publishTime>11/26/2018 16:55:45</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/24/2018 17:15:04</publishTime>
+      <publishTime>11/26/2018 18:00:50</publishTime>
     </File>
     <File Include="Views/Home/IndexForEmployeeMaster.cshtml">
-      <publishTime>11/24/2018 17:13:38</publishTime>
+      <publishTime>11/26/2018 18:00:31</publishTime>
     </File>
     <File Include="Views/Home/IndexForproductMaster.cshtml">
-      <publishTime>11/24/2018 17:13:53</publishTime>
+      <publishTime>11/26/2018 18:00:22</publishTime>
+    </File>
+    <File Include="Views/Home/IndexForSupplierMaster.cshtml">
+      <publishTime>11/26/2018 18:00:13</publishTime>
     </File>
     <File Include="Views/Home/IndexForVehicalMaster.cshtml">
-      <publishTime>11/24/2018 17:12:08</publishTime>
+      <publishTime>11/26/2018 17:59:53</publishTime>
     </File>
     <File Include="Views/Home/partial_EmployeeGridList.cshtml">
       <publishTime>11/24/2018 13:03:53</publishTime>
@@ -846,8 +858,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/_partialGridProductMaster.cshtml">
       <publishTime>11/23/2018 13:15:48</publishTime>
     </File>
+    <File Include="Views/Home/_PartialGridSupplierList.cshtml">
+      <publishTime>11/26/2018 11:29:56</publishTime>
+    </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/23/2018 16:14:22</publishTime>
+      <publishTime>11/26/2018 18:16:28</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>11/16/2018 17:03:31</publishTime>

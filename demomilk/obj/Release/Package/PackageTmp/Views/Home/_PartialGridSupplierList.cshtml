@@ -32,16 +32,15 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                        <tr>
-                                            <td></td>
-                                            <td><strong>@item.VendorName</strong></td>
-                                            <td><strong>@item.ContactPerson</strong></td>
-                                            <td><strong>@item.PersonMobileNo</strong></td>
-                                            <td><strong>@item.EmailID</strong></td>
-                                            <td><strong>@item.IsActive</strong></td>
-                                            <td><a href="@Url.Action("FetchSupplierForUpdate", "Home",new { @VendorID = item.VendorID})" data-toggle="modal" data-target="#mdlEditSupplier"><i class="icon-pencil"></i></a></td>
+                                            <tr>
+                                                <td></td>
+                                                <td><strong>@item.VendorName</strong></td>
+                                                <td><strong>@item.ContactPerson</strong></td>
+                                                <td><strong>@item.PersonMobileNo</strong></td>
+                                                <td><strong>@item.EmailID</strong></td>
+                                                <td><strong>@item.IsActive</strong></td>
 
-                                        </tr>
+                                            </tr>
 
                                         }
 
@@ -723,6 +722,4 @@
     </div>
 </div>
 
-<div id="mdlEditSupplier" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
 
-</div>

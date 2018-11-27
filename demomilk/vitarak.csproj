@@ -349,11 +349,17 @@
     <Content Include="Views\Home\IndexForSupplierMaster.cshtml" />
     <Content Include="Views\Home\_PartialGridSupplierList.cshtml" />
     <Content Include="Views\Home\Add_Supplier.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Home\EditEmployee.cshtml" />
     <Content Include="Views\Home\EditVehical.cshtml" />
     <Content Include="Views\Home\Add_Customer.cshtml" />
     <Content Include="Views\Home\IndexForCustomerMaster.cshtml" />
     <Content Include="Views\Home\Partial_CustomerGridList.cshtml" />
+=======
+    <Content Include="Views\Home\EditArea_Route.cshtml" />
+    <Content Include="Views\Home\EditProduct.cshtml" />
+    <Content Include="Views\Home\EditSupplier.cshtml" />
+>>>>>>> 83bc00c3e460636a2975a893b93b5bf67e3ec9e0
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

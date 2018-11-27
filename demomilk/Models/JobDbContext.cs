@@ -17,6 +17,7 @@ namespace demomilk.Models
         {
         }
         public DbSet<Route> Route { get; set; }
+        public DbSet<EditRoute> EditRoute { get; set; }
         public DbSet<RouteDetails> RouteDetails { get; set; }
         public DbSet<ProductDetails> ProductDetails { get; set; }
         public DbSet<Employee> Employee { get; set; }
@@ -24,8 +25,14 @@ namespace demomilk.Models
         public DbSet<Vehical> Vehical { get; set; }
         public DbSet<VehicalDetails> VehicalDetails { get; set; }
         public DbSet<SupplierDetails> SupplierDetails { get; set; }
+<<<<<<< HEAD
         public DbSet<Customer>  Customer { get; set; }
         public DbSet<CustomerDetails> CustomerDetails { get; set; }
+=======
+        public DbSet<ProductMaster> ProductMaster { get; set; }
+        public DbSet<SupplierMaster> SupplierMaster { get; set; }
+        
+>>>>>>> 83bc00c3e460636a2975a893b93b5bf67e3ec9e0
 
     }
 }

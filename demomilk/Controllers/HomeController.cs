@@ -91,6 +91,79 @@ namespace demomilk.Controllers
             
         }
 
+        public ActionResult EditArea_Route()
+        {
+            return View();
+
+        }
+
+
+        public ActionResult FetchEditArea(int? AreaID)
+        {
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.EditRoute.SqlQuery(@"exec UC_FetchDataForUpdate_AreaMast @AreaID",
+                    new SqlParameter("@AreaID", AreaID)
+                   ).ToList<EditRoute>();
+
+                EditRoute rs = new EditRoute();
+                rs = res.FirstOrDefault();
+                return View("EditArea_Route",rs);
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult UpdateArea_Route(EditRoute md)
+        {
+            
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_UpdateAreaMast @AreaID,@Area,@CityID",
+                    new SqlParameter("@Area", md.Area),
+                    new SqlParameter("@CityID", 1),
+                    new SqlParameter("@AreaID", md.AreaID));
+
+                    return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult DeleteArea_Route(EditRoute md)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteAreaMast @AreaID",
+                    new SqlParameter("@AreaID", md.AreaID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
         ////================================== User Index Code ===========================================
 
         //public ActionResult AdminIndex(int? page)
@@ -339,6 +412,89 @@ namespace demomilk.Controllers
 
 
         }
+
+
+
+
+        //========================================== Edit Product ================================================
+
+        public ActionResult EditProduct()
+        {
+            return View();
+
+        }
+                     
+        public ActionResult FetchProductForUpdate(int? ProductID)
+        {
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.ProductMaster.SqlQuery(@"exec [UC_FetchDataForUpdate_ProductMaster] @ProductID",
+                    new SqlParameter("@ProductID", ProductID)
+                   ).ToList<ProductMaster>();
+
+                ProductMaster rs = new ProductMaster();
+                rs = res.FirstOrDefault();
+                return View("EditProduct", rs);
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult Updateproduct(ProductMaster rm)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_UpdateProductMast @ProductID ,@Product ,@ProductBrandID ,@StockCount ,@SalePrice,@CrateSize ,@GST",
+                    new SqlParameter("@ProductID", rm.ProductID),
+                    new SqlParameter("@Product", rm.Product),
+                    new SqlParameter("@ProductBrandID", rm.ProductBrandID),
+                    new SqlParameter("@StockCount", rm.StockCount),
+                    new SqlParameter("@SalePrice", rm.SalePrice == null ? (object)DBNull.Value : rm.SalePrice),
+                    new SqlParameter("@CrateSize",rm.CrateSize),
+                    new SqlParameter("@GST",rm.GST));
+
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteProduct(ProductMaster rm)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteProductMast @ProductID",
+                    new SqlParameter("@ProductID", rm.ProductID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
 
         //================================== Save Product Excel Data ===========================================
 
@@ -959,6 +1115,7 @@ namespace demomilk.Controllers
         }
 
 
+<<<<<<< HEAD
         /************************************************Add Vehical************************************************************/
         [HttpGet]
         public ActionResult Add_Customer()
@@ -986,6 +1143,28 @@ namespace demomilk.Controllers
                     );
 
                 return Json("Data Added Sucessfully");
+=======
+        //========================================== Edit Supplier ================================================
+
+        public ActionResult EditSupplier()
+        {
+            return View();
+
+        }
+
+        public ActionResult FetchSupplierForUpdate(int? VendorID)
+        {
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.SupplierMaster.SqlQuery(@"exec [UC_FetchDataForUpdate_VendorMaster] @VendorID",
+                    new SqlParameter("@VendorID", VendorID)
+                   ).ToList<SupplierMaster>();
+
+                SupplierMaster rs = new SupplierMaster();
+                rs = res.FirstOrDefault();
+                return View("EditSupplier", rs);
+>>>>>>> 83bc00c3e460636a2975a893b93b5bf67e3ec9e0
             }
             catch (Exception ex)
             {
@@ -996,6 +1175,7 @@ namespace demomilk.Controllers
 
         }
 
+<<<<<<< HEAD
 
 
 
@@ -1038,6 +1218,58 @@ namespace demomilk.Controllers
 
         }
 
+=======
+        [HttpPost]
+        public ActionResult UpdateSupplier(SupplierMaster rm)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec [UC_UpdateVendorMast] @VendorID,@VendorName,@Address,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@LastUpdatedBy",
+                    new SqlParameter("@VendorID", rm.VendorID),
+                    new SqlParameter("@VendorName", rm.VendorName),
+                    new SqlParameter("@Address", rm.Address),
+                    new SqlParameter("@EmailID", rm.EmailID),
+                    new SqlParameter("@OfficePhone", rm.OfficeNumber),
+                    new SqlParameter("@FaxNo", rm.FaxNumber),
+                    new SqlParameter("@ContactPerson", rm.ContactPerson),
+                    new SqlParameter("@PersonMobileNo", rm.PersonMobileNo),
+                    new SqlParameter("@IsActive", rm.IsActive),
+                    new SqlParameter("@LastUpdatedBy", 1));
+
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult DeleteSupplier(int? VendorID)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteVendorMast @VendorID",
+                    new SqlParameter("@VendorID", VendorID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+>>>>>>> 83bc00c3e460636a2975a893b93b5bf67e3ec9e0
     }
 
 

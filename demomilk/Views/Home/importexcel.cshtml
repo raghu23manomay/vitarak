@@ -359,7 +359,8 @@
                         trElement.find('td:eq(4)').text().trim() + '~' +
                         trElement.find('td:eq(5)').text().trim() + '~' +
                         trElement.find('td:eq(6)').text().trim() + '~' +
-                        trElement.find('td:eq(7)').text().trim() 
+                        trElement.find('td:eq(7)').text().trim() + '~' +
+                        trElement.find('td:eq(8)').text().trim()
                                             
                         idArr.push(tdVals);
             });
@@ -378,16 +379,15 @@
                     item["ContactPerson"] = arrElement[6];
                     item["PersonMobileNo"] = arrElement[7]
                     item["IsActive"] = arrElement[8];
-                    alert(item);
-
-                    //if (arrElement[8] == 1)
-                    //{
-                    //    item["IsActive"] = true;
-                    //}
-                    //else if (arrElement[8] == 0)
-                    //{
-                    //    item["IsActive"] = false;
-                    //}
+                   
+                    if (item["IsActive"] == 1)
+                    {
+                        item["IsActive"] = true;
+                    }
+                    else if (arrElement[8] == 0)
+                    {
+                        item["IsActive"] = false;
+                    }
                    
                   
                     SaveSupplierData.push(item);

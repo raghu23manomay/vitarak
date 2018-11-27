@@ -136,27 +136,31 @@
                     <!--</li>-->
                     <li class="treeview">
                         <a href="#">
-                            <i class="icon icon-account_box light-green-text s-18"></i>Area Master<i class="icon icon-angle-left s-18 pull-right"></i>
+                            <i class="icon icon-account_box light-green-text s-18"></i>Masters<i class="icon icon-angle-left s-18 pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
                             <li>
-                                <a href="@Url.Action("index", "Home")"><i class="icon icon-circle-o"></i>All Area</a>
+                                <a href="@Url.Action("IndexForEmployeeMaster", "Home")"><i class="icon icon-circle-o"></i>All Employee</a>
+
                             </li>
-                            
+                            <li>
+                                <a href="@Url.Action("IndexForProductMaster", "Home")"><i class="icon icon-circle-o"></i>All Product</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Home")"><i class="icon icon-circle-o"></i>All Area</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("IndexForVehicalMaster", "Home")"><i class="icon icon-circle-o"></i>All Vehical</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("IndexForSupplierMaster", "Home")"><i class="icon icon-circle-o"></i>All Supplier</a>
+                            </li>
+
+
                         </ul>
                     </li>
 
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="icon icon-account_box light-green-text s-18"></i>Product Master<i class="icon icon-angle-left s-18 pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="@Url.Action("IndexForproductMaster", "Home")"><i class="icon icon-circle-o"></i>All Product</a>
-                            </li>
-                           
-                        </ul>
-                    </li>
+                    
                    
                 </ul>
             </section>
