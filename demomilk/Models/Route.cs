@@ -135,5 +135,39 @@ namespace demomilk.Models
         public string Address { get; set; }
 
     }
+
+    public class Customer
+    {
+        [Key]
+        public int CustomerID { get; set;}
+        public string CustomerName { get; set; }
+        public string Address { get; set; }
+        public string Mobile { get; set; }
+         public int   AreaID { get; set;}
+        public int SalesPersonID { get; set; }
+        public int   VehicleID { get; set; }
+       public int   CustomerTypeId { get; set; }
+        public string CustomerNameEnglish { get; set;}
+    public DateTime LastUpdatedDate { get; set; }
+       public Boolean isBillRequired { get; set; }
+       public Boolean isActive { get; set; }
+        public Decimal DeliveryCharges { get; set; }
+    }
           
+    public class CustomerDetails
+    {
+
+        [Key]
+        public int CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public string Address { get; set; }
+        public string Mobile { get; set; }
+        public int AreaID { get; set; }
+        public int SalesPersonID { get; set; }
+        public int VehicleID { get; set; }
+        public Boolean isBillRequired { get; set; }
+        public Boolean isActive { get; set; }
+        public Decimal DeliveryCharges { get; set; }
+        public int? TotalRows { get; set; }
+    }
 }

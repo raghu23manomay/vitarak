@@ -16,6 +16,45 @@ namespace demomilk.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+
+        /*******************************************binddropdown Code For AutoComplete*****************************************************/
+        public List<SelectListItem> binddropdown(string action, int val = 0)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            var res = _db.Database.SqlQuery<SelectListItem>("exec USP_BindDropDown @action , @val",
+                   new SqlParameter("@action", action),
+                    new SqlParameter("@val", val))
+                   .ToList()
+                   .AsEnumerable()
+                   .Select(r => new SelectListItem
+                   {
+                       Text = r.Text.ToString(),
+                       Value = r.Value.ToString(),
+                       Selected = r.Value.Equals(Convert.ToString(val))
+                   }).ToList();
+
+            return res;
+        }
+        public JsonResult GetArea()
+        {
+            JobDbContext _db = new JobDbContext();
+            var lstItem = binddropdown("Area", 0).Select(i => new { i.Value, i.Text }).ToList();
+            return Json(lstItem, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetEmployee()
+        {
+            JobDbContext _db = new JobDbContext();
+            var lstItem = binddropdown("Employee", 0).Select(i => new { i.Value, i.Text }).ToList();
+            return Json(lstItem, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetVehicle()
+        {
+            JobDbContext _db = new JobDbContext();
+            var lstItem = binddropdown("Vehicle", 0).Select(i => new { i.Value, i.Text }).ToList();
+            return Json(lstItem, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Index(int? page)
         {
             StaticPagedList<RouteDetails> itemsAsIPagedList;
@@ -606,7 +645,7 @@ namespace demomilk.Controllers
                 var res = _db.Database.ExecuteSqlCommand(@"exec uspInsertEmployee @EmployeeName,@Address,@AreaID,@Mobile",
                     new SqlParameter("@EmployeeName", pm.EmployeeName),
                     new SqlParameter("@Address", pm.Address),
-                    new SqlParameter("@AreaID", 1),
+                    new SqlParameter("@AreaID", pm.AreaID),
                     new SqlParameter("@Mobile", pm.Mobile));
 
                 return Json("Data Added Sucessfully");
@@ -716,6 +755,49 @@ namespace demomilk.Controllers
             }
 
         }
+
+        /*******************************************EditEmployee*****************************************************/
+        public ActionResult EditEmployee(int EmployeeID)
+        {
+            JobDbContext _db = new JobDbContext();
+            Employee md = new Employee();
+            var result = _db.Employee.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
+                ",
+                new SqlParameter("@EmployeeID", EmployeeID)).ToList<Employee>();
+            md = result.FirstOrDefault();
+            return Request.IsAjaxRequest()
+               ? (ActionResult)PartialView("EditEmployee", md)
+               : View("EditEmployee", md);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateEmployee(Employee up)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var result = _db.Database.ExecuteSqlCommand(@"exec uspUpdateEmployee @EmployeeID,@EmployeeName,@Address,@AreaID,@Mobile",
+                    new SqlParameter("@EmployeeID", up.EmployeeID),
+                     new SqlParameter("@EmployeeName", up.EmployeeName),
+                    new SqlParameter("@Address", up.Address),
+                    new SqlParameter("@AreaID", up.AreaID),
+                    new SqlParameter("@Mobile", up.Mobile));
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
+                return Json(up, JsonRequestBehavior.AllowGet);
+
+            }
+
+         
+
+        }
+       
+
+
         /************************************************Add Vehical************************************************************/
         [HttpGet]
         public ActionResult Add_Vehical()
@@ -854,6 +936,52 @@ namespace demomilk.Controllers
 
         }
 
+        /*******************************************EditEmployee*****************************************************/
+        public ActionResult EditVehical(int VechicleID)
+        {
+            JobDbContext _db = new JobDbContext();
+            Vehical md = new Vehical();
+            var result = _db.Vehical.SqlQuery(@"exec UC_VehicleMast_GetByPK @VechicleID
+                ",
+                new SqlParameter("@VechicleID", VechicleID)).ToList<Vehical>();
+            md = result.FirstOrDefault();
+            return Request.IsAjaxRequest()
+               ? (ActionResult)PartialView("EditVehical", md)
+               : View("EditVehical", md);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateVehical(Vehical up)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_VehicleMast_UpdateByPK @VechicleID, @Transport,@Owner,@Address,@Mobile,@VechicleNo,@RatePerTrip,@Marathi,@PrintOrder",
+                     new SqlParameter("@VechicleID", up.VechicleID),
+                    new SqlParameter("@Transport", up.Transport),
+                    new SqlParameter("@Owner", up.Owner),
+                    new SqlParameter("@Address", up.Address),
+                    new SqlParameter("@Mobile", up.Mobile),
+                    new SqlParameter("@VechicleNo", up.VechicleNo),
+                    new SqlParameter("@RatePerTrip", up.RatePerTrip),
+                    new SqlParameter("@Marathi", up.Marathi),
+                    new SqlParameter("@PrintOrder", up.PrintOrder)
+                    );
+
+                return Json("Data Updated Sucessfully");
+
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
+                return Json(up, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+
+        }
 
 
         //=================================================  Supplier Master ==================================================
@@ -1028,6 +1156,40 @@ namespace demomilk.Controllers
         }
 
 
+        /************************************************Add Vehical************************************************************/
+        [HttpGet]
+        public ActionResult Add_Customer()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCustomer(Customer pm)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_CustomerMast_Insert @CustomerName,@Address,@AreaID,@Mobile,@EmployeeId,@VehicleID,@isActive,@BillRequired,@DeliveryCharges",
+                    new SqlParameter("@CustomerName", pm.CustomerName),
+                    new SqlParameter("@Address", pm.Address),
+                      new SqlParameter("@AreaID", pm.AreaID),
+                    new SqlParameter("@Mobile", pm.Mobile),
+                    new SqlParameter("@EmployeeId", pm.SalesPersonID),
+                    new SqlParameter("@VehicleID", pm.VehicleID),
+                    new SqlParameter("@isActive", 1),
+                    new SqlParameter("@BillRequired", pm.isBillRequired),
+                    new SqlParameter("@DeliveryCharges", pm.DeliveryCharges)
+                    );
+
+                return Json("Data Added Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+            }
+        }
         //========================================== Edit Supplier ================================================
 
         public ActionResult EditSupplier()
@@ -1048,6 +1210,7 @@ namespace demomilk.Controllers
                 SupplierMaster rs = new SupplierMaster();
                 rs = res.FirstOrDefault();
                 return View("EditSupplier", rs);
+
             }
             catch (Exception ex)
             {
@@ -1058,6 +1221,45 @@ namespace demomilk.Controllers
 
         }
 
+
+        public ActionResult IndexForCustomerMaster(int? page)
+        {
+            StaticPagedList<CustomerDetails> itemsAsIPagedList;
+            itemsAsIPagedList = CustomerGridList(page);
+
+            Session["MasterName"] = "CustomerMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("IndexForCustomerMaster", itemsAsIPagedList)
+                    : View("IndexForCustomerMaster", itemsAsIPagedList);
+        }
+
+        public StaticPagedList<CustomerDetails> CustomerGridList(int? page)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            var pageIndex = (page ?? 1);
+            const int pageSize = 8;
+            int totalCount = 8;
+            CustomerDetails Ulist = new CustomerDetails();
+
+            IEnumerable<CustomerDetails> result = _db.CustomerDetails.SqlQuery(@"exec GetCustomerList
+                   @pPageIndex, @pPageSize",
+               new SqlParameter("@pPageIndex", pageIndex),
+               new SqlParameter("@pPageSize", pageSize)
+
+               ).ToList<CustomerDetails>();
+
+            totalCount = 0;
+            if (result.Count() > 0)
+            {
+                totalCount = Convert.ToInt32(result.FirstOrDefault().TotalRows);
+            }
+            var itemsAsIPagedList = new StaticPagedList<CustomerDetails>(result, pageIndex, pageSize, totalCount);
+            return itemsAsIPagedList;
+
+
+
+        }
         [HttpPost]
         public ActionResult UpdateSupplier(SupplierMaster rm)
         {
@@ -1108,5 +1310,7 @@ namespace demomilk.Controllers
             }
 
         }
+
     }
+
 }
