@@ -1,4 +1,4 @@
-﻿@model demomilk.Models.Customer
+﻿@model demomilk.Models.CustomerList
 @{
     Layout = null;
 }
@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add_Vehical</title>
+    <title>Update_Vehical</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
 
@@ -18,7 +18,7 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Customer</h2>
+                <h2>Update Customer</h2>
                 <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
             </div>
             <div class="modal-body">
@@ -28,6 +28,7 @@
                             <label>CustomerName:</label>
                         </div>
                         <div class="col-md-9">
+                            @Html.HiddenFor(model => model.CustomerID, new { @id = "CustomerID" })
 
                             @Html.TextBoxFor(a => a.CustomerName, new { @class = "form-control r-0 light s-12", placeholder = "Enter CustomerName", title = "CustomerName", @id = "CustomerName" })
                         </div>
@@ -63,7 +64,7 @@
                         </div>
                         <div class="col-md-9">
 
-                            @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control r-0 light s-12 ", @id = "Area", placeholder = " Area" })
+                            @Html.TextBoxFor(a => a.Area, new { @class = "form-control r-0 light s-12 ", @id = "Area", placeholder = " Area" })
                             @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
                             @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
                             <div class="text-danger" id="req_id_error_msg"></div>
@@ -80,7 +81,7 @@
                         </div>
                         <div class="col-md-9">
 
-                            @Html.TextBoxFor(a => a.SalesPersonID, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })
+                            @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })
                             @Html.HiddenFor(model => model.SalesPersonID, new { @id = "SalesPersonID" })
                             @Html.ValidationMessageFor(model => model.SalesPersonID, "", new { @class = "text-danger" })
                             <div class="text-danger" id="req_id_error_msg"></div>
@@ -95,7 +96,7 @@
                         </div>
                         <div class="col-md-9">
 
-                            @Html.TextBoxFor(a => a.VehicleID, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })
+                            @Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })
                             @Html.HiddenFor(model => model.VehicleID, new { @id = "VehicleID" })
                             @Html.ValidationMessageFor(model => model.VehicleID, "", new { @class = "text-danger" })
                             <div class="text-danger" id="req_id_error_msg"></div>
@@ -134,7 +135,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                    <input class="btn-primary" type="submit" id="btnsave" value="Update" title="ClickToSave" />
                     <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
 
                 </div>
@@ -165,18 +166,17 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: '/Home/AddCustomer',
+            url: '/Home/UpdateCustomer',
 
             data:
             {
-
+                CustomerID: $("#CustomerID").val(),
                 CustomerName: $("#CustomerName").val(),
                 Address: $("#Address").val(),
                 AreaID: $("#AreaID").val(),
                 Mobile: $("#Mobile").val(),
-                VechicleNo: $("#VechicleNo").val(),
                 EmployeeId: $("#EmployeeId").val(),
-                VehicleId: $("#VehicleId").val(),
+                VehicleId: $("#VehicleID").val(),
                 isActive: 1,
                 BillRequired: 1,
                 DeliveryCharges: $("#DeliveryCharges").val(),
@@ -254,7 +254,7 @@
                   });
     }
 
-    
+
      function getVehicle()
     {
              var returnResult = [];

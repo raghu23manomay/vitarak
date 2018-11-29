@@ -65,6 +65,16 @@ namespace demomilk.Models
         public int AreaID { get; set; }
         public string Mobile { get; set; }        
     }
+    public class EmployeeList
+    {
+        [Key]
+        public int EmployeeID { get; set; }
+        public string EmployeeName { get; set; }
+        public string Address { get; set; }
+        public int AreaID { get; set; }
+        public string Area { get; set; }
+        public string Mobile { get; set; }
+    }
 
     public class EmployeeDetails
     {
@@ -144,16 +154,43 @@ namespace demomilk.Models
         public string Address { get; set; }
         public string Mobile { get; set; }
          public int   AreaID { get; set;}
+        public string Area { get; set; }
         public int SalesPersonID { get; set; }
+        public string EmployeeName { get; set; }
         public int   VehicleID { get; set; }
-       public int   CustomerTypeId { get; set; }
+        public string VechicleNo { get; set; }
+        public int?   CustomerTypeId { get; set; }
+        public string CustomerType { get; set; }
         public string CustomerNameEnglish { get; set;}
-    public DateTime LastUpdatedDate { get; set; }
-       public Boolean isBillRequired { get; set; }
-       public Boolean isActive { get; set; }
+        public DateTime LastUpdatedDate { get; set; }
+        public Boolean isBillRequired { get; set; }
+        public Boolean isActive { get; set; }
         public Decimal DeliveryCharges { get; set; }
     }
-          
+
+
+
+    public class CustomerList
+    {
+        [Key]
+        public int CustomerID { get; set; }
+        public string CustomerName { get; set; }
+        public string Address { get; set; }
+        public string Mobile { get; set; }
+        public int AreaID { get; set; }
+        public string Area { get; set; }
+        public int SalesPersonID { get; set; }
+        public string EmployeeName { get; set; }
+        public int VehicleID { get; set; }
+        public string VechicleNo { get; set; }
+        public int? CustomerTypeId { get; set; }
+        public string CustomerType { get; set; }
+        public Boolean isBillRequired { get; set; }
+        public Boolean isActive { get; set; }
+        public Decimal DeliveryCharges { get; set; }
+    }
+
+
     public class CustomerDetails
     {
 
@@ -164,10 +201,15 @@ namespace demomilk.Models
         public string Mobile { get; set; }
         public int AreaID { get; set; }
         public int SalesPersonID { get; set; }
+        public string CustomerNameEnglish { get; set; }
+        public DateTime LastUpdatedDate { get; set; }
+        public string EmployeeName { get; set; }
         public int VehicleID { get; set; }
         public Boolean isBillRequired { get; set; }
         public Boolean isActive { get; set; }
         public Decimal DeliveryCharges { get; set; }
+        public string Area { get; set; }
+        public string VechicleNo { get; set; }
         public int? TotalRows { get; set; }
     }
 }
