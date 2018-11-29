@@ -1196,11 +1196,7 @@ namespace demomilk.Controllers
         }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
-        /************************************************Add Vehical************************************************************/
+      /************************************************Add Vehical************************************************************/
         [HttpGet]
         public ActionResult Add_Customer()
         {
@@ -1234,13 +1230,9 @@ namespace demomilk.Controllers
                 return Json(message);
             }
         }
-<<<<<<< HEAD
 
-=======
         //========================================== Edit Supplier ================================================
->>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
-
-        public ActionResult EditSupplier()
+       public ActionResult EditSupplier()
         {
             return View();
 
@@ -1258,11 +1250,6 @@ namespace demomilk.Controllers
                 SupplierMaster rs = new SupplierMaster();
                 rs = res.FirstOrDefault();
                 return View("EditSupplier", rs);
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
             }
             catch (Exception ex)
             {
@@ -1273,12 +1260,6 @@ namespace demomilk.Controllers
 
         }
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
 
         public ActionResult IndexForCustomerMaster(int? page)
         {
@@ -1318,10 +1299,6 @@ namespace demomilk.Controllers
 
 
         }
-<<<<<<< HEAD
-
-
-
 
         /*******************************************EditEmployee*****************************************************/
         public ActionResult EditCustomer(int CustomerID)
@@ -1464,9 +1441,6 @@ namespace demomilk.Controllers
 
         }
 
-
-=======
->>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
         [HttpPost]
         public ActionResult UpdateSupplier(SupplierMaster rm)
         {
@@ -1517,14 +1491,9 @@ namespace demomilk.Controllers
             }
 
         }
-<<<<<<< HEAD
 
-    }
+    
 
-
-=======
->>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
-
-    }
+   }
 
 }
