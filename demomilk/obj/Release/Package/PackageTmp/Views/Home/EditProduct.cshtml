@@ -98,6 +98,7 @@
                     <div>
                         @Html.HiddenFor(a => a.ProductID, new { @class = "", placeholder = "", title = "Area", @id = "ProductID" })
                         @Html.TextBoxFor(a => a.Product, new { @class = "form-control r-0 light s-12", placeholder = "Enter Product Name", title = "Product", @id = "Product" })
+                        <p id="Pname" style="color:brown;">Enter Product Name</p>
                     </div>
 
                 </div>
@@ -124,6 +125,7 @@
                     <label>Caret Size:</label>
                     <div>
                         @Html.TextBoxFor(a => a.CrateSize, new { @class = "form-control r-0 light s-12", placeholder = "Enter Caret Size", title = "Area", @id = "CrateSize" })
+                        <p id="CaretSizeval" style="color:brown;">Enter Caret Size in numaric</p>
                     </div>
 
                 </div>
@@ -132,6 +134,7 @@
                     <label>Squence:</label>
                     <div>
                         @Html.TextBoxFor(a => a.ProductBrandID, new { @class = "form-control r-0 light s-12", placeholder = "Enter Squnece", title = "Area", @id = "ProductBrandID" })
+                        <p id="Squence" style="color:brown;">Enter Squence in numaric</p>
                     </div>
 
                 </div>
@@ -148,12 +151,41 @@
 </body>
 </html>
 
+<script type="text/javascript">
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+</script>
 
 <script>
 
+    $('#Pname').hide();
+    $('#CaretSizeval').hide();
+    $('#Squence').hide();
 
     function abc()
     {
+        refresh();
         $('.modal-backdrop').remove();
     }
 
@@ -199,6 +231,27 @@
 
     $('#btnUpdate').on('click', function () {
 
+        if ($('#Product').val() == "") {
+            $('#Pname').show();
+            $('#Caretsizeval').hide();
+            $('#Squence').hide();
+
+            return false;
+        }
+        else if (($.isNumeric($('#CrateSize').val())) == false) {
+            $('#CaretSizeval').show();
+            $('#Pname').hide();
+            $('#Squence').hide();
+            return false;
+        }
+        else if (($.isNumeric($('#ProductBrandID').val())) == false) {
+            $('#Squence').show();
+            $('#CaretSizeval').hide();
+            $('#Pname').hide();
+            return false;
+        }
+
+
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -217,6 +270,7 @@
         },
         success: function (da) {
             alert(da);
+            refresh();
             $("#mdlEditProduct .close").click()
             $('.modal-backdrop').remove();
 
@@ -243,6 +297,7 @@
             },
             success: function (da) {
                 alert(da);
+                refresh();
                 $("#mdlEditProduct .close").click()
                 $('.modal-backdrop').remove();
 
@@ -253,5 +308,32 @@
             }
         });
     });
+
+
+    function refresh()
+    {
+      
+        $.ajax({
+            url: "@Url.Action("LoadDataForProduct", "Home")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+              
+            },
+            error: function (data) {
+               
+            },
+            complete: function () {
+                
+
+
+            }
+
+        });
+    }
 
 </script>

@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add_Vehical</title>
+    <title>Add_Supplier</title>
 </head>
 <body>
     <div class="modal-dialog">
@@ -24,6 +24,7 @@
                     <div>
 
                         @Html.TextBoxFor(a => a.VendorName, new { @class = "form-control r-0 light s-12", placeholder = "Enter Vendor Name", title = "vendor name", @id = "VendorName" })
+                        <p id="Vname" style="color:brown">Enter Vendor Name</p>
                     </div>
 
                 </div>
@@ -31,13 +32,15 @@
                     <label>Address:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                        <p id="VAddress" style="color:brown">Enter Address</p>
                     </div>
-                    VendorName
+                    
                 </div>
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Contact Person:</label>
                     <div>
                         @Html.TextBoxFor(a => a.ContactPerson, new { @class = "form-control r-0 light s-12", placeholder = "Enter Contact Person", title = "ContactPerson", @id = "ContactPerson" })
+                        
                     </div>
 
                 </div>
@@ -45,6 +48,7 @@
                     <label>Monile No:</label>
                     <div>
                         @Html.TextBoxFor(a => a.PersonMobileNo, new { @class = "form-control r-0 light s-12", placeholder = "Enter Person Mobile No", title = "Person Mobile No", @id = "PersonMobileNo" })
+                        <p id="Mobileno" style="color:brown">Enter 10 Digit Mobile Number</p>
                     </div>
 
                 </div>
@@ -76,7 +80,7 @@
                 <div class="form-control" style="border-color: #ffffff;">
                     <label class="container">
                         Is Active
-                        <input type="checkbox" id="check">
+                        <input type="checkbox" id="check" checked>
                         <span class="checkmark"></span>
                     </label>
                     
@@ -93,12 +97,44 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+</script>
+
+
 <script>
+    $('#Mobileno').hide();
+    $('#Vname').hide();
+    $('#VAddress').hide();
+
     function abc() {
+         refresh();
         $('.modal-backdrop').remove();
     }
     
-
     $('#btnsave').on('click', function () {
         var isactive;
         var isChecked = $('#check').is(':checked');
@@ -110,7 +146,32 @@
         {
             isactive = false;
         }
-        
+
+        if ($('#VendorName').val() == "") {
+            $('#Vname').show();
+            $('#Mobileno').hide();
+            $('#VAddress').hide();
+            return false;
+        }
+        else if ($('#Address').val() == "")
+        {
+            $('#VAddress').show();
+            $('#Vname').hide();
+            $('#Mobileno').hide();
+            return false;
+        }
+
+        if ($('#PersonMobileNo').val().length == 10 && ($.isNumeric($('#PersonMobileNo').val())) == true) {
+            
+        }
+        else
+        {
+            $('#VAddress').hide();
+            $('#Vname').hide();
+            $('#Mobileno').show();
+            return false;
+        }
+      
                
         $.ajax({
             type: 'POST',
@@ -133,6 +194,7 @@
             success: function (da) {
 
                 alert(da);
+                refresh();
                 $('#mdlSupplierMaster').hide();
                 $('.modal-backdrop').remove();
 
@@ -143,5 +205,31 @@
             }
         });
     });
+
+
+     function refresh()
+    {
+      
+        $.ajax({
+            url: "@Url.Action("LoadDataForSuppier", "Home")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+              
+            },
+            error: function (data) {
+               
+            },
+            complete: function () {
+                
+                
+            }
+
+        });
+    }
 
 </script>

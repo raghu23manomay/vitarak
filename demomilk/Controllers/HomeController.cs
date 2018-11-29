@@ -616,7 +616,16 @@ namespace demomilk.Controllers
                     new SqlParameter("@CrateSize", pm.CrateSize),
                     new SqlParameter("@GST", pm.GST));
 
-                return Json("Data Added Sucessfully");
+                if(res == 0)
+                {
+                    return Json("Produxt Already Exist");
+                }
+                else
+                {
+                    return Json("Data Added Sucessfully");
+                }
+
+                
             }
             catch (Exception ex)
             {
@@ -1095,14 +1104,14 @@ namespace demomilk.Controllers
 
                 var res = _db.Database.ExecuteSqlCommand(@"exec UC_InsertVendorMast @VendorName,@Address,@AreaID,@CityID,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@CreatedBy",
                     new SqlParameter("@VendorName", pm.VendorName),
-                    new SqlParameter("@Address", pm.Address),
+                    new SqlParameter("@Address", pm.Address == null ? (object)DBNull.Value : pm.Address),
                     new SqlParameter("@AreaID",1),
                     new SqlParameter("@CityID", 1),
-                    new SqlParameter("@EmailID", pm.EmailID),
-                    new SqlParameter("@OfficePhone", pm.OfficeNumber),
-                    new SqlParameter("@FaxNo", pm.FaxNumber),
-                    new SqlParameter("@ContactPerson", pm.ContactPerson),
-                    new SqlParameter("@PersonMobileNo", pm.PersonMobileNo),
+                    new SqlParameter("@EmailID", pm.EmailID == null ? (object)DBNull.Value : pm.EmailID),
+                    new SqlParameter("@OfficePhone", pm.OfficeNumber == null ? (object)DBNull.Value : pm.OfficeNumber),
+                    new SqlParameter("@FaxNo", pm.FaxNumber == null ? (object)DBNull.Value : pm.FaxNumber),
+                    new SqlParameter("@ContactPerson", pm.ContactPerson == null ? (object)DBNull.Value : pm.ContactPerson),
+                    new SqlParameter("@PersonMobileNo", pm.PersonMobileNo == null ? (object)DBNull.Value : pm.PersonMobileNo),
                     new SqlParameter("@IsActive", pm.IsActive),
                     new SqlParameter("@CreatedBy", 1)
                     );
@@ -1451,12 +1460,12 @@ namespace demomilk.Controllers
                 var res = _db.Database.ExecuteSqlCommand(@"exec [UC_UpdateVendorMast] @VendorID,@VendorName,@Address,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@LastUpdatedBy",
                     new SqlParameter("@VendorID", rm.VendorID),
                     new SqlParameter("@VendorName", rm.VendorName),
-                    new SqlParameter("@Address", rm.Address),
-                    new SqlParameter("@EmailID", rm.EmailID),
-                    new SqlParameter("@OfficePhone", rm.OfficeNumber),
-                    new SqlParameter("@FaxNo", rm.FaxNumber),
-                    new SqlParameter("@ContactPerson", rm.ContactPerson),
-                    new SqlParameter("@PersonMobileNo", rm.PersonMobileNo),
+                    new SqlParameter("@Address", rm.Address == null ? (object)DBNull.Value : rm.Address),
+                    new SqlParameter("@EmailID", rm.EmailID == null ? (object)DBNull.Value : rm.EmailID),
+                    new SqlParameter("@OfficePhone", rm.OfficeNumber == null ? (object)DBNull.Value : rm.OfficeNumber),
+                    new SqlParameter("@FaxNo", rm.FaxNumber == null ? (object)DBNull.Value : rm.FaxNumber),
+                    new SqlParameter("@ContactPerson", rm.ContactPerson == null ? (object)DBNull.Value : rm.ContactPerson),
+                    new SqlParameter("@PersonMobileNo", rm.PersonMobileNo == null ? (object)DBNull.Value : rm.PersonMobileNo),
                     new SqlParameter("@IsActive", rm.IsActive),
                     new SqlParameter("@LastUpdatedBy", 1));
 

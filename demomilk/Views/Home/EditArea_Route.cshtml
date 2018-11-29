@@ -33,6 +33,7 @@
                     <div>
                         @Html.HiddenFor(a => a.AreaID, new { @class = "", placeholder = "AID", title = "AreaId", @id = "AreaId" })
                         @Html.TextBoxFor(a => a.Area, new { @class = "form-control r-0 light s-12", placeholder = "Enter Area", title = "Area", @id = "Area" })
+                        <p style="color:brown" id="AreaName">Enter Area Name</p>
                     </div>
 
                 </div>
@@ -79,6 +80,9 @@
 
 
 <script>
+
+    $('#AreaName').hide();
+
     function abc()
     {
         refresh();
@@ -86,6 +90,11 @@
     }
 
     $('#btnupdate').on('click', function () {
+
+        if ($('#Area').val() == "") {
+            $('#AreaName').show();
+            return false;
+        }
 
     $.ajax({
         type: 'POST',

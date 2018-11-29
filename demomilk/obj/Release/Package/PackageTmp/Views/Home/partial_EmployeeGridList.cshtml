@@ -24,7 +24,7 @@
                                             <th><b>Address</b></th>
                                             <th><b>Area</b></th>
                                             <th><b>Mobile</b></th>
-
+                                            <th></th>
 
                                         </tr>
                                     </thead>
@@ -32,14 +32,14 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            <tr>
-                                                <td></td>
-                                                <td><strong>@item.EmployeeName</strong></td>
-                                                <td><strong>@item.Address</strong></td>
-                                                <td><strong>@item.AreaID</strong></td>
-                                                <td><strong>@item.Address</strong></td>
-
-                                            </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><strong>@item.EmployeeName</strong></td>
+                                            <td><strong>@item.Address</strong></td>
+                                            <td><strong>@item.AreaID</strong></td>
+                                            <td><strong>@item.Mobile</strong></td>
+                                           <td><a href="@Url.Action("EditEmployee", "Home", new { @EmployeeID = @item.EmployeeID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td> 
+                                        </tr>
 
                                         }
 
@@ -55,7 +55,7 @@
 
 
             <nav class="my-3" aria-label="Page navigation">
-                @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForProductMaster", "Home", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 4, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForEmployeeMaster", "Home", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 4, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
                 @if (Model.Count() == 0)
                 {
                     <ul class="pagination"></ul>
@@ -721,4 +721,5 @@
     </div>
 </div>
 
-
+<div id="mdlEditEmployee" class="modal fade" style="margin-left: 20%;padding-top: 50px;width: 60%;" data-backdrop="static" data-keyboard="false" role="dialog">
+</div>

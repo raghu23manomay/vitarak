@@ -97,6 +97,7 @@
                     <label>Product Name:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Product, new { @class = "form-control r-0 light s-12", placeholder = "Enter Product Name", title = "Area", @id = "Product" })
+                        <p id="Pname" style="color:brown;">Enter Product Name</p>
                     </div>
 
                 </div>
@@ -116,13 +117,14 @@
                         <input type="checkbox" id="check">
                         <span class="checkmark" ></span>
                      </label>
-                    @Html.TextBoxFor(a => a.GST, new { @class = "form-control r-0 light s-12", placeholder = "Enter GST", title = "Area", @id = "GST" })
+                    @Html.TextBoxFor(a => a.GST, new { @class = "form-control r-0 light s-12", placeholder = "Enter GST", title = "GST", @id = "GST" })
                 </div>
 
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Caret Size:</label>
                     <div>
                         @Html.TextBoxFor(a => a.CrateSize, new { @class = "form-control r-0 light s-12", placeholder = "Enter Caret Size", title = "Area", @id = "CrateSize" })
+                        <p id="CaretSizeval" style="color:brown;">Enter Caret Size in numaric</p>
                     </div>
 
                 </div>
@@ -131,6 +133,7 @@
                     <label>Squence:</label>
                     <div>
                         @Html.TextBoxFor(a => a.ProductBrandID, new { @class = "form-control r-0 light s-12", placeholder = "Enter Squnece", title = "Area", @id = "ProductBrandID" })
+                        <p id="Squence" style="color:brown;">Enter Squence in numaric</p>
                     </div>
 
                 </div>
@@ -174,7 +177,9 @@
 
 <script>
 
-
+    $('#Pname').hide();
+    $('#CaretSizeval').hide();
+    $('#Squence').hide();
 
 
     function abc()
@@ -225,6 +230,29 @@
 
     $('#btnsave').on('click', function () {
 
+        if ($('#Product').val() == "") {
+            $('#Pname').show();
+            $('#Caretsizeval').hide();
+            $('#Squence').hide();
+
+            return false;
+        }
+        else if (($.isNumeric($('#CrateSize').val())) == false)
+        {
+            $('#CaretSizeval').show();
+            $('#Pname').hide();
+            $('#Squence').hide();
+            return false;
+        }
+        else if (($.isNumeric($('#ProductBrandID').val())) == false) {
+            $('#Squence').show();
+            $('#CaretSizeval').hide();
+            $('#Pname').hide();
+            return false;
+        }
+        
+              
+        
     $.ajax({
         type: 'POST',
         dataType: 'json',

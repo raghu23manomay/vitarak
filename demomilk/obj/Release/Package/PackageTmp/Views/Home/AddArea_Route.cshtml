@@ -5,9 +5,8 @@
 }
 
 <!DOCTYPE html>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -32,6 +31,7 @@
                     <label>Area:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Area, new { @class = "form-control r-0 light s-12", placeholder = "Enter Area", title = "Area", @id = "Area" })
+                        <p style="color:brown" id ="AreaName">Enter Area Name</p>
                     </div>
 
                 </div>
@@ -46,12 +46,49 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+
+</script>
 <script>
+    $('#AreaName').hide();
+
     function abc()
     {
+        refresh();
         $('.modal-backdrop').remove();
     }
-    $('#btnsave').on('click', function () {
+    $('#btnsave').on('click', function ()
+    {
+
+        if ($('#Area').val() == "") {
+            $('#AreaName').show();
+            return false;
+        }
 
     $.ajax({
         type: 'POST',
@@ -68,6 +105,7 @@
         success: function (da) {
 
             alert(da);
+            refresh();
             $("#mdlAddRoute .close").click()
             $('.modal-backdrop').remove();
 
@@ -76,7 +114,35 @@
         error: function (XMLHttpRequest, textStatus, errorThrown) {
 
         }
-    });
-    });
+            });
+
+        });
+
+
+     function refresh()
+    {
+
+        $.ajax({
+            url: "@Url.Action("LoadDataForArea", "Home")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+
+            },
+            error: function (data) {
+
+            },
+            complete: function () {
+
+
+
+            }
+
+        });
+    }
 
 </script>

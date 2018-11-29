@@ -150,7 +150,9 @@
                                 <a href="@Url.Action("IndexForSupplierMaster", "Home")"><i class="icon icon-circle-o"></i>All Supplier</a>
                             </li>
 
-
+                            <li>
+                                <a href="@Url.Action("IndexForCustomerMaster", "Home")"><i class="icon icon-circle-o"></i>All Vehical</a>
+                            </li>
                         </ul>
                     </li>
 
@@ -317,7 +319,7 @@
                 <div class="row justify-content-between">
                     <ul class="nav nav-material nav-material-white responsive-tab" id="v-pills-tab" role="tablist">
                         <li>
-                            <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="@Url.Action("IndexForVehicalMaster", "Home")"><i class="icon icon-home2"></i>All Employee</a>
+                            <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="@Url.Action("IndexForVehicalMaster", "Home")"><i class="icon icon-home2"></i>All Vehicle</a>
                         </li>
                         <!--<li>-->
                         <!--<a class="nav-link" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"-->
@@ -328,7 +330,7 @@
                         <!--aria-controls="v-pills-sellers"><i class="icon  icon-local_shipping"></i> Sellers</a>-->
                         <!--</li>-->
                         <li class="float-right">
-                            <a class="nav-link" href="@Url.Action("Add_Vehical", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Employee</a>
+                            <a class="nav-link" href="@Url.Action("Add_Vehical", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Vehical</a>
                         </li>
                         <li class="float-right">
                             <a class="nav-link" href="@Url.Action("importexcel", "Home",new {@Mastername = Session["MasterName"]})"><i class="icon icon-plus-circle"> </i> Import Excel </a>

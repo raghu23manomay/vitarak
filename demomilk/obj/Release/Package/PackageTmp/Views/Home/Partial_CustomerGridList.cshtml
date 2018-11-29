@@ -1,5 +1,5 @@
 ﻿
-@model  IEnumerable<demomilk.Models.VehicalDetails>
+@model  IEnumerable<demomilk.Models.CustomerDetails>
 
 @using PagedList;
 @using PagedList.Mvc;
@@ -19,11 +19,10 @@
                                     <thead>
                                         <tr class="no-b">
                                             <th></th>
-                                            <th><b>Transport</b></th>
-                                            <th><b>Owner</b></th>
-                                            <th><b>Address</b></th>
+                                            <th><b>CustomerName</b></th>
+                                             <th><b>Address</b></th>
                                             <th><b>Mobile</b></th>
-                                            <th><b>Rate</b></th>
+                                            <th><b>DeliveryCharges</b></th>
                                             <th><b>VechicleNo</b></th>
                                         </tr>
                                     </thead>
@@ -31,16 +30,15 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                        <tr>
-                                            <td></td>
-                                            <td><strong>@item.Transport</strong></td>
-                                            <td><strong>@item.Owner</strong></td>
-                                            <td><strong>@item.Address</strong></td>
-                                            <td><strong>@item.Mobile</strong></td>
-                                            <td><strong>@item.RatePerTrip</strong></td>
-                                            <td><strong>@item.VechicleNo</strong></td>
-                                            <td><a href="@Url.Action("EditVehical", "Home", new { @VechicleID = @item.VechicleID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
-                                        </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td><strong>@item.CustomerName</strong></td>
+                                                <td><strong>@item.Address</strong></td>
+                                                <td><strong>@item.Mobile</strong></td>
+                                                <td><strong>@item.DeliveryCharges</strong></td>
+                                                <td><strong>@item.VehicleID</strong></td>
+                                                <td><a href="@Url.Action("EditCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
+                                            </tr>
 
                                         }
 
@@ -56,7 +54,7 @@
 
 
             <nav class="my-3" aria-label="Page navigation">
-                @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForVehicalMaster", "Home", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 4, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
+                @Html.PagedListPager((IPagedList)Model, page => Url.Action("IndexForCustomerMaster", "Home", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { MaximumPageNumbersToDisplay = 4, DisplayPageCountAndCurrentLocation = true }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "mgrid", OnComplete = "PagedOnComplete" }))
                 @if (Model.Count() == 0)
                 {
                     <ul class="pagination"></ul>
