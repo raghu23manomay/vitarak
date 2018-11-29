@@ -1,4 +1,4 @@
-﻿@model demomilk.Models.CustomerList
+﻿@model demomilk.Models.Customer
 @{
     Layout = null;
 }
@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Update_Vehical</title>
+    <title>Update Customer</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
 
@@ -29,8 +29,8 @@
                         </div>
                         <div class="col-md-9">
                             @Html.HiddenFor(model => model.CustomerID, new { @id = "CustomerID" })
-
                             @Html.TextBoxFor(a => a.CustomerName, new { @class = "form-control r-0 light s-12", placeholder = "Enter CustomerName", title = "CustomerName", @id = "CustomerName" })
+                            <label style="color:red" id="CustomerNameVal">*</label>
                         </div>
                     </div>
                 </div>
@@ -53,6 +53,7 @@
                         <div class="col-md-9">
 
                             @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                            <label style="color:red" id="MobileVal">*</label>
                         </div>
                     </div>
 
@@ -64,10 +65,10 @@
                         </div>
                         <div class="col-md-9">
 
-                            @Html.TextBoxFor(a => a.Area, new { @class = "form-control r-0 light s-12 ", @id = "Area", placeholder = " Area" })
+                            @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control r-0 light s-12 ", @id = "Area", placeholder = " Area" })
                             @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
                             @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
-                            <div class="text-danger" id="req_id_error_msg"></div>
+                            <label style="color:red" id="AreaVal">*</label>
                         </div>
                     </div>
 
@@ -81,10 +82,10 @@
                         </div>
                         <div class="col-md-9">
 
-                            @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })
+                            @Html.TextBoxFor(a => a.SalesPersonID, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })
                             @Html.HiddenFor(model => model.SalesPersonID, new { @id = "SalesPersonID" })
                             @Html.ValidationMessageFor(model => model.SalesPersonID, "", new { @class = "text-danger" })
-                            <div class="text-danger" id="req_id_error_msg"></div>
+                            <label style="color:red" id="EmployeeVal">*</label>
                         </div>
                     </div>
 
@@ -99,7 +100,7 @@
                             @Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })
                             @Html.HiddenFor(model => model.VehicleID, new { @id = "VehicleID" })
                             @Html.ValidationMessageFor(model => model.VehicleID, "", new { @class = "text-danger" })
-                            <div class="text-danger" id="req_id_error_msg"></div>
+                            <label style="color:red" id="VehicleVal">*</label>
                         </div>
                     </div>
 
@@ -125,7 +126,7 @@
                             <label>Bill Print Required</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" value="Delevery Charges" id="" />
+                            <input type="checkbox" value="Delevery Charges" id="" checked />
                             <label>Acitve</label>
 
                         </div>
@@ -160,41 +161,93 @@
         getArea();
         getEmployee();
         getVehicle();
+        $("#CustomerNameVal").hide();
+        $("#AddressVal").hide();
+        $("#AreaVal").hide();
+        $("#MobileVal").hide();
+        $("#VehicleVal").hide();
+        $("#EmployeeVal").hide();
     });
     $('#btnsave').on('click', function () {
+        var error = 0;
+        if ($("#CustomerName").val() == "")
+        {
+            $("#CustomerNameVal").show();
+        }
+        else
+        {
+            $("#CustomerNameVal").hide();
+        }
+        if ($("#Address").val() == "") {
+            $("#AddressVal").show();
+        }
+        else {
+            $("#AddressVal").hide();
+        }
 
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/Home/UpdateCustomer',
+        if ($("#Area").val() == "") {
+            $("#AreaVal").show();
+        }
+        else {
+            $("#AreaVal").hide();
+        }
+        if ($("#Mobile").val() == "") {
+            $("#MobileVal").show();
+        }
+        else {
+            $("#MobileVal").hide();
+        }
+        if ($("#Employee").val() == "") {
+            $("#EmployeeVal").show();
+        }
+        else {
+            $("#EmployeeVal").hide();
+        }
+        if ($("#Vehicle").val() == "") {
+            $("#VehicleVal").show();
+        }
+        else {
+            $("#VehicleVal").hide();
+        }
+        if (error) {
+            return false;
+        }
 
-            data:
-            {
-                CustomerID: $("#CustomerID").val(),
-                CustomerName: $("#CustomerName").val(),
-                Address: $("#Address").val(),
-                AreaID: $("#AreaID").val(),
-                Mobile: $("#Mobile").val(),
-                EmployeeId: $("#EmployeeId").val(),
-                VehicleId: $("#VehicleID").val(),
-                isActive: 1,
-                BillRequired: 1,
-                DeliveryCharges: $("#DeliveryCharges").val(),
+        else {
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Home/UpdateCustomer',
+
+                data:
+                {
+                    CustomerID: $("#CustomerID").val(),
+                    CustomerName: $("#CustomerName").val(),
+                    Address: $("#Address").val(),
+                    AreaID: $("#AreaID").val(),
+                    Mobile: $("#Mobile").val(),
+                    EmployeeId: $("#EmployeeId").val(),
+                    VehicleId: $("#VehicleId").val(),
+                    isActive: 1,
+                    BillRequired: 1,
+                    DeliveryCharges: $("#DeliveryCharges").val(),
 
 
-            },
-            success: function (da) {
+                },
+                success: function (da) {
 
-                alert(da);
-                $("#mdlAddRoute .close").click()
-                $('.modal-backdrop').remove();
-                location.reload();
-            },
+                    alert(da);
+                    $("#mdlAddRoute .close").click()
+                    $('.modal-backdrop').remove();
+                    location.reload();
+                },
 
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-            }
-        });
+                }
+            });
+        }
     });
 
      function getArea()
