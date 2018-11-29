@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add Product</title>
+    <title>Edit Product</title>
     <style>
         /* The container */
         .container {
@@ -87,16 +87,17 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Product</h2>
-                <button type="button" class="close"  id="cls" data-dismiss="modal" onclick="abc();">&times;</button>
+                <h2>Edit Product</h2>
+                <button type="button" class="close" id="cls" data-dismiss="modal" onclick="abc();">&times;</button>
 
             </div>
             <div class="modal-body">
-                
+
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Product Name:</label>
                     <div>
-                        @Html.TextBoxFor(a => a.Product, new { @class = "form-control r-0 light s-12", placeholder = "Enter Product Name", title = "Area", @id = "Product" })
+                        @Html.HiddenFor(a => a.ProductID, new { @class = "", placeholder = "", title = "Area", @id = "ProductID" })
+                        @Html.TextBoxFor(a => a.Product, new { @class = "form-control r-0 light s-12", placeholder = "Enter Product Name", title = "Product", @id = "Product" })
                     </div>
 
                 </div>
@@ -104,8 +105,8 @@
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Product type:</label>
                     <div>
-                        <input type="radio" name="milk" id="milk1" value="Milk"  checked> Milk<br>
-                        <input type="radio" name="milk" id="milkproduct" value="Milk Product" > Milk Product<br>
+                        <input type="radio" name="milk" id="milk1" value="Milk" checked> Milk<br>
+                        <input type="radio" name="milk" id="milkproduct" value="Milk Product"> Milk Product<br>
                     </div>
 
                 </div>
@@ -114,8 +115,8 @@
                     <label class="container">
                         GST
                         <input type="checkbox" id="check">
-                        <span class="checkmark" ></span>
-                     </label>
+                        <span class="checkmark"></span>
+                    </label>
                     @Html.TextBoxFor(a => a.GST, new { @class = "form-control r-0 light s-12", placeholder = "Enter GST", title = "Area", @id = "GST" })
                 </div>
 
@@ -137,8 +138,9 @@
 
             </div>
             <div class="modal-footer">
-                <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
-                <input type="button" class="btn-danger" id="cls" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
+                <input class="btn-danger" type="submit" id="btnDelete" value="Delete" title="ClickTodelete" />
+                <input class="btn-primary" type="submit" id="btnUpdate" value="Update" title="ClickToUpdate" />
+                <input type="button" class="btn-default" id="cls" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
 
             </div>
         </div>
@@ -154,16 +156,16 @@
     {
         $('.modal-backdrop').remove();
     }
-  
+
 
     $(document).ready(function () {
 
-     
+
         $('#GST').attr("disabled", true);
-             
+
     });
 
-    
+
 
     $('#milk1').click(function () {
         $('#GST').attr("disabled", true);
@@ -172,10 +174,10 @@
     });
 
     $('#milkproduct').click(function () {
-        
+
         $('#GST').attr("disabled", false);
         $('#check').prop("checked", true);
-        
+
     });
 
     $('#check').click(function () {
@@ -191,30 +193,31 @@
             $('#milk1').prop("checked", true);
             $('#milkproduct').prop("checked", false);
         }
-        
-    });    
+
+    });
 
 
-    $('#btnsave').on('click', function () {
+    $('#btnUpdate').on('click', function () {
 
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: '/Home/AddProduct',
+        url: '/Home/Updateproduct',
 
         data:
         {
+            ProductID: $("#ProductID").val(),
             Product: $("#Product").val(),
             ProductBrandID: $("#ProductBrandID").val(),
             StockCount: 0,
-           SalePrice  :null,
+            SalePrice  :null,
             CrateSize: $("#CrateSize").val(),
             GST: $("#GST").val(),
 
         },
         success: function (da) {
             alert(da);
-            $("#mdlAddRoute .close").click()
+            $("#mdlEditProduct .close").click()
             $('.modal-backdrop').remove();
 
         },
@@ -223,6 +226,32 @@
 
         }
     });
+    });
+
+
+
+    $('#btnDelete').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Home/DeleteProduct',
+
+            data:
+            {
+                ProductID: $("#ProductID").val(),
+            },
+            success: function (da) {
+                alert(da);
+                $("#mdlEditProduct .close").click()
+                $('.modal-backdrop').remove();
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
     });
 
 </script>
