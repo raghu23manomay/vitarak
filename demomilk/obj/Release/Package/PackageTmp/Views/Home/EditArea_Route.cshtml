@@ -33,6 +33,7 @@
                     <div>
                         @Html.HiddenFor(a => a.AreaID, new { @class = "", placeholder = "AID", title = "AreaId", @id = "AreaId" })
                         @Html.TextBoxFor(a => a.Area, new { @class = "form-control r-0 light s-12", placeholder = "Enter Area", title = "Area", @id = "Area" })
+                        <p style="color:brown" id="AreaName">Enter Area Name</p>
                     </div>
 
                 </div>
@@ -48,13 +49,52 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+
+
+</script>
+
+
 <script>
+
+    $('#AreaName').hide();
+
     function abc()
     {
+        refresh();
         $('.modal-backdrop').remove();
     }
 
     $('#btnupdate').on('click', function () {
+
+        if ($('#Area').val() == "") {
+            $('#AreaName').show();
+            return false;
+        }
 
     $.ajax({
         type: 'POST',
@@ -70,7 +110,8 @@
         },
         success: function (da) {
 
-            alert(da);
+            alert(da); 
+            refresh();
             $("#mdlEditRoute .close").click()
             $('.modal-backdrop').remove();
 
@@ -94,10 +135,12 @@
               AreaId: $("#AreaId").val(),
             },
             success: function (da) {
-
+                
                 alert(da);
+                refresh();
                 $("#mdlEditRoute .close").click()
                 $('.modal-backdrop').remove();
+                
 
             },
 
@@ -106,5 +149,32 @@
             }
         });
     });
+
+
+    function refresh()
+    {
+      
+        $.ajax({
+            url: "@Url.Action("LoadDataForArea", "Home")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+              
+            },
+            error: function (data) {
+               
+            },
+            complete: function () {
+                
+
+
+            }
+
+        });
+    }
 
 </script>

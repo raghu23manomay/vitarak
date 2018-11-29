@@ -1,0 +1,285 @@
+﻿@model demomilk.Models.Customer
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Add_Vehical</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
+
+</head>
+<body>
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add Customer</h2>
+                <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-control" style="border-color: #ffffff;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>CustomerName:</label>
+                        </div>
+                        <div class="col-md-9">
+
+                            @Html.TextBoxFor(a => a.CustomerName, new { @class = "form-control r-0 light s-12", placeholder = "Enter CustomerName", title = "CustomerName", @id = "CustomerName" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Address:</label>
+                        </div>
+                        <div class="col-md-9">
+
+                            @Html.TextAreaFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-control" style="border-color: #ffffff;">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Mobile:</label>
+                        </div>
+                        <div class="col-md-9">
+
+                            @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-control">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="position">Select Area</label>
+                        </div>
+                        <div class="col-md-9">
+
+                            @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control r-0 light s-12 ", @id = "Area", placeholder = " Area" })
+                            @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
+                            @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
+                            <div class="text-danger" id="req_id_error_msg"></div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="form-control">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="position">Select Employee</label>
+                        </div>
+                        <div class="col-md-9">
+
+                            @Html.TextBoxFor(a => a.SalesPersonID, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })
+                            @Html.HiddenFor(model => model.SalesPersonID, new { @id = "SalesPersonID" })
+                            @Html.ValidationMessageFor(model => model.SalesPersonID, "", new { @class = "text-danger" })
+                            <div class="text-danger" id="req_id_error_msg"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-control">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="position">Select Vehicle</label>
+                        </div>
+                        <div class="col-md-9">
+
+                            @Html.TextBoxFor(a => a.VehicleID, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })
+                            @Html.HiddenFor(model => model.VehicleID, new { @id = "VehicleID" })
+                            @Html.ValidationMessageFor(model => model.VehicleID, "", new { @class = "text-danger" })
+                            <div class="text-danger" id="req_id_error_msg"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-control">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="checkbox" value="Delevery Charges" id="DeleveryCharge" />
+                            <label>Delevery Charges</label>
+
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" placeholder="0.00" id="DeliveryCharges" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-control">
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <input type="checkbox" value="Delevery Charges" id="" />
+                            <label>Bill Print Required</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="checkbox" value="Delevery Charges" id="" />
+                            <label>Acitve</label>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                    <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $("#DeleveryCharge").click(function () {
+            $('#DeliveryCharges').attr("disabled", $(this).is(":checked"));
+        });
+    });
+
+    function abc() {
+        $('.modal-backdrop').remove();
+    }
+    $(document).ready(function () {
+        getArea();
+        getEmployee();
+        getVehicle();
+    });
+    $('#btnsave').on('click', function () {
+
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '/Home/AddCustomer',
+
+            data:
+            {
+
+                CustomerName: $("#CustomerName").val(),
+                Address: $("#Address").val(),
+                AreaID: $("#AreaID").val(),
+                Mobile: $("#Mobile").val(),
+                VechicleNo: $("#VechicleNo").val(),
+                EmployeeId: $("#EmployeeId").val(),
+                VehicleId: $("#VehicleId").val(),
+                isActive: 1,
+                BillRequired: 1,
+                DeliveryCharges: $("#DeliveryCharges").val(),
+
+
+            },
+            success: function (da) {
+
+                alert(da);
+                $("#mdlAddRoute .close").click()
+                $('.modal-backdrop').remove();
+
+            },
+
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            }
+        });
+    });
+
+     function getArea()
+    {
+             var returnResult = [];
+                          $.ajax({
+                        contentType: "application/json; charset=utf-8",
+                         url: "@Url.Action("GetArea", "Home")",
+                        method: 'GET',
+                        async: 'false',
+                        dataType: 'json',
+                        success: function (result) {
+                            var data = $.map(result, function (obj) {
+                                obj.value = obj.Text; // desired field
+                                obj.data = obj.Value; // desired field
+                                returnResult.push(obj);
+                                $("#Area").autocomplete({
+                                    lookup: returnResult,
+                                    onSelect: function (suggestion) {
+                                        $("#AreaID").val(suggestion.data);
+
+                                    }
+                                });
+
+                            });
+                        },
+                        error: function () { }
+                  });
+    }
+
+
+     function getEmployee()
+    {
+             var returnResult = [];
+                          $.ajax({
+                        contentType: "application/json; charset=utf-8",
+                         url: "@Url.Action("GetEmployee", "Home")",
+                        method: 'GET',
+                        async: 'false',
+                        dataType: 'json',
+                        success: function (result) {
+                            var data = $.map(result, function (obj) {
+                                obj.value = obj.Text; // desired field
+                                obj.data = obj.Value; // desired field
+                                returnResult.push(obj);
+                                $("#SalesPerson").autocomplete({
+                                    lookup: returnResult,
+                                    onSelect: function (suggestion) {
+                                        $("#SalesPersonID").val(suggestion.data);
+
+                                    }
+                                });
+
+                            });
+                        },
+                        error: function () { }
+                  });
+    }
+
+    
+     function getVehicle()
+    {
+             var returnResult = [];
+                          $.ajax({
+                        contentType: "application/json; charset=utf-8",
+                         url: "@Url.Action("GetVehicle", "Home")",
+                        method: 'GET',
+                        async: 'false',
+                        dataType: 'json',
+                        success: function (result) {
+                            var data = $.map(result, function (obj) {
+                                obj.value = obj.Text; // desired field
+                                obj.data = obj.Value; // desired field
+                                returnResult.push(obj);
+                                $("#Vehicle").autocomplete({
+                                    lookup: returnResult,
+                                    onSelect: function (suggestion) {
+                                        $("#VehicleID").val(suggestion.data);
+
+                                    }
+                                });
+
+                            });
+                        },
+                        error: function () { }
+                  });
+    }
+</script>

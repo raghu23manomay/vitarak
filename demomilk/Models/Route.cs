@@ -14,6 +14,7 @@ namespace demomilk.Models
         [Key]
         public int RouteId { get; set; }
         public int CityId { get; set; }
+        [Required]
         public string Area { get; set; }
         
     }
