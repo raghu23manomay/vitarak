@@ -65,6 +65,16 @@ namespace demomilk.Controllers
                     : View("Index", itemsAsIPagedList);
         }
 
+        public ActionResult LoadDataForArea(int? page)
+        {
+            StaticPagedList<RouteDetails> itemsAsIPagedList;
+            itemsAsIPagedList = AeraGridList(page);
+          //  Session["MasterName"] = "AreaMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("AdminIndex", itemsAsIPagedList)
+                    : View("AdminIndex", itemsAsIPagedList);
+        }
+
         [HttpGet]
         public ActionResult AddArea_Route()
         {
@@ -131,8 +141,16 @@ namespace demomilk.Controllers
                     new SqlParameter("@Area", md.Area),
                     new SqlParameter("@CityID", 1),
                     new SqlParameter("@AreaID", md.AreaID));
-
+                if(res == 0)
+                {
+                    return Json("Area is already exist");
+                }
+                else
+                {
                     return Json("Data Updated Sucessfully");
+                }
+
+                   
             }
             catch (Exception ex)
             {
@@ -379,6 +397,16 @@ namespace demomilk.Controllers
             return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("IndexForproductMaster", itemsAsIPagedList)
                     : View("IndexForproductMaster", itemsAsIPagedList);
+        }
+
+        public ActionResult LoadDataForProduct(int? page)
+        {
+            StaticPagedList<ProductDetails> itemsAsIPagedList;
+            itemsAsIPagedList = ProductGridList(page);
+
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("_partialGridProductMaster", itemsAsIPagedList)
+                    : View("_partialGridProductMaster", itemsAsIPagedList);
         }
 
 
@@ -1011,6 +1039,19 @@ namespace demomilk.Controllers
 
 
 
+        public ActionResult LoadDataForSuppier(int? page)
+        {
+            StaticPagedList<SupplierDetails> itemsAsIPagedList;
+            itemsAsIPagedList = SupplierGridList(page);
+
+         //   Session["MasterName"] = "SupplierMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("_PartialGridSupplierList", itemsAsIPagedList)
+                    : View("_PartialGridSupplierList", itemsAsIPagedList);
+        }
+
+
+
         //================================== Fill Supplier Grid Code ===========================================
 
         public StaticPagedList<SupplierDetails> SupplierGridList(int? page)
@@ -1155,7 +1196,10 @@ namespace demomilk.Controllers
         }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
         /************************************************Add Vehical************************************************************/
         [HttpGet]
         public ActionResult Add_Customer()
@@ -1190,7 +1234,11 @@ namespace demomilk.Controllers
                 return Json(message);
             }
         }
+<<<<<<< HEAD
 
+=======
+        //========================================== Edit Supplier ================================================
+>>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
 
         public ActionResult EditSupplier()
         {
@@ -1211,7 +1259,10 @@ namespace demomilk.Controllers
                 rs = res.FirstOrDefault();
                 return View("EditSupplier", rs);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
             }
             catch (Exception ex)
             {
@@ -1222,9 +1273,12 @@ namespace demomilk.Controllers
 
         }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
 
         public ActionResult IndexForCustomerMaster(int? page)
         {
@@ -1264,6 +1318,7 @@ namespace demomilk.Controllers
 
 
         }
+<<<<<<< HEAD
 
 
 
@@ -1410,6 +1465,8 @@ namespace demomilk.Controllers
         }
 
 
+=======
+>>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
         [HttpPost]
         public ActionResult UpdateSupplier(SupplierMaster rm)
         {
@@ -1460,10 +1517,14 @@ namespace demomilk.Controllers
             }
 
         }
+<<<<<<< HEAD
 
     }
 
 
+=======
+>>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
 
+    }
 
 }

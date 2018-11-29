@@ -39,6 +39,7 @@
                                             <td><strong>No Brand</strong></td>
                                             <td><strong>@item.CrateSize</strong></td>
                                             <td><strong>@item.GST</strong></td>
+                                            <td><a href="@Url.Action("FetchProductForUpdate", "Home",new { @ProductID = item.ProductID})" data-toggle="modal" data-target="#mdlEditProduct"><i class="icon-pencil"></i></a></td>
 
                                         </tr>
 
@@ -722,3 +723,6 @@
     </div>
 </div>
 
+<div id="mdlEditProduct" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+
+</div>
