@@ -26,6 +26,16 @@ namespace demomilk.Controllers
                     : View("Index", itemsAsIPagedList);
         }
 
+        public ActionResult LoadDataForArea(int? page)
+        {
+            StaticPagedList<RouteDetails> itemsAsIPagedList;
+            itemsAsIPagedList = AeraGridList(page);
+          //  Session["MasterName"] = "AreaMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("AdminIndex", itemsAsIPagedList)
+                    : View("AdminIndex", itemsAsIPagedList);
+        }
+
         [HttpGet]
         public ActionResult AddArea_Route()
         {
@@ -92,8 +102,16 @@ namespace demomilk.Controllers
                     new SqlParameter("@Area", md.Area),
                     new SqlParameter("@CityID", 1),
                     new SqlParameter("@AreaID", md.AreaID));
-
+                if(res == 0)
+                {
+                    return Json("Area is already exist");
+                }
+                else
+                {
                     return Json("Data Updated Sucessfully");
+                }
+
+                   
             }
             catch (Exception ex)
             {
@@ -340,6 +358,16 @@ namespace demomilk.Controllers
             return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("IndexForproductMaster", itemsAsIPagedList)
                     : View("IndexForproductMaster", itemsAsIPagedList);
+        }
+
+        public ActionResult LoadDataForProduct(int? page)
+        {
+            StaticPagedList<ProductDetails> itemsAsIPagedList;
+            itemsAsIPagedList = ProductGridList(page);
+
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("_partialGridProductMaster", itemsAsIPagedList)
+                    : View("_partialGridProductMaster", itemsAsIPagedList);
         }
 
 
@@ -839,6 +867,19 @@ namespace demomilk.Controllers
             return Request.IsAjaxRequest()
                     ? (ActionResult)PartialView("IndexForSupplierMaster", itemsAsIPagedList)
                     : View("IndexForSupplierMaster", itemsAsIPagedList);
+        }
+
+
+
+        public ActionResult LoadDataForSuppier(int? page)
+        {
+            StaticPagedList<SupplierDetails> itemsAsIPagedList;
+            itemsAsIPagedList = SupplierGridList(page);
+
+         //   Session["MasterName"] = "SupplierMaster";
+            return Request.IsAjaxRequest()
+                    ? (ActionResult)PartialView("_PartialGridSupplierList", itemsAsIPagedList)
+                    : View("_PartialGridSupplierList", itemsAsIPagedList);
         }
 
 

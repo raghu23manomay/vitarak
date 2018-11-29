@@ -95,8 +95,36 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+
+    var str = window.location.href;
+    var lastLetter = str[str.length], i, temp;
+    var con = "";
+
+    for (i = 0; i < str.length; i++) {
+        if (str[i] == '=') {
+            myfun(i);
+            break;
+        }
+    }
+
+    function myfun(temp) {
+
+        temp = temp + 1;
+        for (i = temp; i < [str.length]; i++) {
+
+            con = con + str[i];
+        }
+        parseInt(con);
+
+    }
+    
+</script>
+
 <script>
     function abc() {
+        refresh();
         $('.modal-backdrop').remove();
     }
 
@@ -136,8 +164,10 @@
             success: function (da) {
 
                 alert(da);
+                refresh();
                 $('#mdlEditSupplier').hide();
                 $('.modal-backdrop').remove();
+                
 
             },
 
@@ -164,6 +194,7 @@
             success: function (da) {
 
                 alert(da);
+                refresh();
                 $('#mdlEditSupplier').hide();
                 $('.modal-backdrop').remove();
 
@@ -174,5 +205,32 @@
             }
         });
     });
+
+     function refresh()
+    {
+      
+        $.ajax({
+            url: "@Url.Action("LoadDataForSuppier", "Home")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+              
+            },
+            error: function (data) {
+               
+            },
+            complete: function () {
+                
+
+
+            }
+
+        });
+    }
+      
 
 </script>

@@ -49,6 +49,7 @@
 <script>
     function abc()
     {
+        refresh();
         $('.modal-backdrop').remove();
     }
     $('#btnsave').on('click', function () {
@@ -68,6 +69,7 @@
         success: function (da) {
 
             alert(da);
+            refresh();
             $("#mdlAddRoute .close").click()
             $('.modal-backdrop').remove();
 
@@ -78,5 +80,31 @@
         }
     });
     });
+
+     function refresh()
+    {
+      
+        $.ajax({
+            url: "@Url.Action("LoadDataForArea", "Home")",
+            contentType: "application/json",
+            data: JSON.stringify({ page: con }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+              
+            },
+            error: function (data) {
+               
+            },
+            complete: function () {
+                
+
+
+            }
+
+        });
+    }
 
 </script>
