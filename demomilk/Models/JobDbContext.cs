@@ -25,6 +25,16 @@ namespace demomilk.Models
         public DbSet<Vehical> Vehical { get; set; }
         public DbSet<VehicalDetails> VehicalDetails { get; set; }
         public DbSet<SupplierDetails> SupplierDetails { get; set; }
+<<<<<<< HEAD
+        public DbSet<Customer>  Customer { get; set; }
+        public DbSet<CustomerDetails> CustomerDetails { get; set; }
+        public DbSet<CustomerList> CustomerList { get; set; }
+        public DbSet<EmployeeList> EmployeeList { get; set; }
+        
+        public DbSet<ProductMaster> ProductMaster { get; set; }
+        public DbSet<SupplierMaster> SupplierMaster { get; set; }
+        
+=======
 
         public DbSet<Customer>  Customer { get; set; }
         public DbSet<CustomerDetails> CustomerDetails { get; set; }
@@ -34,5 +44,6 @@ namespace demomilk.Models
         
 
 
+>>>>>>> 2751fcccea2f842c32d41a72280d7185d404de45
     }
 }

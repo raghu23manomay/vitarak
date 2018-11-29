@@ -769,10 +769,10 @@ namespace demomilk.Controllers
         public ActionResult EditEmployee(int EmployeeID)
         {
             JobDbContext _db = new JobDbContext();
-            Employee md = new Employee();
-            var result = _db.Employee.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
+            EmployeeList md = new EmployeeList();
+            var result = _db.EmployeeList.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
                 ",
-                new SqlParameter("@EmployeeID", EmployeeID)).ToList<Employee>();
+                new SqlParameter("@EmployeeID", EmployeeID)).ToList<EmployeeList>();
             md = result.FirstOrDefault();
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("EditEmployee", md)
@@ -804,8 +804,27 @@ namespace demomilk.Controllers
          
 
         }
-       
 
+        [HttpPost]
+        public ActionResult DeleteEmployee(int? EmployeeID)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_DeleteEmployeeMast @EmployeeID",
+                    new SqlParameter("@EmployeeID", EmployeeID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
 
         /************************************************Add Vehical************************************************************/
         [HttpGet]
@@ -993,6 +1012,27 @@ namespace demomilk.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult DeleteVehicle(int? VechicleID)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_CustomerMast_DeleteByPK @VechicleID",
+                    new SqlParameter("@VechicleID", VechicleID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
         //=================================================  Supplier Master ==================================================
 
         public ActionResult IndexForSupplierMaster(int? page)
@@ -1165,7 +1205,7 @@ namespace demomilk.Controllers
         }
 
 
-        /************************************************Add Vehical************************************************************/
+      /************************************************Add Vehical************************************************************/
         [HttpGet]
         public ActionResult Add_Customer()
         {
@@ -1199,9 +1239,9 @@ namespace demomilk.Controllers
                 return Json(message);
             }
         }
-        //========================================== Edit Supplier ================================================
 
-        public ActionResult EditSupplier()
+        //========================================== Edit Supplier ================================================
+       public ActionResult EditSupplier()
         {
             return View();
 
@@ -1219,7 +1259,6 @@ namespace demomilk.Controllers
                 SupplierMaster rs = new SupplierMaster();
                 rs = res.FirstOrDefault();
                 return View("EditSupplier", rs);
-
             }
             catch (Exception ex)
             {
@@ -1269,6 +1308,148 @@ namespace demomilk.Controllers
 
 
         }
+
+        /*******************************************EditEmployee*****************************************************/
+        public ActionResult EditCustomer(int CustomerID)
+        {
+            JobDbContext _db = new JobDbContext();
+            CustomerList md = new CustomerList();
+            var result = _db.CustomerList.SqlQuery(@"exec UC_Select_CustomerMast_By_CustomerID @CustomerID
+                ",
+                new SqlParameter("@CustomerID", CustomerID)).ToList<CustomerList>();
+            md = result.FirstOrDefault();
+            return Request.IsAjaxRequest()
+               ? (ActionResult)PartialView("EditCustomer", md)
+               : View("EditCustomer", md);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCustomer(Customer pm)
+        {
+            JobDbContext _db = new JobDbContext();
+
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_UpdateCustomerMast @CustomerID,@CustomerName,@Address,@AreaID,@Mobile,@EmployeeId,@VehicleID,@isActive,@BillRequired,@DeliveryCharges",
+                     new SqlParameter("@CustomerID", pm.CustomerID),
+                    new SqlParameter("@CustomerName", pm.CustomerName),
+                    new SqlParameter("@Address", pm.Address),
+                      new SqlParameter("@AreaID", pm.AreaID),
+                    new SqlParameter("@Mobile", pm.Mobile),
+                    new SqlParameter("@EmployeeId", pm.SalesPersonID),
+                    new SqlParameter("@VehicleID", pm.VehicleID),
+                    new SqlParameter("@isActive", 1),
+                    new SqlParameter("@BillRequired", pm.isBillRequired),
+                    new SqlParameter("@DeliveryCharges", pm.DeliveryCharges)
+                    );
+
+                return Json("Data Updated Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
+                return Json(pm, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCustomer(int? CustomerID)
+        {
+
+            JobDbContext _db = new JobDbContext();
+            try
+            {
+                var res = _db.Database.ExecuteSqlCommand(@"exec UC_CustomerMast_DeleteByPK @CustomerID",
+                    new SqlParameter("@CustomerID", CustomerID));
+
+                return Json("Data Deleted Sucessfully");
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                return Json(message);
+
+            }
+
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SaveCustomerExcelData(List<Customer> SaveCustomerData)
+        {
+            try
+            {
+                JobDbContext _db = new JobDbContext();
+
+                if (SaveCustomerData.Count > 0)
+                {
+             
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("CustomerID", typeof(int));
+                    dt.Columns.Add("CustomerName", typeof(string));
+                    dt.Columns.Add("Address", typeof(string));
+                    dt.Columns.Add("Mobile", typeof(string));
+                    dt.Columns.Add("AreaID", typeof(int));
+                    dt.Columns.Add("SalesPersonID", typeof(int));
+                    dt.Columns.Add("VehicleID", typeof(int));
+                    dt.Columns.Add("CustomerTypeId", typeof(int));
+                    dt.Columns.Add("CustomerNameEnglish", typeof(string));
+                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
+                    dt.Columns.Add("isBillRequired", typeof(Boolean));
+                    dt.Columns.Add("isActive", typeof(Boolean));
+                    dt.Columns.Add("DeliveryCharges", typeof(decimal));
+                    foreach (var item in SaveCustomerData)
+                    {
+                        DataRow dr = dt.NewRow();
+                        dr["CustomerID"] = 1;
+                        dr["CustomerName"] = item.CustomerName;
+                        dr["Address"] = item.Address;
+                        dr["Address"] = item.Address;
+                        dr["Mobile"] = item.Mobile;
+                        dr["AreaID"] = item.AreaID;
+                        dr["SalesPersonID"] = item.SalesPersonID;
+                        dr["VehicleID"] = item.VehicleID;
+                        dr["CustomerTypeId"] = item.CustomerTypeId;
+                        dr["CustomerNameEnglish"] = item.CustomerNameEnglish;
+                        dr["LastUpdatedDate"] = item.LastUpdatedDate;
+                        dr["isBillRequired"] = item.isBillRequired;
+                        dr["isActive"] = item.isActive;
+                        dr["DeliveryCharges"] = item.DeliveryCharges;
+                        if (item.CustomerName != null)
+                        {
+                            dt.Rows.Add(dr);
+                        }
+                    }
+
+                    SqlParameter tvpParam = new SqlParameter();
+                    tvpParam.ParameterName = "@CustomerParameters";
+                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
+                    tvpParam.Value = dt;
+                    tvpParam.TypeName = "UT_CustomerMaster";
+
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_CustomerMaster @CustomerParameters",
+                     tvpParam);
+
+                }
+                // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
+                //: View();
+                return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
+                : Json("Excel Imported Sucessfully");
+            }
+            catch (Exception e)
+
+            {
+                var messege = e.Message;
+                return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
+               : Json(messege);
+            }
+
+        }
+
         [HttpPost]
         public ActionResult UpdateSupplier(SupplierMaster rm)
         {
@@ -1320,6 +1501,8 @@ namespace demomilk.Controllers
 
         }
 
-    }
+    
+
+   }
 
 }

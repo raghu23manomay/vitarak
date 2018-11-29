@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Update_Vehical</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-  
+
 </head>
 <body>
     <div class="modal-dialog">
@@ -26,6 +26,7 @@
                     <div>
                         @Html.HiddenFor(model => model.VechicleID, new { @id = "VechicleID" })
                         @Html.TextBoxFor(a => a.Transport, new { @class = "form-control r-0 light s-12", placeholder = "Enter Transport", title = "Transport", @id = "Transport" })
+                        <label style="color:red" id="TransportVal">*</label>
                     </div>
 
                 </div>
@@ -33,6 +34,7 @@
                     <label>Owner:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Owner, new { @class = "form-control r-0 light s-12", placeholder = "Enter Owner", title = "Owner", @id = "Owner" })
+                        <label style="color:red" id="OwnerVal">*</label>
                     </div>
 
                 </div>
@@ -40,6 +42,7 @@
                     <label>Mobile:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                        <label style="color:red" id="MobileVal">*</label>
                     </div>
 
                 </div>
@@ -47,6 +50,7 @@
                     <label>Address:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                        <label style="color:red" id="AddressVal">*</label>
                     </div>
 
                 </div>
@@ -54,6 +58,7 @@
                     <label>VechicleNo:</label>
                     <div>
                         @Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12", placeholder = "Enter VechicleNo", title = "VechicleNo", @id = "VechicleNo" })
+                        <label style="color:red" id="VechicleNoVal">*</label>
                     </div>
 
                 </div>
@@ -61,6 +66,7 @@
                     <label>Rate:</label>
                     <div>
                         @Html.TextBoxFor(a => a.RatePerTrip, new { @class = "form-control r-0 light s-12", placeholder = "Enter Rate", title = "Rate", @id = "RatePerTrip" })
+                        <label style="color:red" id="RateVal">*</label>
                     </div>
 
                 </div>
@@ -75,6 +81,7 @@
                     <label>PrintOrder:</label>
                     <div>
                         @Html.TextBoxFor(a => a.PrintOrder, new { @class = "form-control r-0 light s-12", placeholder = "Enter PrintOrder", title = "PrintOrder", @id = "PrintOrder" })
+                        <label style="color:red" id="PrintOrderVal">*</label>
                     </div>
 
                 </div>
@@ -93,39 +100,100 @@
     function abc() {
         $('.modal-backdrop').remove();
     }
+    $(document).ready(function () {
+        $("#TransportVal").hide();
+        $("#OwnerVal").hide();
+        $("#AddressVal").hide();
+        $("#MobileVal").hide();
+        $("#VechicleNoVal").hide();
+        $("#PrintOrderVal").hide();
+        $("#RateVal").hide();
+
+        getArea();
+    });
     $('#btnsave').on('click', function () {
+        var error = 0;
+        if ($('#Transport').val() == '') {
+            error = 1;
+            $('#TransportVal').show();
+        }
+        else {
+            $('#TransportVal').hide();
+        }
+        if ($('#Owner').val() == '') {
+            error = 1;
+            $('#OwnerVal').show();
+        }
+        else {
+            $('#OwnerVal').hide();
+        }
+        if ($('#Address').val() == '') {
+            error = 1;
+            $('#AddressVal').show();
+        }
+        else {
+            $('#AddressVal').hide();
+        }
+        if ($('#Mobile').val() == '') {
+            error = 1;
+            $('#MobileVal').show();
+        }
+        else {
+            $('#MobileVal').hide();
+        }
+        if ($('#VechicleNo').val() == '') {
+            error = 1;
+            $('#VechicleNoVal').show();
+        }
+        else {
+            $('#VechicleNoVal').hide();
+        }
+        if ($('#PrintOrder').val() == '') {
+            error = 1;
+            $('#PrintOrderVal').show();
+        }
+        else {
+            $('#PrintOrderVal').hide();
+        }
+        if (error) {
+            return false;
+        }
 
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/Home/UpdateVehical',
+        else {
 
-            data:
-            {
-                VechicleID: $("#VechicleID").val(),
-                Transport: $("#Transport").val(),
-                Owner: $("#Owner").val(),
-                Address: $("#Address").val(),
-                Mobile: $("#Mobile").val(),
-                VechicleNo: $("#VechicleNo").val(),
-                RatePerTrip: $("#RatePerTrip").val(),
-                Marathi: $("#Marathi").val(),
-                PrintOrder: $("#PrintOrder").val(),
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Home/UpdateVehical',
+
+                data:
+                {
+                    VechicleID: $("#VechicleID").val(),
+                    Transport: $("#Transport").val(),
+                    Owner: $("#Owner").val(),
+                    Address: $("#Address").val(),
+                    Mobile: $("#Mobile").val(),
+                    VechicleNo: $("#VechicleNo").val(),
+                    RatePerTrip: $("#RatePerTrip").val(),
+                    Marathi: $("#Marathi").val(),
+                    PrintOrder: $("#PrintOrder").val(),
 
 
-            },
-            success: function (da) {
+                },
+                success: function (da) {
 
-                alert(da);
-                $("#mdlEditEmployee .close").click()
-                $('.modal-backdrop').remove();
+                    alert(da);
+                    $("#mdlAddRoute .close").click()
+                    $('.modal-backdrop').remove();
+                    location.reload();
 
-            },
+                },
 
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-            }
-        });
+                }
+            });
+        }
     });
 
 </script>
