@@ -75,7 +75,7 @@
                                                     <tr>
                                                         @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
                                                         {
-                                                            <td>
+                                                            <td contenteditable='true'>
                                                                 @row[col.ColumnName]
                                                             </td>
                                                         }
@@ -116,7 +116,14 @@
 </body>
 </html>
 
-    <script>
+<style>
+    .highlight {
+        
+        background-color: #fdeef3;
+    }
+</style>
+
+    <script>       
         
         if ($("#MasterName").text() == "ProductMaster")
         {
@@ -353,6 +360,7 @@
                     }),
                     success: function (result) {
                         alert(result);
+                        
                        
                     },
                     error: function () {
@@ -377,15 +385,45 @@
                         trElement.find('td:eq(6)').text().trim() + '~' +
                         trElement.find('td:eq(7)').text().trim() + '~' +
                         trElement.find('td:eq(8)').text().trim()
-                                            
+
+                   
                         idArr.push(tdVals);
+            });
+
+            $("tbody tr").each(function () {
+
+                var trElement = $(this);
+                var tdVals = trElement.find('td:eq(0)').text().trim();
+
+                if (tdVals != "" && trElement.find('td:eq(1)').text().trim() != "") {
+                    $(this).css('background-color', 'white');
+                    
+                }
+                               
+                if (tdVals == "") {
+
+                    $(this).css('background-color', '#fdeef3');
+
+                }
+
+                else if (trElement.find('td:eq(1)').text().trim() == "") {
+                    $(this).css('background-color', '#fdeef3');
+                 
+
+                }
+                else if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == false || trElement.find('td:eq(7)').text().trim().length != 10  )
+                {
+                    $(this).css('background-color', '#fdeef3');
+                }
+                    
+                
             });
 
                 var SaveSupplierData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
-                    
-                    item = {}
+
+                       item = {}
                     item["VendorName"] = arrElement[0];
                     item["Address"] = arrElement[1];
                     item["EmailID"] = arrElement[2];
@@ -395,6 +433,7 @@
                     item["ContactPerson"] = arrElement[6];
                     item["PersonMobileNo"] = arrElement[7]
                     item["IsActive"] = arrElement[8];
+                                                      
                    
                     if (item["IsActive"] == 1)
                     {
@@ -421,6 +460,8 @@
                     }),
                     success: function (result) {
                         alert(result);
+                       // $('tbody tr').css('background-color', 'Red');
+                        
                        
                     },
                     error: function () {
@@ -429,6 +470,18 @@
                 });
         }
 
+
+        function rowchange() {
+            //$('tbody tr').change(function () {
+            //    $(this).addClass("highlight");
+            //});
+
+            $('tbody tr').each(function (k, v) {
+                var trElement = $(this);
+                trElement.find('td:eq(0)')
+
+            });
+        }
 
          function SaveDataForCustomerMaster() {
                
@@ -449,8 +502,7 @@
                         trElement.find('td:eq(10)').text().trim() + '~' +
                         trElement.find('td:eq(11)').text().trim() + '~' +
                         trElement.find('td:eq(12)').text().trim()
-                       
-                        
+                                               
                         idArr.push(tdVals);
                 });
              

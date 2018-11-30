@@ -4,6 +4,7 @@
 @using PagedList;
 @using PagedList.Mvc;
 @using GridMvc.Html
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 
@@ -20,25 +21,30 @@
                                         <tr class="no-b">
                                             <th></th>
                                             <th><b>CustomerName</b></th>
-                                             <th><b>Address</b></th>
+                                            <th><b>Address</b></th>
                                             <th><b>Mobile</b></th>
                                             <th><b>DeliveryCharges</b></th>
                                             <th><b>VechicleNo</b></th>
+                                            <th><b>Area</b></th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            <tr>
-                                                <td></td>
-                                                <td><strong>@item.CustomerName</strong></td>
-                                                <td><strong>@item.Address</strong></td>
-                                                <td><strong>@item.Mobile</strong></td>
-                                                <td><strong>@item.DeliveryCharges</strong></td>
-                                                <td><strong>@item.VehicleID</strong></td>
-                                                <td><a href="@Url.Action("EditCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
-                                            </tr>
+                                        <tr>
+                                            @Html.HiddenFor(model => item.CustomerID, new { @id = "CustomerID" })
+                                            <td></td>
+                                            <td><strong>@item.CustomerName</strong></td>
+                                            <td><strong>@item.Address</strong></td>
+                                            <td><strong>@item.Mobile</strong></td>
+                                            <td><strong>@item.DeliveryCharges</strong></td>
+                                            <td><strong>@item.VechicleNo</strong></td>
+                                            <td><strong>@item.Area</strong></td>
+                                            <td><a href="@Url.Action("EditCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
+                                            @*<td id="del" onclick="deleteItem()"><a href="@Url.Action("DeleteCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Delete</a></td>*@
+                                            <td id="del" onclick="deleteItem()">Delete</td>
+                                        </tr>
 
                                         }
 
@@ -722,3 +728,32 @@
 <div id="mdlEditEmployee" class="modal fade" style="margin-left: 20%;padding-top: 50px;width: 60%;" data-backdrop="static" data-keyboard="false" role="dialog">
 </div>
 
+<script>
+    function deleteItem() {
+        if (confirm("Are you sure?")) {
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Home/DeleteCustomer',
+
+                data:
+                {
+
+                    CustomerID: $("#CustomerID").val(),
+
+                },
+                success: function (da) {
+
+                    
+
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+        return false;
+    }
+</script>

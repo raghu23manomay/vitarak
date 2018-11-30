@@ -1136,7 +1136,7 @@ namespace demomilk.Controllers
             try
             {
                 JobDbContext _db = new JobDbContext();
-
+               
                 if (SaveSupplierData.Count > 0)
                 {
                     DataTable dt = new DataTable();
@@ -1173,10 +1173,29 @@ namespace demomilk.Controllers
                         dr["CreateDate"] = DateTime.Now;
                         dr["LastUpdatedDate"] = DateTime.Now;
                         dr["LastUpdatedBy"] = 1;
-                        if (item.VendorName != null)
+
+                        string temp = item.PersonMobileNo;
+                        Int64 Num = 0;
+                        bool isNum = Int64.TryParse(temp, out Num); //c is your variable
+
+
+                        if (item.VendorName == null)
+                        {
+                            return Json("Vendor Name Is Missing");
+                        }
+                        else if(item.Address == null)
+                        {
+                            return Json("Address Is Missing");
+                        }
+                        else if(item.PersonMobileNo.Length == 10 && isNum == true)
                         {
                             dt.Rows.Add(dr);
                         }
+                        else
+                        {
+                            return Json("Enter 10 Digit Mobile Number");
+                        }
+                       
                     }
 
                     SqlParameter tvpParam = new SqlParameter();
