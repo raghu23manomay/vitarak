@@ -9,8 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>UpdateEmployee</title>
-
+    <title>Update_Employee</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
 
@@ -29,6 +28,7 @@
                     <div>
                         @Html.HiddenFor(model => model.EmployeeID, new { @id = "EmployeeID" })
                         @Html.TextBoxFor(a => a.EmployeeName, new { @class = "form-control r-0 light s-12", placeholder = "Enter First Name", title = "EmployeeName", @id = "EmployeeName" })
+                        <label style="color:red" id="Employee">*</label>
                     </div>
 
                 </div>
@@ -36,21 +36,24 @@
                     <label>Address:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                        <label style="color:red" id="AddressVal">*</label>
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div class="form-control">
                     <label for="position">Select Area</label>
 
                     @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control ", @id = "Area", placeholder = " Area" })
                     @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
                     @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
-                    <div class="text-danger" id="req_id_error_msg"></div>
+                    <label style="color:red" id="AreaVal">*</label>
+
                 </div>
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Mobile:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                        <label style="color:red" id="MobileVal">*</label>
                     </div>
 
                 </div>
@@ -70,38 +73,79 @@
         $('.modal-backdrop').remove();
     }
     $(document).ready(function () {
+        $("#Employee").hide();
+        $("#AddressVal").hide();
+        $("#AreaVal").hide();
+        $("#MobileVal").hide();
         getArea();
-    });
-    $('#btnsave').on('click', function () {
-
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/Home/UpdateEmployee',
-
-            data:
-            {
-                EmployeeID: $("#EmployeeID").val(),
-                EmployeeName: $("#EmployeeName").val(),
-                Address: $("#Address").val(),
-                AreaID: $("#AreaID").val(),
-                Mobile: $("#Mobile").val(),
-
-
-            },
-            success: function (da) {
-
-                alert(da);
-                $("#mdlEditEmployee .close").click()
-                $('.modal-backdrop').remove();
-
-            },
-
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-            }
         });
+    $('#btnsave').on('click', function () {
+        var error = 0;
+        if ($('#EmployeeName').val() == '') {
+            error = 1;
+           $('#Employee').show();
+        }
+        else {
+            $('#Employee').hide();
+        }
+        if ($('#Address').val() == '') {
+            error = 1;
+            $('#AddressVal').show();
+        }
+        else {
+            $('#AddressVal').hide();
+        }
+        if ($('#AreaID').val() == '') {
+            error = 1;
+            $('#AreaVal').show();
+        }
+        else {
+            $('#AreaVal').hide();
+        }
+        if ($('#Mobile').val() == '') {
+            error = 1;
+            $('#MobileVal').show();
+        }
+        else {
+            $('#MobileVal').hide();
+        }
+        if (error) {
+            return false;
+        }
+
+        else {
+
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Home/UpdateEmployee',
+
+                data:
+                {
+                    EmployeeID: $("#EmployeeID").val(),
+                    EmployeeName: $("#EmployeeName").val(),
+                    Address: $("#Address").val(),
+                    AreaID: $("#AreaID").val(),
+                    Mobile: $("#Mobile").val(),
+
+
+                },
+                success: function (da) {
+
+                    alert(da);
+                    $("#mdlAddRoute .close").click()
+                    $('.modal-backdrop').remove();
+                    location.reload();
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
     });
+
+
      function getArea()
     {
              var returnResult = [];
@@ -129,4 +173,5 @@
                         error: function () { }
                   });
     }
+
 </script>

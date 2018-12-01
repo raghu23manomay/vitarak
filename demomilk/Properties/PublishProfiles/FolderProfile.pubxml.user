@@ -10,7 +10,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="assets/css/app.css">
-      <publishTime>11/24/2018 11:57:55</publishTime>
+      <publishTime>11/30/2018 16:06:28</publishTime>
     </File>
     <File Include="assets/fonts/icons/svg/ada.svg">
       <publishTime>11/24/2018 11:57:55</publishTime>
@@ -568,10 +568,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/15/2018 15:26:42</publishTime>
     </File>
     <File Include="bin/demomilk.dll">
-      <publishTime>11/29/2018 19:01:08</publishTime>
+      <publishTime>11/30/2018 18:09:49</publishTime>
     </File>
     <File Include="bin/demomilk.pdb">
-      <publishTime>11/29/2018 19:01:08</publishTime>
+      <publishTime>11/30/2018 18:09:49</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 22:02:26</publishTime>
@@ -823,10 +823,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2018 15:45:55</publishTime>
     </File>
     <File Include="Views/Home/Add_Customer.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>11/29/2018 19:30:21</publishTime>
     </File>
     <File Include="Views/Home/Add_Employee.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>11/29/2018 19:17:06</publishTime>
     </File>
     <File Include="Views/Home/Add_Product.cshtml">
       <publishTime>11/29/2018 17:05:05</publishTime>
@@ -835,7 +835,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2018 18:56:10</publishTime>
     </File>
     <File Include="Views/Home/Add_Vehical.cshtml">
-      <publishTime>11/24/2018 15:52:08</publishTime>
+      <publishTime>11/29/2018 19:17:06</publishTime>
     </File>
     <File Include="Views/Home/AdminIndex.cshtml">
       <publishTime>11/27/2018 12:56:39</publishTime>
@@ -843,32 +843,35 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/EditArea_Route.cshtml">
       <publishTime>11/29/2018 15:47:40</publishTime>
     </File>
+    <File Include="Views/Home/EditCustomer.cshtml">
+      <publishTime>11/29/2018 19:17:06</publishTime>
+    </File>
     <File Include="Views/Home/EditEmployee.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>11/29/2018 19:17:06</publishTime>
     </File>
     <File Include="Views/Home/EditProduct.cshtml">
       <publishTime>11/29/2018 16:57:54</publishTime>
     </File>
     <File Include="Views/Home/EditSupplier.cshtml">
-      <publishTime>11/29/2018 13:34:38</publishTime>
+      <publishTime>11/30/2018 13:18:06</publishTime>
     </File>
     <File Include="Views/Home/EditVehical.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>11/29/2018 19:17:06</publishTime>
     </File>
     <File Include="Views/Home/EmployeeGridList.cshtml">
       <publishTime>11/24/2018 12:59:12</publishTime>
     </File>
     <File Include="Views/Home/importexcel.cshtml">
-      <publishTime>11/26/2018 16:55:45</publishTime>
+      <publishTime>11/30/2018 18:03:32</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/29/2018 14:40:04</publishTime>
+      <publishTime>11/29/2018 19:27:38</publishTime>
     </File>
     <File Include="Views/Home/IndexForCustomerMaster.cshtml">
       <publishTime>11/29/2018 14:13:08</publishTime>
     </File>
     <File Include="Views/Home/IndexForEmployeeMaster.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>11/29/2018 19:26:26</publishTime>
     </File>
     <File Include="Views/Home/IndexForproductMaster.cshtml">
       <publishTime>11/29/2018 14:42:55</publishTime>
@@ -880,10 +883,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2018 14:13:08</publishTime>
     </File>
     <File Include="Views/Home/Partial_CustomerGridList.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>11/29/2018 19:17:06</publishTime>
     </File>
     <File Include="Views/Home/partial_EmployeeGridList.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>11/29/2018 19:17:06</publishTime>
     </File>
     <File Include="Views/Home/Partial_VehicalGridList.cshtml">
       <publishTime>11/29/2018 14:13:08</publishTime>

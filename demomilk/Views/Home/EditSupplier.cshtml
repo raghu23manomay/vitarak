@@ -24,6 +24,7 @@
                     <div>
                         @Html.HiddenFor(a => a.VendorID, new { @class = "form-control r-0 light s-12", placeholder = "", title = "vendorid", @id = "VendorID" })
                         @Html.TextBoxFor(a => a.VendorName, new { @class = "form-control r-0 light s-12", placeholder = "Enter Vendor Name", title = "vendor name", @id = "VendorName" })
+                        <p id="Vname" style="color:brown">Enter Vendor Name</p>
                     </div>
 
                 </div>
@@ -31,6 +32,7 @@
                     <label>Address:</label>
                     <div>
                         @Html.TextBoxFor(a => a.Address, new { @class = "form-control r-0 light s-12", placeholder = "Enter Address", title = "Address", @id = "Address" })
+                        <p id="VAddress" style="color:brown">Enter Address</p>
                     </div>
                     VendorName
                 </div>
@@ -45,6 +47,7 @@
                     <label>Monile No:</label>
                     <div>
                         @Html.TextBoxFor(a => a.PersonMobileNo, new { @class = "form-control r-0 light s-12", placeholder = "Enter Person Mobile No", title = "Person Mobile No", @id = "PersonMobileNo" })
+                        <p id="Mobileno" style="color:brown">Enter 10 Digit Mobile Number</p>
                     </div>
 
                 </div>
@@ -123,6 +126,11 @@
 </script>
 
 <script>
+
+    $('#Mobileno').hide();
+    $('#Vname').hide();
+    $('#VAddress').hide();
+
     function abc() {
         refresh();
         $('.modal-backdrop').remove();
@@ -140,6 +148,30 @@
         {
             isactive = false;
         }
+               
+        if ($('#VendorName').val() == "") {
+            $('#Vname').show();
+            $('#Mobileno').hide();
+            $('#VAddress').hide();
+            return false;
+        }
+        else if ($('#Address').val() == "") {
+            $('#VAddress').show();
+            $('#Vname').hide();
+            $('#Mobileno').hide();
+            return false;
+        }
+
+        if ($('#PersonMobileNo').val().length == 10 && ($.isNumeric($('#PersonMobileNo').val())) == true) {
+
+        }
+        else {
+            $('#VAddress').hide();
+            $('#Vname').hide();
+            $('#Mobileno').show();
+            return false;
+        }
+
 
 
         $.ajax({

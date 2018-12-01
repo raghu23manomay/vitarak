@@ -30,6 +30,7 @@
                         <div class="col-md-9">
 
                             @Html.TextBoxFor(a => a.CustomerName, new { @class = "form-control r-0 light s-12", placeholder = "Enter CustomerName", title = "CustomerName", @id = "CustomerName" })
+                            <label style="color:red" id="CustomerNameVal">*</label>
                         </div>
                     </div>
                 </div>
@@ -52,6 +53,7 @@
                         <div class="col-md-9">
 
                             @Html.TextBoxFor(a => a.Mobile, new { @class = "form-control r-0 light s-12", placeholder = "Enter Mobile", title = "Mobile", @id = "Mobile" })
+                            <label style="color:red" id="MobileVal">*</label>
                         </div>
                     </div>
 
@@ -66,7 +68,7 @@
                             @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control r-0 light s-12 ", @id = "Area", placeholder = " Area" })
                             @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
                             @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
-                            <div class="text-danger" id="req_id_error_msg"></div>
+                            <label style="color:red" id="AreaVal">*</label>
                         </div>
                     </div>
 
@@ -83,7 +85,7 @@
                             @Html.TextBoxFor(a => a.SalesPersonID, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })
                             @Html.HiddenFor(model => model.SalesPersonID, new { @id = "SalesPersonID" })
                             @Html.ValidationMessageFor(model => model.SalesPersonID, "", new { @class = "text-danger" })
-                            <div class="text-danger" id="req_id_error_msg"></div>
+                            <label style="color:red" id="EmployeeVal">*</label>
                         </div>
                     </div>
 
@@ -95,10 +97,10 @@
                         </div>
                         <div class="col-md-9">
 
-                            @Html.TextBoxFor(a => a.VehicleID, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })
+                            @Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })
                             @Html.HiddenFor(model => model.VehicleID, new { @id = "VehicleID" })
                             @Html.ValidationMessageFor(model => model.VehicleID, "", new { @class = "text-danger" })
-                            <div class="text-danger" id="req_id_error_msg"></div>
+                            <label style="color:red" id="VehicleVal">*</label>
                         </div>
                     </div>
 
@@ -124,7 +126,7 @@
                             <label>Bill Print Required</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" value="Delevery Charges" id="" />
+                            <input type="checkbox" value="Delevery Charges" id="" checked />
                             <label>Acitve</label>
 
                         </div>
@@ -159,42 +161,99 @@
         getArea();
         getEmployee();
         getVehicle();
+        $("#CustomerNameVal").hide();
+        $("#AddressVal").hide();
+        $("#AreaVal").hide();
+        $("#MobileVal").hide();
+        $("#VehicleVal").hide();
+        $("#EmployeeVal").hide();
     });
     $('#btnsave').on('click', function () {
+        var error = 0;
+        if ($("#CustomerName").val() == "")
+        {
+            error = 1;
+            $("#CustomerNameVal").show();
+        }
+        else
+        {
+            $("#CustomerNameVal").hide();
+        }
+        if ($("#Address").val() == "") {
+            error = 1;
+            $("#AddressVal").show();
+        }
+        else {
+            $("#AddressVal").hide();
+        }
 
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/Home/AddCustomer',
+        if ($("#Area").val() == "") {
+            error = 1;
+            $("#AreaVal").show();
+        }
+        else {
+            $("#AreaVal").hide();
+        }
+        if ($("#Mobile").val() == "") {
+            error = 1;
+            $("#MobileVal").show();
+        }
+        else {
+            $("#MobileVal").hide();
+        }
+        if ($("#Employee").val() == "") {
+            error = 1;
+            $("#EmployeeVal").show();
+        }
+        else {
+            $("#EmployeeVal").hide();
+        }
+        if ($("#Vehicle").val() == "") {
+            error = 1;
+            $("#VehicleVal").show();
+        }
+        else {
+            $("#VehicleVal").hide();
+        }
+        if (error) {
+            return false;
+        }
 
-            data:
-            {
+        else {
 
-                CustomerName: $("#CustomerName").val(),
-                Address: $("#Address").val(),
-                AreaID: $("#AreaID").val(),
-                Mobile: $("#Mobile").val(),
-                VechicleNo: $("#VechicleNo").val(),
-                EmployeeId: $("#EmployeeId").val(),
-                VehicleId: $("#VehicleId").val(),
-                isActive: 1,
-                BillRequired: 1,
-                DeliveryCharges: $("#DeliveryCharges").val(),
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Home/AddCustomer',
+
+                data:
+                {
+
+                    CustomerName: $("#CustomerName").val(),
+                    Address: $("#Address").val(),
+                    AreaID: $("#AreaID").val(),
+                    Mobile: $("#Mobile").val(),
+                    EmployeeId: $("#EmployeeId").val(),
+                    VehicleId: $("#VehicleId").val(),
+                    isActive: 1,
+                    BillRequired: 1,
+                    DeliveryCharges: $("#DeliveryCharges").val(),
 
 
-            },
-            success: function (da) {
+                },
+                success: function (da) {
 
-                alert(da);
-                $("#mdlAddRoute .close").click()
-                $('.modal-backdrop').remove();
+                    alert(da);
+                    $("#mdlAddRoute .close").click()
+                    $('.modal-backdrop').remove();
+                    location.reload();
+                },
 
-            },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
 
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-            }
-        });
+                }
+            });
+        }
     });
 
      function getArea()

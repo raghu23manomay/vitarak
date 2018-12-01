@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Add_Vehical</title>
+    <title>Update Customer</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
 
@@ -18,7 +18,7 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Add Customer</h2>
+                <h2>Update Customer</h2>
                 <button type="button" class="close" data-dismiss="modal" onclick="abc()">&times;</button>
             </div>
             <div class="modal-body">
@@ -28,7 +28,7 @@
                             <label>CustomerName:</label>
                         </div>
                         <div class="col-md-9">
-
+                            @Html.HiddenFor(model => model.CustomerID, new { @id = "CustomerID" })
                             @Html.TextBoxFor(a => a.CustomerName, new { @class = "form-control r-0 light s-12", placeholder = "Enter CustomerName", title = "CustomerName", @id = "CustomerName" })
                             <label style="color:red" id="CustomerNameVal">*</label>
                         </div>
@@ -136,7 +136,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <input class="btn-primary" type="submit" id="btnsave" value="Save" title="ClickToSave" />
+                    <input class="btn-primary" type="submit" id="btnsave" value="Update" title="ClickToSave" />
                     <input type="button" class="btn-danger" id="btncancel" value="Cancel" title="ClickToCancel" data-dismiss="modal" onclick="abc();" />
 
                 </div>
@@ -172,69 +172,38 @@
         var error = 0;
         if ($("#CustomerName").val() == "")
         {
-            error = 1;
             $("#CustomerNameVal").show();
         }
         else
         {
             $("#CustomerNameVal").hide();
         }
-<<<<<<< HEAD
-        if ($("#Address").val() == "")
-        {
-=======
         if ($("#Address").val() == "") {
->>>>>>> 7e7a8fb0ff238f54c46802714b79b1a740a6fba7
-            error = 1;
             $("#AddressVal").show();
         }
         else {
             $("#AddressVal").hide();
         }
 
-<<<<<<< HEAD
-        if ($("#Area").val() == "")
-        {
-=======
         if ($("#Area").val() == "") {
->>>>>>> 7e7a8fb0ff238f54c46802714b79b1a740a6fba7
-            error = 1;
             $("#AreaVal").show();
         }
         else {
             $("#AreaVal").hide();
         }
-<<<<<<< HEAD
-        if ($("#Mobile").val() == "")
-        {
-=======
         if ($("#Mobile").val() == "") {
->>>>>>> 7e7a8fb0ff238f54c46802714b79b1a740a6fba7
-            error = 1;
             $("#MobileVal").show();
         }
         else {
             $("#MobileVal").hide();
         }
-<<<<<<< HEAD
-        if ($("#Employee").val() == "")
-        {
-=======
         if ($("#Employee").val() == "") {
->>>>>>> 7e7a8fb0ff238f54c46802714b79b1a740a6fba7
-            error = 1;
             $("#EmployeeVal").show();
         }
         else {
             $("#EmployeeVal").hide();
         }
-<<<<<<< HEAD
-        if ($("#Vehicle").val() == "")
-        {
-=======
         if ($("#Vehicle").val() == "") {
->>>>>>> 7e7a8fb0ff238f54c46802714b79b1a740a6fba7
-            error = 1;
             $("#VehicleVal").show();
         }
         else {
@@ -249,17 +218,17 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: '/Home/AddCustomer',
+                url: '/Home/UpdateCustomer',
 
                 data:
                 {
-
+                    CustomerID: $("#CustomerID").val(),
                     CustomerName: $("#CustomerName").val(),
                     Address: $("#Address").val(),
                     AreaID: $("#AreaID").val(),
                     Mobile: $("#Mobile").val(),
                     EmployeeId: $("#EmployeeId").val(),
-                    VehicleId: $("#VehicleID").val(),
+                    VehicleId: $("#VehicleId").val(),
                     isActive: 1,
                     BillRequired: 1,
                     DeliveryCharges: $("#DeliveryCharges").val(),
@@ -338,7 +307,7 @@
                   });
     }
 
-    
+
      function getVehicle()
     {
              var returnResult = [];
