@@ -172,38 +172,49 @@
         var error = 0;
         if ($("#CustomerName").val() == "")
         {
+            error = 1;
             $("#CustomerNameVal").show();
         }
         else
         {
             $("#CustomerNameVal").hide();
         }
-        if ($("#Address").val() == "") {
+        if ($("#Address").val() == "")
+        {
+            error = 1;
             $("#AddressVal").show();
         }
         else {
             $("#AddressVal").hide();
         }
 
-        if ($("#Area").val() == "") {
+        if ($("#Area").val() == "")
+        {
+            error = 1;
             $("#AreaVal").show();
         }
         else {
             $("#AreaVal").hide();
         }
-        if ($("#Mobile").val() == "") {
+        if ($("#Mobile").val() == "")
+        {
+            error = 1;
             $("#MobileVal").show();
         }
         else {
             $("#MobileVal").hide();
         }
-        if ($("#Employee").val() == "") {
+        if ($("#Employee").val() == "")
+        {
+            error = 1;
             $("#EmployeeVal").show();
         }
         else {
             $("#EmployeeVal").hide();
         }
-        if ($("#Vehicle").val() == "") {
+        if ($("#Vehicle").val() == "")
+        {
+            error = 1;
             $("#VehicleVal").show();
         }
         else {
@@ -228,7 +239,7 @@
                     AreaID: $("#AreaID").val(),
                     Mobile: $("#Mobile").val(),
                     EmployeeId: $("#EmployeeId").val(),
-                    VehicleId: $("#VehicleId").val(),
+                    VehicleId: $("#VehicleID").val(),
                     isActive: 1,
                     BillRequired: 1,
                     DeliveryCharges: $("#DeliveryCharges").val(),
