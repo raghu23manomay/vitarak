@@ -498,7 +498,6 @@ namespace demomilk.Controllers
 
         //================================== Save Product Excel Data ===========================================
 
-
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult SaveProductExcelData(List<ProductMaster> SaveLaneRate)
@@ -536,7 +535,28 @@ namespace demomilk.Controllers
                         dr["CrateSize"] = item.CrateSize;
                         dr["GST"] = item.GST;
 
-                        if (item.Product != null)
+                        string pbid = item.ProductBrandID.ToString();
+                        Int64 Num = 0;
+                        bool isNum = Int64.TryParse(pbid, out Num);
+
+                        string caret = item.CrateSize.ToString();
+                        Int64 CaretNum = 0;
+                        bool CaretisNum = Int64.TryParse(caret, out CaretNum);
+
+                        if (item.Product == null)
+                        {
+                            return Json("Enter Product Name");
+                            
+                        }
+                        else if(item.ProductBrandID == 0 || isNum == false)
+                        {
+                            return Json("Enter Sequence Number In Numaric");
+                        }
+                        else if(item.CrateSize == 0 || CaretisNum == false)
+                        {
+                            return Json("Enter Caret Size In Numaric ");
+                        }
+                        else
                         {
                             dt.Rows.Add(dr);
                         }
@@ -779,9 +799,7 @@ namespace demomilk.Controllers
                 string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
                 return Json(up, JsonRequestBehavior.AllowGet);
 
-            }
-
-         
+            }         
 
         }
 
@@ -839,9 +857,7 @@ namespace demomilk.Controllers
                 return Json(message);
 
             }
-
         }
-
 
         public ActionResult IndexForVehicalMaster(int? page)
         {
