@@ -712,7 +712,7 @@ namespace demomilk.Controllers
                         }
                         if(item.Mobile==null)
                         {
-                            return Json("Moobile number Missing");
+                            return Json("Mobile number Missing");
                         }
                         if (item.EmployeeName != null)
                         {
@@ -1308,10 +1308,10 @@ namespace demomilk.Controllers
         public ActionResult EditCustomer(int CustomerID)
         {
             JobDbContext _db = new JobDbContext();
-            Customer md = new Customer();
-            var result = _db.Customer.SqlQuery(@"exec UC_Select_CustomerMast_By_CustomerID @CustomerID
+            CustomerList md = new CustomerList();
+            var result = _db.CustomerList.SqlQuery(@"exec UC_Select_CustomerMast_By_CustomerID @CustomerID
                 ",
-                new SqlParameter("@CustomerID", CustomerID)).ToList<Customer>();
+                new SqlParameter("@CustomerID", CustomerID)).ToList<CustomerList>();
             md = result.FirstOrDefault();
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("EditCustomer", md)
@@ -1319,7 +1319,7 @@ namespace demomilk.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCustomer(Customer pm)
+        public ActionResult UpdateCustomer(CustomerList pm)
         {
             JobDbContext _db = new JobDbContext();
 
