@@ -65,16 +65,6 @@ namespace demomilk.Controllers
                     : View("Index", itemsAsIPagedList);
         }
 
-        public ActionResult LoadDataForArea(int? page)
-        {
-            StaticPagedList<RouteDetails> itemsAsIPagedList;
-            itemsAsIPagedList = AeraGridList(page);
-          //  Session["MasterName"] = "AreaMaster";
-            return Request.IsAjaxRequest()
-                    ? (ActionResult)PartialView("AdminIndex", itemsAsIPagedList)
-                    : View("AdminIndex", itemsAsIPagedList);
-        }
-
         [HttpGet]
         public ActionResult AddArea_Route()
         {
@@ -141,16 +131,8 @@ namespace demomilk.Controllers
                     new SqlParameter("@Area", md.Area),
                     new SqlParameter("@CityID", 1),
                     new SqlParameter("@AreaID", md.AreaID));
-                if(res == 0)
-                {
-                    return Json("Area is already exist");
-                }
-                else
-                {
-                    return Json("Data Updated Sucessfully");
-                }
 
-                   
+                    return Json("Data Updated Sucessfully");
             }
             catch (Exception ex)
             {
@@ -399,16 +381,6 @@ namespace demomilk.Controllers
                     : View("IndexForproductMaster", itemsAsIPagedList);
         }
 
-        public ActionResult LoadDataForProduct(int? page)
-        {
-            StaticPagedList<ProductDetails> itemsAsIPagedList;
-            itemsAsIPagedList = ProductGridList(page);
-
-            return Request.IsAjaxRequest()
-                    ? (ActionResult)PartialView("_partialGridProductMaster", itemsAsIPagedList)
-                    : View("_partialGridProductMaster", itemsAsIPagedList);
-        }
-
 
 
         //================================== Fill Product Grid Code ===========================================
@@ -636,16 +608,7 @@ namespace demomilk.Controllers
                     new SqlParameter("@CrateSize", pm.CrateSize),
                     new SqlParameter("@GST", pm.GST));
 
-                if(res == 0)
-                {
-                    return Json("Produxt Already Exist");
-                }
-                else
-                {
-                    return Json("Data Added Sucessfully");
-                }
-
-                
+                return Json("Data Added Sucessfully");
             }
             catch (Exception ex)
             {
@@ -754,12 +717,29 @@ namespace demomilk.Controllers
                         dr["AreaID"] = 1;
                         dr["Mobile"] = item.Mobile;
                         dr["UserId"] = 1;
+
+                        if(item.EmployeeName==null)
+                        {
+                            return Json("Employee Name Missing");
+                        }
+                        if(item.Address==null)
+                        {
+                            return Json("Address missing");
+                        }
+                        if(item.AreaID==0)
+                        {
+                            return Json("Area Id Missing");
+                        }
+                        if(item.Mobile==null)
+                        {
+                            return Json("Moobile number Missing");
+                        }
                         if (item.EmployeeName != null)
                         {
                             dt.Rows.Add(dr);
                         }
                     }
-
+                    
                     SqlParameter tvpParam = new SqlParameter();
                     tvpParam.ParameterName = "@EmployeeParameters";
                     tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
@@ -789,10 +769,10 @@ namespace demomilk.Controllers
         public ActionResult EditEmployee(int EmployeeID)
         {
             JobDbContext _db = new JobDbContext();
-            EmployeeList md = new EmployeeList();
-            var result = _db.EmployeeList.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
+            Employee md = new Employee();
+            var result = _db.Employee.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
                 ",
-                new SqlParameter("@EmployeeID", EmployeeID)).ToList<EmployeeList>();
+                new SqlParameter("@EmployeeID", EmployeeID)).ToList<Employee>();
             md = result.FirstOrDefault();
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("EditEmployee", md)
@@ -1064,19 +1044,6 @@ namespace demomilk.Controllers
 
 
 
-        public ActionResult LoadDataForSuppier(int? page)
-        {
-            StaticPagedList<SupplierDetails> itemsAsIPagedList;
-            itemsAsIPagedList = SupplierGridList(page);
-
-         //   Session["MasterName"] = "SupplierMaster";
-            return Request.IsAjaxRequest()
-                    ? (ActionResult)PartialView("_PartialGridSupplierList", itemsAsIPagedList)
-                    : View("_PartialGridSupplierList", itemsAsIPagedList);
-        }
-
-
-
         //================================== Fill Supplier Grid Code ===========================================
 
         public StaticPagedList<SupplierDetails> SupplierGridList(int? page)
@@ -1120,14 +1087,14 @@ namespace demomilk.Controllers
 
                 var res = _db.Database.ExecuteSqlCommand(@"exec UC_InsertVendorMast @VendorName,@Address,@AreaID,@CityID,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@CreatedBy",
                     new SqlParameter("@VendorName", pm.VendorName),
-                    new SqlParameter("@Address", pm.Address == null ? (object)DBNull.Value : pm.Address),
+                    new SqlParameter("@Address", pm.Address),
                     new SqlParameter("@AreaID",1),
                     new SqlParameter("@CityID", 1),
-                    new SqlParameter("@EmailID", pm.EmailID == null ? (object)DBNull.Value : pm.EmailID),
-                    new SqlParameter("@OfficePhone", pm.OfficeNumber == null ? (object)DBNull.Value : pm.OfficeNumber),
-                    new SqlParameter("@FaxNo", pm.FaxNumber == null ? (object)DBNull.Value : pm.FaxNumber),
-                    new SqlParameter("@ContactPerson", pm.ContactPerson == null ? (object)DBNull.Value : pm.ContactPerson),
-                    new SqlParameter("@PersonMobileNo", pm.PersonMobileNo == null ? (object)DBNull.Value : pm.PersonMobileNo),
+                    new SqlParameter("@EmailID", pm.EmailID),
+                    new SqlParameter("@OfficePhone", pm.OfficeNumber),
+                    new SqlParameter("@FaxNo", pm.FaxNumber),
+                    new SqlParameter("@ContactPerson", pm.ContactPerson),
+                    new SqlParameter("@PersonMobileNo", pm.PersonMobileNo),
                     new SqlParameter("@IsActive", pm.IsActive),
                     new SqlParameter("@CreatedBy", 1)
                     );
@@ -1240,7 +1207,8 @@ namespace demomilk.Controllers
         }
 
 
-      /************************************************Add Vehical************************************************************/
+
+        /************************************************Add Vehical************************************************************/
         [HttpGet]
         public ActionResult Add_Customer()
         {
@@ -1275,8 +1243,8 @@ namespace demomilk.Controllers
             }
         }
 
-        //========================================== Edit Supplier ================================================
-       public ActionResult EditSupplier()
+
+        public ActionResult EditSupplier()
         {
             return View();
 
@@ -1294,6 +1262,8 @@ namespace demomilk.Controllers
                 SupplierMaster rs = new SupplierMaster();
                 rs = res.FirstOrDefault();
                 return View("EditSupplier", rs);
+
+
             }
             catch (Exception ex)
             {
@@ -1303,6 +1273,9 @@ namespace demomilk.Controllers
             }
 
         }
+
+
+
 
 
         public ActionResult IndexForCustomerMaster(int? page)
@@ -1344,14 +1317,17 @@ namespace demomilk.Controllers
 
         }
 
+
+
+
         /*******************************************EditEmployee*****************************************************/
         public ActionResult EditCustomer(int CustomerID)
         {
             JobDbContext _db = new JobDbContext();
-            CustomerList md = new CustomerList();
-            var result = _db.CustomerList.SqlQuery(@"exec UC_Select_CustomerMast_By_CustomerID @CustomerID
+            Customer md = new Customer();
+            var result = _db.Customer.SqlQuery(@"exec UC_Select_CustomerMast_By_CustomerID @CustomerID
                 ",
-                new SqlParameter("@CustomerID", CustomerID)).ToList<CustomerList>();
+                new SqlParameter("@CustomerID", CustomerID)).ToList<Customer>();
             md = result.FirstOrDefault();
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("EditCustomer", md)
@@ -1378,7 +1354,7 @@ namespace demomilk.Controllers
                     new SqlParameter("@DeliveryCharges", pm.DeliveryCharges)
                     );
 
-                return Json("Data Updated Sucessfully");
+                return Json("Data Added Sucessfully");
             }
             catch (Exception ex)
             {
@@ -1443,14 +1419,13 @@ namespace demomilk.Controllers
                         dr["CustomerID"] = 1;
                         dr["CustomerName"] = item.CustomerName;
                         dr["Address"] = item.Address;
-                        dr["Address"] = item.Address;
                         dr["Mobile"] = item.Mobile;
                         dr["AreaID"] = item.AreaID;
                         dr["SalesPersonID"] = item.SalesPersonID;
                         dr["VehicleID"] = item.VehicleID;
-                        dr["CustomerTypeId"] = item.CustomerTypeId;
+                        dr["CustomerTypeId"] = 1;
                         dr["CustomerNameEnglish"] = item.CustomerNameEnglish;
-                        dr["LastUpdatedDate"] = item.LastUpdatedDate;
+                        dr["LastUpdatedDate"] = System.DateTime.Now;
                         dr["isBillRequired"] = item.isBillRequired;
                         dr["isActive"] = item.isActive;
                         dr["DeliveryCharges"] = item.DeliveryCharges;
@@ -1485,6 +1460,7 @@ namespace demomilk.Controllers
 
         }
 
+
         [HttpPost]
         public ActionResult UpdateSupplier(SupplierMaster rm)
         {
@@ -1495,12 +1471,12 @@ namespace demomilk.Controllers
                 var res = _db.Database.ExecuteSqlCommand(@"exec [UC_UpdateVendorMast] @VendorID,@VendorName,@Address,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@LastUpdatedBy",
                     new SqlParameter("@VendorID", rm.VendorID),
                     new SqlParameter("@VendorName", rm.VendorName),
-                    new SqlParameter("@Address", rm.Address == null ? (object)DBNull.Value : rm.Address),
-                    new SqlParameter("@EmailID", rm.EmailID == null ? (object)DBNull.Value : rm.EmailID),
-                    new SqlParameter("@OfficePhone", rm.OfficeNumber == null ? (object)DBNull.Value : rm.OfficeNumber),
-                    new SqlParameter("@FaxNo", rm.FaxNumber == null ? (object)DBNull.Value : rm.FaxNumber),
-                    new SqlParameter("@ContactPerson", rm.ContactPerson == null ? (object)DBNull.Value : rm.ContactPerson),
-                    new SqlParameter("@PersonMobileNo", rm.PersonMobileNo == null ? (object)DBNull.Value : rm.PersonMobileNo),
+                    new SqlParameter("@Address", rm.Address),
+                    new SqlParameter("@EmailID", rm.EmailID),
+                    new SqlParameter("@OfficePhone", rm.OfficeNumber),
+                    new SqlParameter("@FaxNo", rm.FaxNumber),
+                    new SqlParameter("@ContactPerson", rm.ContactPerson),
+                    new SqlParameter("@PersonMobileNo", rm.PersonMobileNo),
                     new SqlParameter("@IsActive", rm.IsActive),
                     new SqlParameter("@LastUpdatedBy", 1));
 
@@ -1536,8 +1512,9 @@ namespace demomilk.Controllers
 
         }
 
-    
+    }
 
-   }
+
+
 
 }
