@@ -65,6 +65,7 @@
                                                 <tr>
                                                     @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
                                                     {
+                                                        
                                                         <th>@col.Caption</th>
                                                     }
                                                 </tr>
@@ -72,14 +73,18 @@
                                             <tbody>
                                                 @foreach (System.Data.DataRow row in Model.dtTable.Rows)
                                                 {
-                                                    <tr>
-                                                        @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
-                                                        {
-                                                            <td contenteditable='true'>
-                                                                @row[col.ColumnName]
-                                                            </td>
-                                                        }
-                                                    </tr>
+                                                <tr>
+
+                                                    @foreach (System.Data.DataColumn col in Model.dtTable.Columns)
+                                                    {
+                                                        <td contenteditable='true'>
+                                                            @row[col.ColumnName]
+                                                        </td>
+
+                                                    }
+                                                    <td><a data-itemId="0" href="#" class="deleteItem"><i class="icon-delete"></i></a></td>
+
+                                                </tr>
                                                 }
                                             </tbody>
                                         </table>
@@ -229,7 +234,48 @@
                        
                         
                         idArr.push(tdVals);
-                });
+            });
+
+
+
+            $("tbody tr").each(function () {
+
+                var trElement = $(this);
+                var pdt = trElement.find('td:eq(0)').text().trim();
+                
+                if (($.isNumeric(trElement.find('td:eq(1)').text().trim())) == true && trElement.find('td:eq(1)').text().trim() != null && pdt != "" && ($.isNumeric(trElement.find('td:eq(3)').text().trim())) == true && trElement.find('td:eq(3)').text().trim() != null) {
+
+                    $(this).css('background-color', 'white');
+                    trElement.find('td:eq(0)').css('background-color', 'white');
+                    trElement.find('td:eq(1)').css('background-color', 'white');
+                    trElement.find('td:eq(3)').css('background-color', 'white');
+                }
+
+                if (pdt == "") {
+
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(0)').css('background-color', 'yellow');
+
+
+                }
+
+                if (($.isNumeric(trElement.find('td:eq(1)').text().trim())) == false || trElement.find('td:eq(1)').text().trim() == null) {
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(1)').css('background-color', 'yellow');
+
+
+                }
+
+                if (($.isNumeric(trElement.find('td:eq(3)').text().trim())) == false || trElement.find('td:eq(3)').text().trim() == null) {
+                    $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(3)').css('background-color', 'yellow');
+
+                }
+
+
+            });
+
+
                 var SaveLaneRate = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
@@ -243,7 +289,10 @@
                     
                     SaveLaneRate.push(item);
                     
-                }
+            }
+
+
+
               
                 $.ajax({
                     contentType: "application/json; charset=utf-8",
@@ -394,26 +443,36 @@
 
                 var trElement = $(this);
                 var tdVals = trElement.find('td:eq(0)').text().trim();
-
-                if (tdVals != "" && trElement.find('td:eq(1)').text().trim() != "") {
-                    $(this).css('background-color', 'white');
+                var adress = trElement.find('td:eq(1)').text().trim();
+                
+                if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == true && trElement.find('td:eq(7)').text().trim().length == 10 && tdVals != "" && adress != "")
+                {
                     
+                    $(this).css('background-color', 'white');
+                    trElement.find('td:eq(0)').css('background-color', 'white');
+                    trElement.find('td:eq(1)').css('background-color', 'white');
+                    trElement.find('td:eq(7)').css('background-color', 'white');
                 }
                                
                 if (tdVals == "") {
 
                     $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(0)').css('background-color', 'yellow');
+
 
                 }
 
-                else if (trElement.find('td:eq(1)').text().trim() == "") {
+                 if (trElement.find('td:eq(1)').text().trim() == "") {
                     $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(1)').css('background-color', 'yellow');
                  
 
                 }
-                else if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == false || trElement.find('td:eq(7)').text().trim().length != 10  )
+                 if (($.isNumeric(trElement.find('td:eq(7)').text().trim())) == false || trElement.find('td:eq(7)').text().trim().length != 10 )
                 {
                     $(this).css('background-color', '#fdeef3');
+                    trElement.find('td:eq(7)').css('background-color', 'yellow');
+
                 }
                     
                 
@@ -471,17 +530,15 @@
         }
 
 
-        function rowchange() {
-            //$('tbody tr').change(function () {
-            //    $(this).addClass("highlight");
-            //});
-
-            $('tbody tr').each(function (k, v) {
-                var trElement = $(this);
-                trElement.find('td:eq(0)')
-
-            });
-        }
+        $(document).on('click', 'a.deleteItem', function (e) {
+            e.preventDefault();
+            var $self = $(this);
+            if ($(this).attr('data-itemId') == "0") {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                    $(this).remove();
+                });
+            }
+        });
 
          function SaveDataForCustomerMaster() {
                
