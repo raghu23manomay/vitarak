@@ -304,7 +304,6 @@
     <Content Include="Excelsheet\EmployeeMaster.xlsx" />
     <Content Include="Excelsheet\VehicalMaster.xlsx" />
     <Content Include="Excelsheet\Supplier_Master.xlsx" />
-    <Content Include="Excelsheet\Customer_Master.xlsx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -359,6 +358,7 @@
     <Content Include="Views\Home\EditProduct.cshtml" />
     <Content Include="Views\Home\EditSupplier.cshtml" />
     <Content Include="Views\Home\EditCustomer.cshtml" />
+
     <Content Include="Views\Home\EditArea_Route.cshtml" />
     <Content Include="Views\Home\EditProduct.cshtml" />
     <Content Include="Views\Home\EditSupplier.cshtml" />
