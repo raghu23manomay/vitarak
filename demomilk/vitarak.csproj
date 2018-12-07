@@ -362,6 +362,10 @@
     <Content Include="Views\Home\EditArea_Route.cshtml" />
     <Content Include="Views\Home\EditProduct.cshtml" />
     <Content Include="Views\Home\EditSupplier.cshtml" />
+    <Content Include="Views\Home\IndexForPurchaseRateMaster.cshtml" />
+    <Content Include="Views\Home\Partial_PurchaseGridList.cshtml" />
+    <Content Include="Views\Home\CustomerRates.cshtml" />
+    <Content Include="Views\Home\OpeningBalance.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

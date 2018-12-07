@@ -6,7 +6,7 @@
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <!DOCTYPE html>
 
-<html>
+<html id="Validation">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>importexcel</title>
@@ -70,7 +70,7 @@
                                                     }
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="Validaion">
                                                 @foreach (System.Data.DataRow row in Model.dtTable.Rows)
                                                 {
                                                 <tr>
@@ -129,6 +129,22 @@
 </style>
 
     <script>       
+        $(document).on('click load keyup', function () {
+            $('tbody tr td').each(function () {
+
+                var a = $(this).text().trim();
+                if (a == "") {
+
+                    $(this).css('background', 'red');
+
+                }
+                else {
+                    $(this).css('background', 'White');
+                }
+
+
+            });
+        })
         
         if ($("#MasterName").text() == "ProductMaster")
         {
@@ -316,7 +332,7 @@
         function SaveDataForEmployeeMaster() {
                
                 var idArr = [];
-
+           
                 $('tbody tr').each(function (k, v) {
                     var trElement = $(this);
                     var tdVals = trElement.find('td:eq(0)').text().trim() + '~' +
@@ -324,10 +340,22 @@
                         trElement.find('td:eq(2)').text().trim() + '~' +
                         trElement.find('td:eq(3)').text().trim() + '~' +
                         trElement.find('td:eq(4)').text().trim()
-                       
+                    
                         
                         idArr.push(tdVals);
-                });
+            });
+
+            //$('tbody tr td').each(function () {
+
+            //    var a = $(this).text().trim();
+            //    if (a == "") {
+                   
+            //        $(this).css('background', 'red');
+
+            //    }
+                   
+
+            //});
             var SaveEmployeeData = [];
                 for (var i = 0; i < idArr.length; i++) {
                     var arrElement = idArr[i].split("~");
@@ -341,9 +369,9 @@
                     
                     SaveEmployeeData.push(item);
                     
-                }
-              
-                $.ajax({
+            }
+            
+             $.ajax({
                     contentType: "application/json; charset=utf-8",
                     url: "@Url.Action("SaveEmployeeExcelData", "Home")",
                     method: 'POST',
@@ -354,6 +382,7 @@
                     }),
                     success: function (result) {
                         alert(result);
+                        
                        
                     },
                     error: function () {

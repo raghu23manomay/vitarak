@@ -85,6 +85,7 @@ namespace demomilk.Models
         IEnumerable<EmployeeDetails> EmployeeDetail { get; set; }
         public string Address { get; set; }
         public int AreaID { get; set; }
+        public string Area { get; set; }
         public string Mobile { get; set; }
         public int? TotalRows { get; set; }
     }

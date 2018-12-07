@@ -714,7 +714,7 @@ namespace demomilk.Controllers
                         dr["EmployeeID"] = 1;
                         dr["EmployeeName"] = item.EmployeeName;
                         dr["Address"] = item.Address;
-                        dr["AreaID"] = 1;
+                        dr["AreaID"] = 2;
                         dr["Mobile"] = item.Mobile;
                         dr["UserId"] = 1;
 
@@ -1354,7 +1354,7 @@ namespace demomilk.Controllers
                     new SqlParameter("@DeliveryCharges", pm.DeliveryCharges)
                     );
 
-                return Json("Data Added Sucessfully");
+                return Json("Data Updated Sucessfully");
             }
             catch (Exception ex)
             {
@@ -1420,7 +1420,7 @@ namespace demomilk.Controllers
                         dr["CustomerName"] = item.CustomerName;
                         dr["Address"] = item.Address;
                         dr["Mobile"] = item.Mobile;
-                        dr["AreaID"] = item.AreaID;
+                        dr["AreaID"] = 2;
                         dr["SalesPersonID"] = item.SalesPersonID;
                         dr["VehicleID"] = item.VehicleID;
                         dr["CustomerTypeId"] = 1;
@@ -1511,6 +1511,52 @@ namespace demomilk.Controllers
             }
 
         }
+
+
+
+
+
+
+        public ActionResult CustomerRates()
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "CustomersRate";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                return View(dt);
+            }
+
+        }
+
+
 
     }
 
