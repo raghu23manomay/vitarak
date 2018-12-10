@@ -774,6 +774,7 @@ namespace demomilk.Controllers
                 ",
                 new SqlParameter("@EmployeeID", EmployeeID)).ToList<Employee>();
             md = result.FirstOrDefault();
+            ViewData["Area"] = binddropdown("Area", 0);
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("EditEmployee", md)
                : View("EditEmployee", md);
@@ -1329,6 +1330,8 @@ namespace demomilk.Controllers
                 ",
                 new SqlParameter("@CustomerID", CustomerID)).ToList<CustomerList>();
             md = result.FirstOrDefault();
+            ViewData["Area"] = binddropdown("Area", 0);
+            ViewData["Employee"] = binddropdown("Employee", 0);
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("EditCustomer", md)
                : View("EditCustomer", md);
