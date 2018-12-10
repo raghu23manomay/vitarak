@@ -1,0 +1,99 @@
+﻿
+@using System.Data
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "PurchaseRates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="modal-dialog">
+
+    <div class="modal-content" style="width: 162%; margin-left: -135px;">
+        <div class="modal-header">
+            <h2>Purchase Rates</h2>
+           
+        </div>
+        <div class="modal-body">
+            @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
+            {
+
+                
+                try
+                {
+                    <div class="row">
+                        <div class="col-sm-12 m-b-lg">
+                            <div class="ibox float-e-margins">
+                                <div class="table-responsive" id="pnl-rates" style="overflow: auto;height: 340px">
+                                    <table class="table table-striped" id="RateList">
+                                        <thead class="ibox-title">
+                                            <tr>
+                                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                                {
+
+                                                    <th><b>@col.Caption</b></th>
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (System.Data.DataRow row in Model.Rows)
+                                            {
+                                            <tr>
+
+                                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                                {
+
+
+                                                    if (row[col.ColumnName].ToString() == "")
+                                                    {
+                                                        <td contenteditable='true'>
+                                                            <b> 0.00 </b>
+                                                        </td>
+                                                    }
+
+                                                    else
+                                                    {
+                                                        string temp = row[col.ColumnName].ToString();
+                                                        decimal Num = 0;
+                                                        bool isNum = decimal.TryParse(temp, out Num);
+                                                        if (isNum == false)
+                                                        {
+
+                                                            <td>
+                                                                <b> @row[col.ColumnName]</b>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td contenteditable='true'>
+                                                                <b> @row[col.ColumnName]</b>
+                                                            </td>
+                                                        }
+                                                    }
+
+                                                }
+
+
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                catch { }
+            }
+        </div>
+        <div class="modal-footer">
+            <input class="btn-primary " type="submit" id="btnsave" value="Save" title="ClickToSave" />
+            <input class="btn-danger " type="submit" id="btnsave" value="Cancel" title="ClickToSave" />
+
+        </div>
+    </div>
+</div>
+
+
+
