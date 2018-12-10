@@ -326,7 +326,6 @@ namespace demomilk.Controllers
                 : View(L);
         }
 
-
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult SaveAreaExcelData(List<Route> SaveLaneRate)
@@ -380,11 +379,9 @@ namespace demomilk.Controllers
                 var messege = e.Message;
                 return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
                : Json(messege);
-            }
-            
+            }            
             
         }
-
 
         //=================================================  Product Master ==================================================
 
@@ -981,6 +978,7 @@ namespace demomilk.Controllers
         }
 
         /*******************************************EditEmployee*****************************************************/
+
         public ActionResult EditVehical(int VechicleID)
         {
             JobDbContext _db = new JobDbContext();
@@ -1062,8 +1060,7 @@ namespace demomilk.Controllers
                     : View("IndexForSupplierMaster", itemsAsIPagedList);
         }
 
-
-
+        
         public ActionResult LoadDataForSuppier(int? page)
         {
             StaticPagedList<SupplierDetails> itemsAsIPagedList;
@@ -1536,7 +1533,48 @@ namespace demomilk.Controllers
 
         }
 
-    
+
+        public ActionResult PurchaseRates()
+        {
+            
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SP_EXECUTESQL123";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        // dataAdapter.Fill(ds);
+                        //using (var reader = cmd.ExecuteReader())
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+               
+                return View(dt);
+            }
+            
+        }
+
+
 
    }
 
