@@ -568,10 +568,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/15/2018 15:26:42</publishTime>
     </File>
     <File Include="bin/demomilk.dll">
-      <publishTime>12/03/2018 11:47:13</publishTime>
+      <publishTime>12/12/2018 17:34:46</publishTime>
     </File>
     <File Include="bin/demomilk.pdb">
-      <publishTime>12/03/2018 11:47:13</publishTime>
+      <publishTime>12/12/2018 17:34:46</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>03/02/2015 22:02:26</publishTime>
@@ -823,7 +823,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2018 15:45:55</publishTime>
     </File>
     <File Include="Views/Home/Add_Customer.cshtml">
-      <publishTime>11/29/2018 19:30:21</publishTime>
+      <publishTime>12/03/2018 13:24:36</publishTime>
     </File>
     <File Include="Views/Home/Add_Employee.cshtml">
       <publishTime>11/29/2018 19:17:06</publishTime>
@@ -853,7 +853,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/29/2018 16:57:54</publishTime>
     </File>
     <File Include="Views/Home/EditSupplier.cshtml">
-      <publishTime>11/30/2018 13:18:06</publishTime>
+      <publishTime>12/03/2018 13:24:36</publishTime>
     </File>
     <File Include="Views/Home/EditVehical.cshtml">
       <publishTime>11/29/2018 19:17:06</publishTime>
@@ -865,40 +865,49 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/03/2018 11:46:25</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/29/2018 19:27:38</publishTime>
+      <publishTime>12/12/2018 17:15:46</publishTime>
     </File>
     <File Include="Views/Home/IndexForCustomerMaster.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>12/12/2018 17:22:20</publishTime>
     </File>
     <File Include="Views/Home/IndexForEmployeeMaster.cshtml">
-      <publishTime>11/29/2018 19:26:26</publishTime>
+      <publishTime>12/12/2018 17:21:55</publishTime>
     </File>
     <File Include="Views/Home/IndexForproductMaster.cshtml">
-      <publishTime>11/29/2018 14:42:55</publishTime>
+      <publishTime>12/12/2018 17:21:41</publishTime>
     </File>
     <File Include="Views/Home/IndexForSupplierMaster.cshtml">
-      <publishTime>11/29/2018 14:41:04</publishTime>
+      <publishTime>12/12/2018 17:21:06</publishTime>
     </File>
     <File Include="Views/Home/IndexForVehicalMaster.cshtml">
-      <publishTime>11/29/2018 14:13:08</publishTime>
+      <publishTime>12/12/2018 17:20:38</publishTime>
     </File>
     <File Include="Views/Home/Partial_CustomerGridList.cshtml">
-      <publishTime>11/29/2018 19:17:06</publishTime>
+      <publishTime>12/03/2018 13:24:36</publishTime>
     </File>
     <File Include="Views/Home/partial_EmployeeGridList.cshtml">
-      <publishTime>11/29/2018 19:17:06</publishTime>
+      <publishTime>12/03/2018 13:24:36</publishTime>
     </File>
     <File Include="Views/Home/Partial_VehicalGridList.cshtml">
       <publishTime>11/29/2018 14:13:08</publishTime>
+    </File>
+    <File Include="Views/Home/Purchase.cshtml">
+      <publishTime>12/12/2018 17:12:35</publishTime>
+    </File>
+    <File Include="Views/Home/PurchaseRates.cshtml">
+      <publishTime>12/12/2018 15:41:28</publishTime>
     </File>
     <File Include="Views/Home/_partialGridProductMaster.cshtml">
       <publishTime>11/27/2018 15:17:07</publishTime>
     </File>
     <File Include="Views/Home/_PartialGridSupplierList.cshtml">
-      <publishTime>11/27/2018 16:20:52</publishTime>
+      <publishTime>12/03/2018 18:27:36</publishTime>
+    </File>
+    <File Include="Views/Home/_partialPurchaseGrid.cshtml">
+      <publishTime>12/12/2018 16:52:03</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>11/26/2018 18:51:16</publishTime>
+      <publishTime>12/12/2018 17:20:14</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>11/16/2018 17:03:31</publishTime>

@@ -1550,6 +1550,7 @@ namespace demomilk.Controllers
                     using (var cmd = conn.CreateCommand())
                     {
                         cmd.CommandText = "SP_EXECUTESQL123";
+                       
                         cmd.CommandType = CommandType.StoredProcedure;
                         // dataAdapter.Fill(ds);
                         //using (var reader = cmd.ExecuteReader())
@@ -1575,7 +1576,102 @@ namespace demomilk.Controllers
         }
 
 
+        public ActionResult Purchase(DateTime? date)
+        {
 
-   }
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                if(date == null)
+                {
+                    date = DateTime.Now;
+                }
+              
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SP_LoadPurchase";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@orderdate", date));
+                        // dataAdapter.Fill(ds);
+                        //using (var reader = cmd.ExecuteReader())
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                return View(dt);
+            }
+
+        }
+
+
+
+        public ActionResult PurchasePartial(DateTime? date)
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                if (date == null)
+                {
+                    date = DateTime.Now;
+                }
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SP_LoadPurchase";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@orderdate", date));
+                        // dataAdapter.Fill(ds);
+                        //using (var reader = cmd.ExecuteReader())
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                return Request.IsAjaxRequest()
+                     ? (ActionResult)PartialView("_partialPurchaseGrid",dt)
+                     : View("_partialPurchaseGrid",dt);
+            }
+
+        }
+
+    }
 
 }

@@ -362,6 +362,8 @@
     <Content Include="Views\Home\EditProduct.cshtml" />
     <Content Include="Views\Home\EditSupplier.cshtml" />
     <Content Include="Views\Home\PurchaseRates.cshtml" />
+    <Content Include="Views\Home\Purchase.cshtml" />
+    <Content Include="Views\Home\_partialPurchaseGrid.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

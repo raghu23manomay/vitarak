@@ -1,0 +1,77 @@
+﻿
+@using System.Data
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "PurchaseRates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<div class="modal-dialog">
+
+    <div class="modal-content" style="width: 205%; margin-left: -265px;">
+        <div class="modal-header">
+            <h2>Purchase</h2>
+
+            <input type="date" id="txtdate" class="form-control pull-right" style="width:175px">
+            
+        </div>
+        
+        <div class="modal-body">
+            
+
+            @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
+            {
+
+
+                try
+                {
+                    <div class="row">
+                        <div class="col-sm-12 m-b-lg">
+
+                            <div id ="grid1"class="ibox float-e-margins">
+
+                               @Html.Partial("_partialPurchaseGrid")
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                catch { }
+            }
+        </div>
+        <div class="modal-footer">
+            <input class="btn-primary " type="submit" id="btnsave" value="Save" title="ClickToSave" />
+            <input class="btn-danger " type="submit" id="btnsave" value="Cancel" title="ClickToSave" />
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#txtdate').on('change', function () {
+       
+     $.ajax({
+            url: "@Url.Action("PurchasePartial", "Home")",
+         contentType: "application/json",
+         data: JSON.stringify({ date: $('#txtdate').val() }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#grid1').html(data);
+              
+            },
+            error: function (data) {
+               
+            },
+         complete: function () {
+
+         }
+
+        });
+    });
+
+</script>
+
+
