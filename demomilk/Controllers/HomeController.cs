@@ -88,7 +88,7 @@ namespace demomilk.Controllers
                 return Json(message);
 
             }
-            
+
         }
 
         public ActionResult EditArea_Route()
@@ -109,7 +109,7 @@ namespace demomilk.Controllers
 
                 EditRoute rs = new EditRoute();
                 rs = res.FirstOrDefault();
-                return View("EditArea_Route",rs);
+                return View("EditArea_Route", rs);
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace demomilk.Controllers
         [HttpPost]
         public ActionResult UpdateArea_Route(EditRoute md)
         {
-            
+
             JobDbContext _db = new JobDbContext();
             try
             {
@@ -132,7 +132,7 @@ namespace demomilk.Controllers
                     new SqlParameter("@CityID", 1),
                     new SqlParameter("@AreaID", md.AreaID));
 
-                    return Json("Data Updated Sucessfully");
+                return Json("Data Updated Sucessfully");
             }
             catch (Exception ex)
             {
@@ -313,9 +313,9 @@ namespace demomilk.Controllers
         [ValidateInput(false)]
         public ActionResult SaveAreaExcelData(List<Route> SaveLaneRate)
         {
-            
+
             try
-            {               
+            {
                 JobDbContext _db = new JobDbContext();
 
                 if (SaveLaneRate.Count > 0)
@@ -340,15 +340,15 @@ namespace demomilk.Controllers
                             dt.Rows.Add(dr);
                         }
                     }
-                
-                SqlParameter tvpParam = new SqlParameter();
-                tvpParam.ParameterName = "@Area_name";
-                tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
-                tvpParam.Value = dt;
-                tvpParam.TypeName = "UT_AeraMaster1";
 
-                var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_AeraMaster @Area_name",
-                 tvpParam);
+                    SqlParameter tvpParam = new SqlParameter();
+                    tvpParam.ParameterName = "@Area_name";
+                    tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
+                    tvpParam.Value = dt;
+                    tvpParam.TypeName = "UT_AeraMaster1";
+
+                    var res = _db.Database.ExecuteSqlCommand(@"exec USP_InsertExcelData_AeraMaster @Area_name",
+                     tvpParam);
 
                 }
                 // return Request.IsAjaxRequest() ? (ActionResult)PartialView("ImportLaneRate")
@@ -356,15 +356,15 @@ namespace demomilk.Controllers
                 return Request.IsAjaxRequest() ? (ActionResult)Json("Excel Imported Sucessfully")
                 : Json("Excel Imported Sucessfully");
             }
-            catch(Exception e)
+            catch (Exception e)
 
             {
                 var messege = e.Message;
                 return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
                : Json(messege);
             }
-            
-            
+
+
         }
 
 
@@ -423,7 +423,7 @@ namespace demomilk.Controllers
             return View();
 
         }
-                     
+
         public ActionResult FetchProductForUpdate(int? ProductID)
         {
             JobDbContext _db = new JobDbContext();
@@ -459,8 +459,8 @@ namespace demomilk.Controllers
                     new SqlParameter("@ProductBrandID", rm.ProductBrandID),
                     new SqlParameter("@StockCount", rm.StockCount),
                     new SqlParameter("@SalePrice", rm.SalePrice == null ? (object)DBNull.Value : rm.SalePrice),
-                    new SqlParameter("@CrateSize",rm.CrateSize),
-                    new SqlParameter("@GST",rm.GST));
+                    new SqlParameter("@CrateSize", rm.CrateSize),
+                    new SqlParameter("@GST", rm.GST));
 
                 return Json("Data Updated Sucessfully");
             }
@@ -509,16 +509,16 @@ namespace demomilk.Controllers
                 if (SaveLaneRate.Count > 0)
                 {
                     DataTable dt = new DataTable();
-                   
-                    dt.Columns.Add("ProductID"         , typeof(int)); 
-                    dt.Columns.Add("Product"           , typeof(string));
-                    dt.Columns.Add("ProductBrandID"    , typeof(int));
-                    dt.Columns.Add("CreateDate"        , typeof(DateTime));
-                    dt.Columns.Add("CreatedBy"         , typeof(int));
-                    dt.Columns.Add("LastUpdatedDate"   , typeof(DateTime));
-                    dt.Columns.Add("LastUpdatedBy"     , typeof(int));
-                    dt.Columns.Add("isActive"          , typeof(int));
-                    dt.Columns.Add("CrateSize"         , typeof(int));
+
+                    dt.Columns.Add("ProductID", typeof(int));
+                    dt.Columns.Add("Product", typeof(string));
+                    dt.Columns.Add("ProductBrandID", typeof(int));
+                    dt.Columns.Add("CreateDate", typeof(DateTime));
+                    dt.Columns.Add("CreatedBy", typeof(int));
+                    dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
+                    dt.Columns.Add("LastUpdatedBy", typeof(int));
+                    dt.Columns.Add("isActive", typeof(int));
+                    dt.Columns.Add("CrateSize", typeof(int));
                     dt.Columns.Add("GST", typeof(decimal));
 
                     foreach (var item in SaveLaneRate)
@@ -546,13 +546,13 @@ namespace demomilk.Controllers
                         if (item.Product == null)
                         {
                             return Json("Enter Product Name");
-                            
+
                         }
-                        else if(item.ProductBrandID == 0 || isNum == false)
+                        else if (item.ProductBrandID == 0 || isNum == false)
                         {
                             return Json("Enter Sequence Number In Numaric");
                         }
-                        else if(item.CrateSize == 0 || CaretisNum == false)
+                        else if (item.CrateSize == 0 || CaretisNum == false)
                         {
                             return Json("Enter Caret Size In Numaric ");
                         }
@@ -584,7 +584,7 @@ namespace demomilk.Controllers
                 return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
                : Json(messege);
             }
-            
+
         }
 
         [HttpGet]
@@ -599,12 +599,12 @@ namespace demomilk.Controllers
             JobDbContext _db = new JobDbContext();
             try
             {
-                
+
                 var res = _db.Database.ExecuteSqlCommand(@"exec [UC_InsertProductMast] @Product,@ProductBrandID,@StockCount,@SalePrice,@CrateSize,@GST",
-                    new SqlParameter("@Product",pm.Product),
-                    new SqlParameter("@ProductBrandID",pm.ProductBrandID),
+                    new SqlParameter("@Product", pm.Product),
+                    new SqlParameter("@ProductBrandID", pm.ProductBrandID),
                     new SqlParameter("@StockCount", 1),
-                    new SqlParameter("@SalePrice",pm.SalePrice == null ? (object)DBNull.Value : pm.SalePrice),
+                    new SqlParameter("@SalePrice", pm.SalePrice == null ? (object)DBNull.Value : pm.SalePrice),
                     new SqlParameter("@CrateSize", pm.CrateSize),
                     new SqlParameter("@GST", pm.GST));
 
@@ -616,7 +616,7 @@ namespace demomilk.Controllers
                 return Json(message);
 
             }
-            
+
         }
 
 
@@ -718,19 +718,19 @@ namespace demomilk.Controllers
                         dr["Mobile"] = item.Mobile;
                         dr["UserId"] = 1;
 
-                        if(item.EmployeeName==null)
+                        if (item.EmployeeName == null)
                         {
                             return Json("Employee Name Missing");
                         }
-                        if(item.Address==null)
+                        if (item.Address == null)
                         {
                             return Json("Address missing");
                         }
-                        if(item.AreaID==0)
+                        if (item.AreaID == 0)
                         {
                             return Json("Area Id Missing");
                         }
-                        if(item.Mobile==null)
+                        if (item.Mobile == null)
                         {
                             return Json("Mobile number Missing");
                         }
@@ -739,7 +739,7 @@ namespace demomilk.Controllers
                             dt.Rows.Add(dr);
                         }
                     }
-                    
+
                     SqlParameter tvpParam = new SqlParameter();
                     tvpParam.ParameterName = "@EmployeeParameters";
                     tvpParam.SqlDbType = System.Data.SqlDbType.Structured;
@@ -800,7 +800,7 @@ namespace demomilk.Controllers
                 string message = string.Format("<b>Message:</b> {0}<br /><br />", ex.Message);
                 return Json(up, JsonRequestBehavior.AllowGet);
 
-            }         
+            }
 
         }
 
@@ -842,8 +842,8 @@ namespace demomilk.Controllers
                 var res = _db.Database.ExecuteSqlCommand(@"exec UC_VehicleMast_Insert @Transport,@Owner,@Address,@Mobile,@VechicleNo,@RatePerTrip,@Marathi,@PrintOrder",
                     new SqlParameter("@Transport", pm.Transport),
                     new SqlParameter("@Owner", pm.Owner),
-                    new SqlParameter("@Address",pm.Address),
-                    new SqlParameter("@Mobile", pm.Mobile), 
+                    new SqlParameter("@Address", pm.Address),
+                    new SqlParameter("@Mobile", pm.Mobile),
                     new SqlParameter("@VechicleNo", pm.VechicleNo),
                     new SqlParameter("@RatePerTrip", pm.RatePerTrip),
                     new SqlParameter("@Marathi", pm.Marathi),
@@ -1089,7 +1089,7 @@ namespace demomilk.Controllers
                 var res = _db.Database.ExecuteSqlCommand(@"exec UC_InsertVendorMast @VendorName,@Address,@AreaID,@CityID,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@CreatedBy",
                     new SqlParameter("@VendorName", pm.VendorName),
                     new SqlParameter("@Address", pm.Address),
-                    new SqlParameter("@AreaID",1),
+                    new SqlParameter("@AreaID", 1),
                     new SqlParameter("@CityID", 1),
                     new SqlParameter("@EmailID", pm.EmailID),
                     new SqlParameter("@OfficePhone", pm.OfficeNumber),
@@ -1108,8 +1108,8 @@ namespace demomilk.Controllers
                 return Json(message);
 
             }
-            
-            
+
+
         }
 
 
@@ -1120,7 +1120,7 @@ namespace demomilk.Controllers
             try
             {
                 JobDbContext _db = new JobDbContext();
-               
+
                 if (SaveSupplierData.Count > 0)
                 {
                     DataTable dt = new DataTable();
@@ -1139,7 +1139,7 @@ namespace demomilk.Controllers
                     dt.Columns.Add("CreateDate", typeof(DateTime));
                     dt.Columns.Add("LastUpdatedDate", typeof(DateTime));
                     dt.Columns.Add("LastUpdatedBy", typeof(int));
-                          
+
                     foreach (var item in SaveSupplierData)
                     {
                         DataRow dr = dt.NewRow();
@@ -1167,11 +1167,11 @@ namespace demomilk.Controllers
                         {
                             return Json("Vendor Name Is Missing");
                         }
-                        else if(item.Address == null)
+                        else if (item.Address == null)
                         {
                             return Json("Address Is Missing");
                         }
-                        else if(item.PersonMobileNo.Length == 10 && isNum == true)
+                        else if (item.PersonMobileNo.Length == 10 && isNum == true)
                         {
                             dt.Rows.Add(dr);
                         }
@@ -1179,7 +1179,7 @@ namespace demomilk.Controllers
                         {
                             return Json("Enter 10 Digit Mobile Number");
                         }
-                       
+
                     }
 
                     SqlParameter tvpParam = new SqlParameter();
@@ -1401,7 +1401,7 @@ namespace demomilk.Controllers
 
                 if (SaveCustomerData.Count > 0)
                 {
-             
+
                     DataTable dt = new DataTable();
                     dt.Columns.Add("CustomerID", typeof(int));
                     dt.Columns.Add("CustomerName", typeof(string));
@@ -1559,10 +1559,169 @@ namespace demomilk.Controllers
 
         }
 
+        public ActionResult Sales()
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Sales";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                return View(dt);
+            }
+
+
+        }
+
+
+        public ActionResult SalesOrder(DateTime? Pdate)
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SalesOrder";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@pDate", Pdate));
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+                //return Redirect("Home/SalesOrder");
+                //return PartialView("_partialSalesOrder",dt);
+                return View(dt);
+            }
+        }
+
+
+        public ActionResult LoadSalesOrder(DateTime? Pdate)
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SalesOrder";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@pDate", Pdate));
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+                //return Redirect("Home/SalesOrder");
+                return PartialView("_partialSalesOrder",dt);
+               // return View(dt);
+            }
+        }
+
+
+
+
+        public ActionResult OpeningBalance()
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "OpeningBalanceList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                return View(dt);
+            }
+
+        }
 
 
     }
-
 
 
 

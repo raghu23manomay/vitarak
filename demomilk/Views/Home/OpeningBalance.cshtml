@@ -1,17 +1,82 @@
-﻿
+﻿@using System.Data
+@model System.Data.DataTable
 @{
-    Layout = null;
+    ViewBag.Title = "PurchaseRates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>OpeningBalance</title>
-</head>
-<body>
-    <div> 
+<div class="modal-dialog pull-left">
+
+    <div class="modal-content" style="width: 150%; margin-left: -150px;">
+        <div class="modal-header">
+            <h2>Opening Balance</h2>
+
+        </div>
+        <div class="modal-body" overflow-XY: scroll;>
+            @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
+            {
+
+
+                try
+                {
+                    <div class="row">
+                        <div class="col-sm-12 m-b-lg">
+                            <div class="ibox float-e-margins">
+                                <div class="table-responsive" id="pnl-rates" style="overflow: auto;height: 340px">
+                                    <table class="table table-striped" id="RateList">
+                                        <thead class="ibox-title">
+                                            <tr>
+                                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                                {
+
+                                                    <th><b>@col.Caption</b></th>
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (System.Data.DataRow row in Model.Rows)
+                                            {
+                                            <tr>
+
+                                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                                {
+                                                    if (row[col.ColumnName].ToString() == "0.00")
+                                                    {
+                                                        <td contenteditable='true'>
+                                                            <b> 0.00 </b>
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>
+                                                            <b> @row[col.ColumnName]</b>
+                                                        </td>
+                                                    }
+
+
+                                                }
+
+
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                catch { }
+            }
+
+        </div>
+        <div class="modal-footer">
+
+
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+

@@ -1,0 +1,29 @@
+﻿<table class="table table-striped" id="RateList">
+    <thead class="ibox-title">
+        <tr>
+            @foreach (System.Data.DataColumn col in Model.Columns)
+            {
+
+                <th><b>@col.Caption</b></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Rows)
+        {
+            <tr>
+
+                @foreach (System.Data.DataColumn col in Model.Columns)
+                {
+
+                    <td>
+                        <b> @row[col.ColumnName]</b>
+                    </td>
+
+                }
+
+
+            </tr>
+        }
+    </tbody>
+</table>

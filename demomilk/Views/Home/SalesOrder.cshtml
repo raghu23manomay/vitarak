@@ -1,0 +1,69 @@
+﻿@using System.Data
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "PurchaseRates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<div class="modal-dialog pull-left">
+
+    <div class="modal-content" style="width: 200%; margin-left: -300px;">
+        <div class="modal-header">
+            <h2>Customer Order</h2>
+           <label style="padding-left:466px;">Select Ordered Date :-</label> <input type="date" id="txtdate" width="50" class="left" >
+
+        </div>
+        <div class="modal-body" overflow-XY: scroll; >
+            @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
+            {
+
+
+                try
+                {
+                    <div class="row">
+                        <div class="col-sm-12 m-b-lg">
+                            <div class="ibox float-e-margins">
+                                <div class="table-responsive" id="pnl-rates" style="overflow: auto;height: 340px">
+                                    @Html.Partial("_partialSalesOrder")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                catch { }
+            }
+
+        </div>
+        <div class="modal-footer">
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $('#txtdate').on('change', function () {
+     $.ajax({
+            url: "@Url.Action("LoadSalesOrder", "Home")",
+            contentType: "application/json",
+                 data: JSON.stringify({ Pdate: $("#txtdate").val() }),
+            dataType: "text",
+            type: "POST",
+            async: true,
+            success: function (data) {
+                $('#pnl-rates').html(data);
+              
+            },
+            error: function (data) {
+               
+            },
+            complete: function () {
+                
+
+
+            }
+
+        });
+    });
+</script>

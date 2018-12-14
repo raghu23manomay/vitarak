@@ -366,6 +366,9 @@
     <Content Include="Views\Home\Partial_PurchaseGridList.cshtml" />
     <Content Include="Views\Home\CustomerRates.cshtml" />
     <Content Include="Views\Home\OpeningBalance.cshtml" />
+    <Content Include="Views\Home\Sales.cshtml" />
+    <Content Include="Views\Home\SalesOrder.cshtml" />
+    <Content Include="Views\Home\_partialSalesOrder.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

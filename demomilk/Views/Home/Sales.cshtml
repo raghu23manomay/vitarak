@@ -1,0 +1,95 @@
+﻿@using System.Data
+@model System.Data.DataTable
+@{
+    ViewBag.Title = "PurchaseRates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+
+<div class="modal-dialog pull-left">
+
+    <div class="modal-content" style="width: 150%; margin-left: -170px;">
+        <div class="modal-header">
+            <h2>Sales</h2>
+
+        </div>
+        <div class="modal-body" overflow-y: scroll;>
+            @using (Html.BeginForm("SalesOrder", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmimportLaneRate" }))
+            {
+
+
+                try
+                {
+                    <div class="row">
+                        <div class="col-sm-12 m-b-lg">
+                            <div class="ibox float-e-margins">
+                                <div class="table-responsive" id="pnl-rates" style="overflow: auto;height: 340px">
+                                    <thead class="ibox-title">
+                                        <tr>
+                                            @foreach (System.Data.DataColumn col in Model.Columns)
+                                            {
+
+                                                <th><b>@col.Caption</b></th>
+                                            }
+                                        </tr>
+                                    </thead>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                catch { }
+            }
+
+        </div>
+        <div class="modal-footer">
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var idArr = [];
+    $('tbody tr').each(function () {
+                    var trElement = $(this);
+                    var tdVals = trElement.find('td:eq(1)').text().trim()
+
+
+                        idArr.push(tdVals);
+            });
+
+    var pdt = idArr[1];
+   
+    $(document).ready(function () {
+        $(document).on("click", "#RateList tbody tr", function () {
+            var trElement = $(this);
+
+            
+            //$.ajax({
+            //    type: 'Get',
+            //    dataType: 'json',
+            //    url: '/Home/SalesOrder',
+
+            //    data:
+            //    {
+            //        Pdate: trElement.find('td:eq(1)').text().trim(),
+
+
+            //    },
+            //    success: function () {
+
+            //        alert("Done");
+                    
+            //    },
+
+            //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            //    }
+            //});
+        });
+    });
+
+</script>
