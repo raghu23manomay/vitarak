@@ -12,8 +12,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="https://paul.kinlan.me/ad-inject.js">
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    </script>
+    <script type="text/javascript" src="https://www.google.com/jsapi">
+    </script>
+    <script type="text/javascript">
+     
+            // Load the Google Transliterate API
+            google.load("elements", "1", {
+                packages: "transliteration"
+            });
+
+            function onLoad() {
+                var options = {
+                    sourceLanguage:
+                        google.elements.transliteration.LanguageCode.ENGLISH,
+                    destinationLanguage:
+                        [google.elements.transliteration.LanguageCode.HINDI],
+                    shortcutKey: 'ctrl+g',
+                    transliterationEnabled: true
+                };
+
+                // Create an instance on TransliterationControl with the required
+                // options.
+                var control =
+                    new google.elements.transliteration.TransliterationControl(options);
+
+                // Enable transliteration in the textbox with id
+                // 'transliterateTextarea'.
+                control.makeTransliteratable(['transliterateTextarea']);
+            }
+            google.setOnLoadCallback(onLoad);
+      
+    </script>
+          
+
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="icon" href="~/assets/img/basic/favicon.ico" type="image/x-icon">
     <title> INSTA </title>
@@ -123,6 +158,16 @@
                 <ul class="sidebar-menu">
                     <li class="header"><strong>MAIN NAVIGATION</strong></li>
                     <li class="treeview">
+                        <div id="google_translate_element" class="form-control"></div>
+                        <script type="text/javascript">
+                            function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({ pageLanguage: 'en', multilanguagePage: true }, 'google_translate_element');
+                                $(".goog-logo-link").hide();
+                            }
+                        </script>
+                        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    </li>
+                    <li class="treeview">
                         <a href="index.html">
                             <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Dashboard</span>
                         </a>
@@ -169,6 +214,7 @@
                             </li>
 
                             <li>
+                                <textarea id="transliterateTextarea"></textarea>
                                 <a href="@Url.Action("Purchase", "Home")"><i class="icon icon-circle-o"></i>Purchase</a>
 
                             </li>
@@ -340,16 +386,10 @@
                         <li>
                             <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="@Url.Action("IndexForproductMaster", "Home")"><i class="icon icon-home2"></i>All Product</a>
                         </li>
-                        <!--<li>-->
-                        <!--<a class="nav-link" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"-->
-                        <!--aria-controls="v-pills-buyers"><i class="icon icon-face"></i> Buyers</a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                        <!--<a class="nav-link" id="v-pills-sellers-tab" data-toggle="pill" href="#v-pills-sellers" role="tab"-->
-                        <!--aria-controls="v-pills-sellers"><i class="icon  icon-local_shipping"></i> Sellers</a>-->
-                        <!--</li>-->
+                       
                         <li class="float-right">
-                            <a class="nav-link" href="@Url.Action("Add_Product", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Product</a>
+                            @*<a class="nav-link" href="@Url.Action("Add_Product", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Product</a>*@
+                            <a class="nav-link" href="@Url.Action("Add_Product", "Home")"><i class="icon icon-plus-circle"> </i> Add New Product</a>
                         </li>
                         <li class="float-right">
                             <a class="nav-link" href="@Url.Action("importexcel", "Home",new {@Mastername = Session["MasterName"]})"><i class="icon icon-plus-circle"> </i> Import Excel </a>

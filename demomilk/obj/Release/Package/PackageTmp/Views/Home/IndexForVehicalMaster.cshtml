@@ -12,10 +12,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="icon" href="~/assets/img/basic/favicon.ico" type="image/x-icon">
+
+    @*<script type="text/javascript" src="https://www.google.com/jsapi">
+        </script>*@
+    <script src="~/Scripts/jsapi.js"></script>
+    <script type="text/javascript">
+
+        // Load the Google Transliterate API
+        google.load("elements", "1", {
+            packages: "transliteration"
+        });
+
+        function onLoad() {
+            var options = {
+                sourceLanguage:
+                    google.elements.transliteration.LanguageCode.ENGLISH,
+                destinationLanguage:
+                    [google.elements.transliteration.LanguageCode.HINDI],
+                transliterationEnabled: true
+            };
+
+            // Create an instance on TransliterationControl with the required
+            // options.
+            var control =
+                new google.elements.transliteration.TransliterationControl(options);
+
+            // Enable transliteration in the textbox with id
+            // 'transliterateTextarea'.
+            control.makeTransliteratable(['transliterateTextarea']);
+        }
+        google.setOnLoadCallback(onLoad);
+    </script>
+
     <title> INSTA </title>
     <!-- CSS -->
     <link rel="stylesheet" href="~/assets/css/app.css">
@@ -122,6 +153,28 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li class="header"><strong>MAIN NAVIGATION</strong></li>
+                    <li class="treeview">
+                        <script src="https://www.google.com/jsapi" type="text/javascript">
+                        </script>
+                        <script type="text/javascript">
+                            google.load("elements", "1", {
+                                packages: "transliteration"
+                            });
+
+                            function onLoad() {
+                                var options = {
+                                    sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
+                                    destinationLanguage: [google.elements.transliteration.LanguageCode.HINDI],
+                                    shortcutKey: 'ctrl+g',
+                                    transliterationEnabled: true
+                                };
+
+                                var control = new google.elements.transliteration.TransliterationControl(options);
+                                control.makeTransliteratable(['transliterateTextarea']);
+                            }
+                            google.setOnLoadCallback(onLoad);
+                        </script>
+                    </li>
                     <li class="treeview">
                         <a href="index.html">
                             <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Dashboard</span>
@@ -358,7 +411,7 @@
             </div>
 
         </header>
-
+        <textarea id="transliterateTextarea"></textarea>
 
         @Html.Partial("Partial_VehicalGridList");
 
@@ -381,8 +434,10 @@
             </div>
         </footer>
     </div>
+    
 
     <script src="~/assets/js/app.js"></script>
+
 
 </body>
 </html>

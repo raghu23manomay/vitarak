@@ -69,3 +69,5 @@ F:\Pojects\Vitrak\demomilk\obj\Release\vitarak.csproj.CopyComplete
 F:\Pojects\Vitrak\demomilk\obj\Release\demomilk.dll
 F:\Pojects\Vitrak\demomilk\obj\Release\demomilk.pdb
 F:\Pojects\Vitrak\demomilk\obj\Release\vitarak.csprojAssemblyReference.cache
+F:\Pojects\Vitrak\demomilk\bin\System.Web.Optimization.dll
+F:\Pojects\Vitrak\demomilk\bin\System.Web.Optimization.xml

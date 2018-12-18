@@ -127,7 +127,6 @@ namespace demomilk.Controllers
                 return Json(message);
 
             }
-
         }
 
         [HttpPost]
@@ -231,9 +230,6 @@ namespace demomilk.Controllers
             Session["MasterName"] = MasterName;
             return View();
 
-            //return Request.IsAjaxRequest()
-            //? (ActionResult)PartialView("importexcel")
-            //: View();
         }
 
 

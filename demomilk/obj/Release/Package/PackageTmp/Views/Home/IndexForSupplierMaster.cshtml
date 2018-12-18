@@ -121,6 +121,16 @@
                 <ul class="sidebar-menu">
                     <li class="header"><strong>MAIN NAVIGATION</strong></li>
                     <li class="treeview">
+                        <div id="google_translate_element" class="form-control"></div>
+                        <script type="text/javascript">
+                            function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({ pageLanguage: 'en', multilanguagePage: true }, 'google_translate_element');
+                                $(".goog-logo-link").hide();
+                            }
+                        </script>
+                        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    </li>
+                    <li class="treeview">
                         <a href="index.html">
                             <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Dashboard</span>
                         </a>
@@ -339,7 +349,8 @@
                         </li>
                        
                         <li class="float-right">
-                            <a class="nav-link" href="@Url.Action("Add_Supplier", "Home")" data-toggle="modal" data-target="#mdlSupplierMaster"><i class="icon icon-plus-circle"> </i> Add New Supplier</a>
+                            @*<a class="nav-link" href="@Url.Action("Add_Supplier", "Home")" data-toggle="modal" data-target="#mdlSupplierMaster"><i class="icon icon-plus-circle"> </i> Add New Supplier</a>*@
+                            <a class="nav-link" href="@Url.Action("Add_Supplier", "Home")"><i class="icon icon-plus-circle"> </i> Add New Supplier</a>
                         </li>
                         <li class="float-right">
                             <a class="nav-link" href="@Url.Action("importexcel", "Home",new {@Mastername = Session["MasterName"]})"><i class="icon icon-plus-circle"> </i> Import Excel </a>

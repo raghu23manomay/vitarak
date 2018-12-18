@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="icon" href="~/assets/img/basic/favicon.ico" type="image/x-icon">
     <title> INSTA </title>
@@ -121,6 +121,16 @@
                 <ul class="sidebar-menu">
                     <li class="header"><strong>MAIN NAVIGATION</strong></li>
                     <li class="treeview">
+                        <div id="google_translate_element" class="form-control"></div>
+                        <script type="text/javascript">
+                            function googleTranslateElementInit() {
+                                new google.translate.TranslateElement({ pageLanguage: 'en', multilanguagePage: true }, 'google_translate_element');
+                                $(".goog-logo-link").hide();
+                            }
+                        </script>
+                        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    </li>
+                    <li class="treeview">
                         <a href="index.html">
                             <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Dashboard</span>
                         </a>
@@ -175,7 +185,7 @@
 
                         </ul>
 
-                        </li>
+                    </li>
 
                 </ul>
 
@@ -352,7 +362,8 @@
                         <!--aria-controls="v-pills-sellers"><i class="icon  icon-local_shipping"></i> Sellers</a>-->
                         <!--</li>-->
                         <li class="float-right">
-                            <a class="nav-link" href="@Url.Action("AddArea_Route", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Area</a>
+                            @*<a class="nav-link" href="@Url.Action("AddArea_Route", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Area</a>*@
+                            <a class="nav-link" href="@Url.Action("AddArea_Route", "Home")" ><i class="icon icon-plus-circle"> </i> Add New Area</a>
                         </li>
                         <li class="float-right">
                             <a class="nav-link" href="@Url.Action("importexcel", "Home",new {@Mastername = Session["MasterName"]})" ><i class="icon icon-plus-circle"> </i> Import Excel </a>

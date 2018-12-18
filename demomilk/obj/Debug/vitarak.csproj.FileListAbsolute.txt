@@ -140,3 +140,5 @@ C:\Users\vinoa\source\repos\vitarak2\demomilk\obj\Debug\vitarak.csproj.CoreCompi
 C:\Users\vinoa\source\repos\vitarak2\demomilk\obj\Debug\vitarak.csproj.CopyComplete
 C:\Users\vinoa\source\repos\vitarak2\demomilk\obj\Debug\demomilk.dll
 C:\Users\vinoa\source\repos\vitarak2\demomilk\obj\Debug\demomilk.pdb
+F:\Pojects\Vitrak\demomilk\bin\System.Web.Optimization.dll
+F:\Pojects\Vitrak\demomilk\bin\System.Web.Optimization.xml

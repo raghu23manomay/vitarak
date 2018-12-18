@@ -1,17 +1,54 @@
 ﻿@model demomilk.Models.ProductMaster
+@using System.Web.Optimization
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<script src="~/Scripts/jquery-1.12.4.min.js"></script>
 
-<script src="~/Scripts/bootstrap.min.js"></script>
+<!DOCTYPE html>
+
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
     <title>Add Product</title>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    @*<script src="~/Scripts/jsapi.js"></script>*@
+    <script type="text/javascript">
+
+        // Load the Google Transliterate API
+        google.load("elements", "1", {
+            packages: "transliteration"
+        });
+
+        function onLoad() {
+            var options = {
+                sourceLanguage:
+                    google.elements.transliteration.LanguageCode.ENGLISH,
+                destinationLanguage:
+                    [google.elements.transliteration.LanguageCode.HINDI],
+                transliterationEnabled: true
+            };
+
+            // Create an instance on TransliterationControl with the required
+            // options.
+            var control =
+                new google.elements.transliteration.TransliterationControl(options);
+
+            // Enable transliteration in the textbox with id
+            // 'transliterateTextarea'.
+            control.makeTransliteratable(['Product']);
+            //control.makeTransliteratable(['ProductBrandID']);
+        }
+        google.setOnLoadCallback(onLoad);
+    </script>
+
+
+
     <style>
         /* The container */
         .container {
@@ -88,14 +125,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Add Product</h2>
-                <button type="button" class="close"  id="cls" data-dismiss="modal" onclick="abc();">&times;</button>
+                <button type="button" class="close" id="cls" data-dismiss="modal" onclick="abc();">&times;</button>
 
             </div>
             <div class="modal-body">
-                
+
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Product Name:</label>
                     <div>
+                        
                         @Html.TextBoxFor(a => a.Product, new { @class = "form-control r-0 light s-12", placeholder = "Enter Product Name", title = "Area", @id = "Product" })
                         <p id="Pname" style="color:brown;">Enter Product Name</p>
                     </div>
@@ -105,8 +143,8 @@
                 <div class="form-control" style="border-color: #ffffff;">
                     <label>Product type:</label>
                     <div>
-                        <input type="radio" name="milk" id="milk1" value="Milk"  checked> Milk<br>
-                        <input type="radio" name="milk" id="milkproduct" value="Milk Product" > Milk Product<br>
+                        <input type="radio" name="milk" id="milk1" value="Milk" checked> Milk<br>
+                        <input type="radio" name="milk" id="milkproduct" value="Milk Product"> Milk Product<br>
                     </div>
 
                 </div>
@@ -115,8 +153,8 @@
                     <label class="container">
                         GST
                         <input type="checkbox" id="check">
-                        <span class="checkmark" ></span>
-                     </label>
+                        <span class="checkmark"></span>
+                    </label>
                     @Html.TextBoxFor(a => a.GST, new { @class = "form-control r-0 light s-12", placeholder = "Enter GST", title = "GST", @id = "GST" })
                 </div>
 
@@ -146,6 +184,7 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>
 
@@ -181,22 +220,19 @@
     $('#CaretSizeval').hide();
     $('#Squence').hide();
 
-
     function abc()
     {
         refresh();
         $('.modal-backdrop').remove();
     }
-  
 
     $(document).ready(function () {
 
-     
         $('#GST').attr("disabled", true);
-             
+
     });
 
-    
+
 
     $('#milk1').click(function () {
         $('#GST').attr("disabled", true);
@@ -205,10 +241,10 @@
     });
 
     $('#milkproduct').click(function () {
-        
+
         $('#GST').attr("disabled", false);
         $('#check').prop("checked", true);
-        
+
     });
 
     $('#check').click(function () {
@@ -224,8 +260,8 @@
             $('#milk1').prop("checked", true);
             $('#milkproduct').prop("checked", false);
         }
-        
-    });    
+
+    });
 
 
     $('#btnsave').on('click', function () {
@@ -250,9 +286,9 @@
             $('#Pname').hide();
             return false;
         }
-        
-              
-        
+
+
+
     $.ajax({
         type: 'POST',
         dataType: 'json',
@@ -286,7 +322,7 @@
 
         function refresh()
     {
-      
+
         $.ajax({
             url: "@Url.Action("LoadDataForProduct", "Home")",
             contentType: "application/json",
@@ -296,13 +332,13 @@
             async: true,
             success: function (data) {
                 $('#grid1').html(data);
-              
+
             },
             error: function (data) {
-               
+
             },
             complete: function () {
-                
+
 
 
             }

@@ -1,6 +1,6 @@
 ﻿@model demomilk.Models.SupplierMaster
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -9,6 +9,41 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Add_Supplier</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+    <script type="text/javascript">
+
+        // Load the Google Transliterate API
+        google.load("elements", "1", {
+            packages: "transliteration"
+        });
+
+        function onLoad() {
+            var options = {
+                sourceLanguage:
+                    google.elements.transliteration.LanguageCode.ENGLISH,
+                destinationLanguage:
+                    [google.elements.transliteration.LanguageCode.HINDI],
+                transliterationEnabled: true
+            };
+
+            // Create an instance on TransliterationControl with the required
+            // options.
+            var control =
+                new google.elements.transliteration.TransliterationControl(options);
+
+            // Enable transliteration in the textbox with id
+            // 'transliterateTextarea'.
+            control.makeTransliteratable(['VendorName']);
+            control.makeTransliteratable(['Address']);
+            control.makeTransliteratable(['ContactPerson']);
+
+        }
+        google.setOnLoadCallback(onLoad);
+    </script>
 </head>
 <body>
     <div class="modal-dialog">
