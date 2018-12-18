@@ -365,11 +365,11 @@
     <Content Include="Views\Home\EditArea_Route.cshtml" />
     <Content Include="Views\Home\EditProduct.cshtml" />
     <Content Include="Views\Home\EditSupplier.cshtml" />
-<<<<<<< HEAD
+
     <Content Include="Views\Home\PurchaseRates.cshtml" />
     <Content Include="Views\Home\Purchase.cshtml" />
     <Content Include="Views\Home\_partialPurchaseGrid.cshtml" />
-=======
+
     <Content Include="Views\Home\IndexForPurchaseRateMaster.cshtml" />
     <Content Include="Views\Home\Partial_PurchaseGridList.cshtml" />
     <Content Include="Views\Home\CustomerRates.cshtml" />
@@ -377,7 +377,7 @@
     <Content Include="Views\Home\Sales.cshtml" />
     <Content Include="Views\Home\SalesOrder.cshtml" />
     <Content Include="Views\Home\_partialSalesOrder.cshtml" />
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
+
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

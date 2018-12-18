@@ -140,7 +140,7 @@ namespace demomilk.Controllers
                     new SqlParameter("@Area", md.Area),
                     new SqlParameter("@CityID", 1),
                     new SqlParameter("@AreaID", md.AreaID));
-<<<<<<< HEAD
+
                 if(res == 0)
                 {
                     return Json("Area is already exist");
@@ -150,11 +150,10 @@ namespace demomilk.Controllers
                     return Json("Data Updated Sucessfully");
                 }
 
-                   
-=======
+
 
                 return Json("Data Updated Sucessfully");
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
+
             }
             catch (Exception ex)
             {
@@ -380,15 +379,14 @@ namespace demomilk.Controllers
                 var messege = e.Message;
                 return Request.IsAjaxRequest() ? (ActionResult)Json(messege)
                : Json(messege);
-<<<<<<< HEAD
+
             }            
             
-=======
+
             }
 
 
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
-        }
+        
 
         //=================================================  Product Master ==================================================
 
@@ -758,8 +756,7 @@ namespace demomilk.Controllers
                         dr["AreaID"] = 2;
                         dr["Mobile"] = item.Mobile;
                         dr["UserId"] = 1;
-<<<<<<< HEAD
-=======
+
 
                         if (item.EmployeeName == null)
                         {
@@ -777,7 +774,7 @@ namespace demomilk.Controllers
                         {
                             return Json("Mobile number Missing");
                         }
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
+
                         if (item.EmployeeName != null)
                         {
                             dt.Rows.Add(dr);
@@ -814,11 +811,11 @@ namespace demomilk.Controllers
         {
             JobDbContext _db = new JobDbContext();
             EmployeeList md = new EmployeeList();
-            var result = _db.EmployeeList.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID
-                ",
+            var result = _db.EmployeeList.SqlQuery(@"exec uspSelectEmployeeMastByEmployeeID @EmployeeID",
                 new SqlParameter("@EmployeeID", EmployeeID)).ToList<EmployeeList>();
             md = result.FirstOrDefault();
             ViewData["Area"] = binddropdown("Area", 0);
+
             return Request.IsAjaxRequest()
                ? (ActionResult)PartialView("EditEmployee", md)
                : View("EditEmployee", md);
@@ -1145,13 +1142,13 @@ namespace demomilk.Controllers
 
                 var res = _db.Database.ExecuteSqlCommand(@"exec UC_InsertVendorMast @VendorName,@Address,@AreaID,@CityID,@EmailID,@OfficePhone,@FaxNo,@ContactPerson,@PersonMobileNo,@IsActive,@CreatedBy",
                     new SqlParameter("@VendorName", pm.VendorName),
-<<<<<<< HEAD
+
                     new SqlParameter("@Address", pm.Address == null ? (object)DBNull.Value : pm.Address),
                     new SqlParameter("@AreaID",1),
-=======
+
                     new SqlParameter("@Address", pm.Address),
                     new SqlParameter("@AreaID", 1),
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
+
                     new SqlParameter("@CityID", 1),
                     new SqlParameter("@EmailID", pm.EmailID == null ? (object)DBNull.Value : pm.EmailID),
                     new SqlParameter("@OfficePhone", pm.OfficeNumber == null ? (object)DBNull.Value : pm.OfficeNumber),
@@ -1658,13 +1655,7 @@ namespace demomilk.Controllers
         }
 
 
-
-<<<<<<< HEAD
         public ActionResult PurchasePartial(DateTime? date)
-=======
-
-        public ActionResult CustomerRates()
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
         {
 
             using (JobDbContext context = new JobDbContext())
@@ -1672,12 +1663,62 @@ namespace demomilk.Controllers
                 DataTable dt = new DataTable();
                 DataSet ds = new DataSet();
 
-<<<<<<< HEAD
                 if (date == null)
                 {
                     date = DateTime.Now;
                 }
-=======
+
+                var conn = context.Database.Connection;
+                var connectionState = conn.State;
+                try
+                {
+                    if (connectionState != ConnectionState.Open) conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "SP_LoadPurchase";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add(new SqlParameter("@orderdate", date));
+                        // dataAdapter.Fill(ds);
+                        //using (var reader = cmd.ExecuteReader())
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            dt.Load(reader);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // error handling
+                    var messege = ex.Message;
+                }
+                finally
+                {
+                    if (connectionState != ConnectionState.Closed) conn.Close();
+                }
+
+                return Request.IsAjaxRequest()
+                     ? (ActionResult)PartialView("_partialPurchaseGrid", dt)
+                     : View("_partialPurchaseGrid", dt);
+            }
+
+        }
+
+
+        public ActionResult CustomerRates(DateTime? date)
+
+        {
+
+            using (JobDbContext context = new JobDbContext())
+            {
+                DataTable dt = new DataTable();
+                DataSet ds = new DataSet();
+
+
+                if (date == null)
+                {
+                    date = DateTime.Now;
+                }
+
                 var conn = context.Database.Connection;
                 var connectionState = conn.State;
                 try
@@ -1708,7 +1749,6 @@ namespace demomilk.Controllers
             }
 
         }
-
         public ActionResult Sales()
         {
 
@@ -1716,7 +1756,6 @@ namespace demomilk.Controllers
             {
                 DataTable dt = new DataTable();
                 DataSet ds = new DataSet();
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
 
                 var conn = context.Database.Connection;
                 var connectionState = conn.State;
@@ -1725,17 +1764,9 @@ namespace demomilk.Controllers
                     if (connectionState != ConnectionState.Open) conn.Open();
                     using (var cmd = conn.CreateCommand())
                     {
-<<<<<<< HEAD
-                        cmd.CommandText = "SP_LoadPurchase";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@orderdate", date));
-                        // dataAdapter.Fill(ds);
-                        //using (var reader = cmd.ExecuteReader())
-=======
                         cmd.CommandText = "Sales";
                         cmd.CommandType = CommandType.StoredProcedure;
 
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
                         using (var reader = cmd.ExecuteReader())
                         {
                             dt.Load(reader);
@@ -1752,17 +1783,6 @@ namespace demomilk.Controllers
                     if (connectionState != ConnectionState.Closed) conn.Close();
                 }
 
-<<<<<<< HEAD
-                return Request.IsAjaxRequest()
-                     ? (ActionResult)PartialView("_partialPurchaseGrid",dt)
-                     : View("_partialPurchaseGrid",dt);
-            }
-
-        }
-
-    }
-
-=======
                 return View(dt);
             }
 
@@ -1773,40 +1793,8 @@ namespace demomilk.Controllers
         public ActionResult SalesOrder(DateTime? Pdate)
         {
 
-            using (JobDbContext context = new JobDbContext())
-            {
-                DataTable dt = new DataTable();
-                DataSet ds = new DataSet();
-
-                var conn = context.Database.Connection;
-                var connectionState = conn.State;
-                try
-                {
-                    if (connectionState != ConnectionState.Open) conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = "SalesOrder";
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add(new SqlParameter("@pDate", Pdate));
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            dt.Load(reader);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // error handling
-                    var messege = ex.Message;
-                }
-                finally
-                {
-                    if (connectionState != ConnectionState.Closed) conn.Close();
-                }
-                //return Redirect("Home/SalesOrder");
-                //return PartialView("_partialSalesOrder",dt);
-                return View(dt);
-            }
+                return View();
+            
         }
 
 
@@ -1844,8 +1832,8 @@ namespace demomilk.Controllers
                     if (connectionState != ConnectionState.Closed) conn.Close();
                 }
                 //return Redirect("Home/SalesOrder");
-                return PartialView("_partialSalesOrder",dt);
-               // return View(dt);
+                return PartialView("_partialSalesOrder", dt);
+                // return View(dt);
             }
         }
 
@@ -1893,7 +1881,4 @@ namespace demomilk.Controllers
 
     }
 
-
-
->>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
 }
