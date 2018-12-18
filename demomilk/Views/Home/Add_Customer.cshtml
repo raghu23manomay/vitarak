@@ -9,7 +9,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Add_Vehical</title>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    
     <script src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
 
 </head>
@@ -168,9 +169,10 @@
         $("#VehicleVal").hide();
         $("#EmployeeVal").hide();
     });
-    $('#btnsave').on('click', function () {
-        var error = 0;
-        if ($("#CustomerName").val() == "")
+    $('#btnsave').on('click', function ()
+    {
+        var error = 0, regex = /^[a-zA-Z\s]+$/;
+        if ($("#CustomerName").val() == "" || (!regex.test($("#CustomerName").val())))
         {
             error = 1;
             $("#CustomerNameVal").show();
@@ -179,7 +181,14 @@
         {
             $("#CustomerNameVal").hide();
         }
+<<<<<<< HEAD
         if ($("#Address").val() == "") {
+=======
+
+       
+        if ($("#Address").val() == "") {
+
+>>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
             error = 1;
             $("#AddressVal").show();
         }
@@ -187,28 +196,58 @@
             $("#AddressVal").hide();
         }
 
+<<<<<<< HEAD
         if ($("#Area").val() == "") {
+=======
+
+          if ($("#Area").val() == "") {
+>>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
             error = 1;
             $("#AreaVal").show();
         }
         else {
             $("#AreaVal").hide();
+<<<<<<< HEAD
         }
         if ($("#Mobile").val() == "") {
+=======
+            }
+
+       
+        var a = $('#Mobile').val(), intRegex = /^[0-9]{10}$/;
+
+        if ($('#Mobile').val() == '' || (!intRegex.test(a))) {
+>>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
             error = 1;
-            $("#MobileVal").show();
+            $('#MobileVal').show();
         }
         else {
-            $("#MobileVal").hide();
+            $('#MobileVal').hide();
         }
+<<<<<<< HEAD
         if ($("#Employee").val() == "") {
+=======
+
+       
+
+        if ($("#Employee").val() == "") {
+
+>>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
             error = 1;
             $("#EmployeeVal").show();
         }
         else {
             $("#EmployeeVal").hide();
         }
+<<<<<<< HEAD
         if ($("#Vehicle").val() == "") {
+=======
+
+        
+
+        if ($("#Vehicle").val() == "") {
+
+>>>>>>> 0017baf17ea60c0b4b05e62ee00bcec0b5e69a75
             error = 1;
             $("#VehicleVal").show();
         }

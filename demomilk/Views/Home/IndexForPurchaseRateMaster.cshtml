@@ -12,41 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link rel="icon" href="~/assets/img/basic/favicon.ico" type="image/x-icon">
-
-    @*<script type="text/javascript" src="https://www.google.com/jsapi">
-        </script>*@
-    <script src="~/Scripts/jsapi.js"></script>
-    <script type="text/javascript">
-
-        // Load the Google Transliterate API
-        google.load("elements", "1", {
-            packages: "transliteration"
-        });
-
-        function onLoad() {
-            var options = {
-                sourceLanguage:
-                    google.elements.transliteration.LanguageCode.ENGLISH,
-                destinationLanguage:
-                    [google.elements.transliteration.LanguageCode.HINDI],
-                transliterationEnabled: true
-            };
-
-            // Create an instance on TransliterationControl with the required
-            // options.
-            var control =
-                new google.elements.transliteration.TransliterationControl(options);
-
-            // Enable transliteration in the textbox with id
-            // 'transliterateTextarea'.
-            control.makeTransliteratable(['transliterateTextarea']);
-        }
-        google.setOnLoadCallback(onLoad);
-    </script>
-
     <title> INSTA </title>
     <!-- CSS -->
     <link rel="stylesheet" href="~/assets/css/app.css">
@@ -154,28 +123,6 @@
                 <ul class="sidebar-menu">
                     <li class="header"><strong>MAIN NAVIGATION</strong></li>
                     <li class="treeview">
-                        <script src="https://www.google.com/jsapi" type="text/javascript">
-                        </script>
-                        <script type="text/javascript">
-                            google.load("elements", "1", {
-                                packages: "transliteration"
-                            });
-
-                            function onLoad() {
-                                var options = {
-                                    sourceLanguage: google.elements.transliteration.LanguageCode.ENGLISH,
-                                    destinationLanguage: [google.elements.transliteration.LanguageCode.HINDI],
-                                    shortcutKey: 'ctrl+g',
-                                    transliterationEnabled: true
-                                };
-
-                                var control = new google.elements.transliteration.TransliterationControl(options);
-                                control.makeTransliteratable(['transliterateTextarea']);
-                            }
-                            google.setOnLoadCallback(onLoad);
-                        </script>
-                    </li>
-                    <li class="treeview">
                         <a href="index.html">
                             <i class="icon icon-sailing-boat-water purple-text s-18"></i> <span>Dashboard</span>
                         </a>
@@ -200,36 +147,12 @@
                                 <a href="@Url.Action("IndexForVehicalMaster", "Home")"><i class="icon icon-circle-o"></i>All Vehical</a>
                             </li>
                             <li>
-                                <a href="@Url.Action("IndexForSupplierMaster", "Home")"><i class="icon icon-circle-o"></i>All Supplier</a>
-                            </li>
-
-                            <li>
-                                <a href="@Url.Action("IndexForCustomerMaster", "Home")"><i class="icon icon-circle-o"></i>All Vehical</a>
-                            </li>
-                            <li>
                                 <a href="@Url.Action("IndexForCustomerMaster", "Home")"><i class="icon icon-circle-o"></i>All Customer</a>
                             </li>
+
                         </ul>
                     </li>
 
-                    <li class="treeview">
-                        <a href="#">
-                            <i class="icon icon-account_box light-green-text s-18"></i>Action<i class="icon icon-angle-left s-18 pull-right"></i>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li>
-                                <a href="@Url.Action("PurchaseRates", "Home")"><i class="icon icon-circle-o"></i>Purchase Rates</a>
-
-                            </li>
-
-                            <li>
-                                <a href="@Url.Action("Purchase", "Home")"><i class="icon icon-circle-o"></i>Purchase</a>
-
-                            </li>
-
-                        </ul>
-
-                    </li>
 
                 </ul>
             </section>
@@ -393,7 +316,7 @@
                 <div class="row justify-content-between">
                     <ul class="nav nav-material nav-material-white responsive-tab" id="v-pills-tab" role="tablist">
                         <li>
-                            <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="@Url.Action("IndexForVehicalMaster", "Home")"><i class="icon icon-home2"></i>All Vehicle</a>
+                            <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="@Url.Action("IndexForCustomerMaster", "Home")"><i class="icon icon-home2"></i>All Customer</a>
                         </li>
                         <!--<li>-->
                         <!--<a class="nav-link" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"-->
@@ -404,7 +327,7 @@
                         <!--aria-controls="v-pills-sellers"><i class="icon  icon-local_shipping"></i> Sellers</a>-->
                         <!--</li>-->
                         <li class="float-right">
-                            <a class="nav-link" href="@Url.Action("Add_Vehical", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Vehical</a>
+                            <a class="nav-link" href="@Url.Action("Add_Customer", "Home")" data-toggle="modal" data-target="#mdlAddRoute"><i class="icon icon-plus-circle"> </i> Add New Customer</a>
                         </li>
                         <li class="float-right">
                             <a class="nav-link" href="@Url.Action("importexcel", "Home",new {@Mastername = Session["MasterName"]})"><i class="icon icon-plus-circle"> </i> Import Excel </a>
@@ -414,9 +337,9 @@
             </div>
 
         </header>
-        <textarea id="transliterateTextarea"></textarea>
 
-        @Html.Partial("Partial_VehicalGridList");
+
+        @Html.Partial("Partial_CustomerGridList");
 
 
     </div>
@@ -437,10 +360,8 @@
             </div>
         </footer>
     </div>
-    
 
     <script src="~/assets/js/app.js"></script>
-
 
 </body>
 </html>

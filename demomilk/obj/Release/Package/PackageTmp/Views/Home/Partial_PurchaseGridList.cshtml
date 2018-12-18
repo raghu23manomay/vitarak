@@ -1,4 +1,5 @@
 ﻿
+
 @model  IEnumerable<demomilk.Models.CustomerDetails>
 
 @using PagedList;
@@ -32,19 +33,19 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                        <tr>
-                                            @Html.HiddenFor(model => item.CustomerID, new { @id = "CustomerID" })
-                                            <td></td>
-                                            <td><strong>@item.CustomerName</strong></td>
-                                            <td><strong>@item.Address</strong></td>
-                                            <td><strong>@item.Mobile</strong></td>
-                                            <td><strong>@item.DeliveryCharges</strong></td>
-                                            <td><strong>@item.VechicleNo</strong></td>
-                                            <td><strong>@item.Area</strong></td>
-                                            <td><a href="@Url.Action("EditCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
-                                            @*<td id="del" onclick="deleteItem()"><a href="@Url.Action("DeleteCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Delete</a></td>*@
-                                            <td id="del" onclick="deleteItem()">Delete</td>
-                                        </tr>
+                                            <tr>
+                                                @Html.HiddenFor(model => item.CustomerID, new { @id = "CustomerID" })
+                                                <td></td>
+                                                <td><strong>@item.CustomerName</strong></td>
+                                                <td><strong>@item.Address</strong></td>
+                                                <td><strong>@item.Mobile</strong></td>
+                                                <td><strong>@item.DeliveryCharges</strong></td>
+                                                <td><strong>@item.VechicleNo</strong></td>
+                                                <td><strong>@item.Area</strong></td>
+                                                <td><a href="@Url.Action("EditCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Edit</a></td>
+                                                @*<td id="del" onclick="deleteItem()"><a href="@Url.Action("DeleteCustomer", "Home", new { @CustomerID = @item.CustomerID })" data-toggle="modal" data-target="#mdlEditEmployee">Delete</a></td>*@
+                                                <td id="del" onclick="deleteItem()">Delete</td>
+                                            </tr>
 
                                         }
 
@@ -745,7 +746,7 @@
                 },
                 success: function (da) {
 
-                    
+                    location.reload();
 
                 },
 

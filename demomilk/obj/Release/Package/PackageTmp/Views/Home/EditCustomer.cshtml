@@ -1,4 +1,4 @@
-﻿@model demomilk.Models.Customer
+﻿@model demomilk.Models.CustomerList
 @{
     Layout = null;
 }
@@ -65,8 +65,8 @@
                         </div>
                         <div class="col-md-9">
 
-                            @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control r-0 light s-12 ", @id = "Area", placeholder = " Area" })
-                            @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
+                            @Html.DropDownList("model.ModeName", new SelectList((System.Collections.IEnumerable)ViewData["Area"], "Value", "Text",Model.AreaID), "Select Area", new { @class = "form-control input-sm", @id = "AreaID", Title = "ModeName" })
+                            @*@Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })*@
                             @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
                             <label style="color:red" id="AreaVal">*</label>
                         </div>
@@ -81,9 +81,10 @@
                             <label for="position">Select Employee</label>
                         </div>
                         <div class="col-md-9">
-
-                            @Html.TextBoxFor(a => a.SalesPersonID, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })
-                            @Html.HiddenFor(model => model.SalesPersonID, new { @id = "SalesPersonID" })
+                            
+                            @Html.DropDownList("model.ModeName", new SelectList((System.Collections.IEnumerable)ViewData["Employee"], "Value", "Text",Model.SalesPersonID), "Select Sale Person", new { @class = "form-control input-sm", @id = "SalesPersonID", Title = "ModeName" })
+                             @*@Html.TextBoxFor(a => a.SalesPersonID, new { @class = "form-control r-0 light s-12 ", @id = "SalesPerson", placeholder = "SalesPerson" })*@
+                            @*@Html.HiddenFor(model => model.SalesPersonID, new { @id = "SalesPersonID" })*@
                             @Html.ValidationMessageFor(model => model.SalesPersonID, "", new { @class = "text-danger" })
                             <label style="color:red" id="EmployeeVal">*</label>
                         </div>
@@ -96,9 +97,9 @@
                             <label for="position">Select Vehicle</label>
                         </div>
                         <div class="col-md-9">
-
-                            @Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })
-                            @Html.HiddenFor(model => model.VehicleID, new { @id = "VehicleID" })
+                            @Html.DropDownList("model.ModeName", new SelectList((System.Collections.IEnumerable)ViewData["Vehicle"], "Value", "Text",Model.VehicleID), "Select Vehicle", new { @class = "form-control input-sm", @id = "VehicleID", Title = "ModeName" })
+                            @*@Html.TextBoxFor(a => a.VechicleNo, new { @class = "form-control r-0 light s-12 ", @id = "Vehicle", placeholder = " Vehicle" })*@
+                            @*@Html.HiddenFor(model => model.VehicleID, new { @id = "VehicleID" })*@
                             @Html.ValidationMessageFor(model => model.VehicleID, "", new { @class = "text-danger" })
                             <label style="color:red" id="VehicleVal">*</label>
                         </div>
@@ -169,47 +170,68 @@
         $("#EmployeeVal").hide();
     });
     $('#btnsave').on('click', function () {
-        var error = 0;
-        if ($("#CustomerName").val() == "")
-        {
+
+        var error = 0, regex = /^[a-zA-Z\s]+$/;
+        if ($("#CustomerName").val() == "" || (!regex.test($("#CustomerName").val()))) {
+            error = 1;
             $("#CustomerNameVal").show();
         }
-        else
-        {
+        else {
             $("#CustomerNameVal").hide();
         }
+
+
         if ($("#Address").val() == "") {
+
+            error = 1;
             $("#AddressVal").show();
         }
         else {
             $("#AddressVal").hide();
         }
 
+
         if ($("#Area").val() == "") {
+            error = 1;
             $("#AreaVal").show();
         }
         else {
             $("#AreaVal").hide();
         }
-        if ($("#Mobile").val() == "") {
-            $("#MobileVal").show();
+
+
+        var a = $('#Mobile').val(), intRegex = /^[0-9]{10}$/;
+
+        if ($('#Mobile').val() == '' || (!intRegex.test(a))) {
+            error = 1;
+            $('#MobileVal').show();
         }
         else {
-            $("#MobileVal").hide();
+            $('#MobileVal').hide();
         }
+
+
+
         if ($("#Employee").val() == "") {
+
+            error = 1;
             $("#EmployeeVal").show();
         }
         else {
             $("#EmployeeVal").hide();
         }
+
+
+
         if ($("#Vehicle").val() == "") {
+
+            error = 1;
             $("#VehicleVal").show();
         }
         else {
             $("#VehicleVal").hide();
         }
-        if (error) {
+      if (error) {
             return false;
         }
 
@@ -227,8 +249,8 @@
                     Address: $("#Address").val(),
                     AreaID: $("#AreaID").val(),
                     Mobile: $("#Mobile").val(),
-                    EmployeeId: $("#EmployeeId").val(),
-                    VehicleId: $("#VehicleId").val(),
+                    SalesPersonID: $("#SalesPersonID").val(),
+                    VehicleID: $("#VehicleID").val(),
                     isActive: 1,
                     BillRequired: 1,
                     DeliveryCharges: $("#DeliveryCharges").val(),

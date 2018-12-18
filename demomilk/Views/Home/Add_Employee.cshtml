@@ -80,41 +80,46 @@
         getArea();
         });
     $('#btnsave').on('click', function () {
-        var error = 0;
-        if ($('#EmployeeName').val() == '') {
+        var error = 0, regex = /^[a-zA-Z\s]+$/, EmployeeName = $('#EmployeeName').val();
+        var a = $('#Mobile').val(), intRegex = /^[0-9]{10}$/;
+        if ($('#EmployeeName').val() == '' || (!regex.test(EmployeeName))) {
             error = 1;
-           $('#Employee').show();
+            alert("Invalid Employee Name");
+            $('#Employee').show();
+
         }
-        else {
+       else if ($('#Address').val() == '' || $('#Address').val().length<=50) {
+            error = 1;
+            alert("Address must be minimum 50 character");
+            $('#AddressVal').show();
             $('#Employee').hide();
         }
-        if ($('#Address').val() == '') {
+        else if ($('#AreaID').val() == '') {
             error = 1;
-            $('#AddressVal').show();
-        }
-        else {
+            alert("Select Area");
+            $('#AreaVal').show();
+            $('#Employee').hide();
             $('#AddressVal').hide();
         }
-        if ($('#AreaID').val() == '') {
+
+        else if ($('#Mobile').val() == '' || (!intRegex.test(a)))
+        {
             error = 1;
-            $('#AreaVal').show();
-        }
-        else {
+            alert("Invalid Mobile number");
+            $('#MobileVal').show();
+            $('#Employee').hide();
+            $('#AddressVal').hide();
             $('#AreaVal').hide();
         }
-        if ($('#Mobile').val() == '') {
-            error = 1;
-            $('#MobileVal').show();
-        }
-        else {
-            $('#MobileVal').hide();
-        }
-        if (error) {
+        else if (error) {
             return false;
         }
 
         else {
-
+            $('#Employee').hide();
+            $('#AddressVal').hide();
+            $('#AreaVal').hide();
+            $('#MobileVal').hide();
             $.ajax({
                 type: 'POST',
                 dataType: 'json',

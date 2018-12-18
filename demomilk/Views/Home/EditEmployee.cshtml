@@ -42,9 +42,10 @@
                 </div>
                 <div class="form-control">
                     <label for="position">Select Area</label>
+                    @Html.DropDownList("model.ModeName", new SelectList((System.Collections.IEnumerable)ViewData["Area"], "Value", "Text", Model.AreaID), "Select Area", new { @class = "form-control input-sm", @id = "AreaID", Title = "ModeName" })
 
-                    @Html.TextBoxFor(a => a.AreaID, new { @class = "form-control ", @id = "Area", placeholder = " Area" })
-                    @Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })
+                    @*@Html.TextBoxFor(a => a.AreaID, new { @class = "form-control ", @id = "Area", placeholder = " Area" })*@
+                    @*@Html.HiddenFor(model => model.AreaID, new { @id = "AreaID" })*@
                     @Html.ValidationMessageFor(model => model.AreaID, "", new { @class = "text-danger" })
                     <label style="color:red" id="AreaVal">*</label>
 
@@ -77,45 +78,49 @@
         $("#AddressVal").hide();
         $("#AreaVal").hide();
         $("#MobileVal").hide();
-        getArea();
+      
         });
     $('#btnsave').on('click', function () {
-        var error = 0;
-        if ($('#EmployeeName').val() == '') {
+        var error = 0, regex = /^[a-zA-Z\s]+$/, EmployeeName = $('#EmployeeName').val();
+        var a = $('#Mobile').val(), intRegex = /^[0-9]{10}$/;
+        if ($('#EmployeeName').val() == '' || (!regex.test(EmployeeName))) {
             error = 1;
-           $('#Employee').show();
+            alert("Invalid Employee Name");
+            $('#Employee').show();
+
         }
-        else {
+        else if ($('#Address').val() == '' || $('#Address').val().length <= 50) {
+            error = 1;
+            alert("Address must be minimum 50 character");
+            $('#AddressVal').show();
             $('#Employee').hide();
         }
-        if ($('#Address').val() == '') {
+        else if ($('#AreaID').val() == '') {
             error = 1;
-            $('#AddressVal').show();
-        }
-        else {
+            alert("Select Area");
+            $('#AreaVal').show();
+            $('#Employee').hide();
             $('#AddressVal').hide();
         }
-        if ($('#AreaID').val() == '') {
+
+        else if ($('#Mobile').val() == '' || (!intRegex.test(a))) {
             error = 1;
-            $('#AreaVal').show();
-        }
-        else {
+            alert("Invalid Mobile number");
+            $('#MobileVal').show();
+            $('#Employee').hide();
+            $('#AddressVal').hide();
             $('#AreaVal').hide();
         }
-        if ($('#Mobile').val() == '') {
-            error = 1;
-            $('#MobileVal').show();
-        }
-        else {
-            $('#MobileVal').hide();
-        }
-        if (error) {
+        else if (error) {
             return false;
         }
 
         else {
-
-            $.ajax({
+            $('#Employee').hide();
+            $('#AddressVal').hide();
+            $('#AreaVal').hide();
+            $('#MobileVal').hide();
+           $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 url: '/Home/UpdateEmployee',
